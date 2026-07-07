@@ -1,1 +1,4 @@
 commit	primary_mhs	second_mhs	selftest	status	description
+7bd64f9da	1444.6	1133.6	PASS	keep	baseline (KEY8, PR #4712)
+264d5ba33	1446.6	1133.5	PASS	discard	exp1: KSA reuse loaded S[idx] via rc4_swap_si — +0.14% (noise); ptxas already CSEs the redundant LDS
+e282317a8	1185.3	1142.9	PASS	discard	exp2: fully unroll rc4_init_128 KSA — 13100 -18% (register/I-cache pressure; latency-bound kernel)
