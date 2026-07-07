@@ -7,7 +7,7 @@
 # ==========================================================================================
 set -u
 AR=/c/Users/jeff/Documents/autoresearch
-HC=/c/Users/jeff/Documents/hashcat
+HC="${HASHCAT_DIR:-/c/Users/jeff/Documents/hashcat}"   # per-loop worktree in parallel runs
 ROUNDS="${ROUNDS:-30}"
 RTIMEOUT="${RTIMEOUT:-1200}"          # seconds per round
 CLK=1710
@@ -40,14 +40,14 @@ for M in $MODES; do
   # baseline row
   if [ ! -f "$RF" ]; then
     printf 'commit\tprimary_mhs\tsecond_mhs\tselftest\tstatus\tdescription\n' > "$RF"
-    R=$(cd "$HC" && PRIMARY_MODE=$M bash "$AR/measure.sh" 2>/dev/null | grep '^RESULT')
+    R=$(HASHCAT_DIR="$HC" PRIMARY_MODE=$M bash "$AR/measure.sh" 2>/dev/null | grep '^RESULT')
     pm=$(echo "$R" | grep -oE 'primary_mhs=[0-9.]+|primary_mhs=FAIL' | cut -d= -f2)
     st=$(echo "$R" | grep -oE 'selftest=[^ ]+' | cut -d= -f2)
     printf '%s\t%s\tNA\t%s\tkeep\tbaseline (%s)\n' "$(git -C "$HC" rev-parse --short HEAD)" "${pm:-FAIL}" "${st:-FAIL}" "$BASE" >> "$RF"
     say "m$M: baseline primary_mhs=${pm:-FAIL} selftest=${st:-FAIL} (base=$BASE)"
   fi
 
-  PROMPT="You are ONE round of autonomous hashcat GPU-kernel autoresearch. Read $AR/program.md and follow it EXACTLY. TARGET_MODE=$M. hashcat repo: $HC on branch $BR (already checked out, tree clean). Your experiment log: $AR/results_${M}.tsv (read it first for prior experiments and the current best primary_mhs; never repeat a tried idea). Do EXACTLY ONE experiment: pick one untried idea, edit that mode's kernel(s) in $HC (find them with grep), commit in $HC, run 'PRIMARY_MODE=$M bash $AR/measure.sh 2>/dev/null | grep RESULT', decide keep/discard by the ~1-2% noise band with selftest MUST be PASS, append exactly ONE tab-separated row (commit, primary_mhs, second_mhs, selftest, status, description) to $AR/results_${M}.tsv, and 'git -C $HC reset --hard HEAD~1' if you discard/it-was-wrong. Then STOP. One experiment only. Do NOT spawn subagents, do NOT run parallel GPU commands, do NOT change the GPU clock, do NOT edit measure.sh or program.md."
+  PROMPT="You are ONE round of autonomous hashcat GPU-kernel autoresearch. Read $AR/program.md and follow it EXACTLY. TARGET_MODE=$M. hashcat repo: $HC on branch $BR (already checked out, tree clean). Your experiment log: $AR/results_${M}.tsv (read it first for prior experiments and the current best primary_mhs; never repeat a tried idea). Do EXACTLY ONE experiment: pick one untried idea, edit that mode's kernel(s) in $HC (find them with grep), commit in $HC, run 'HASHCAT_DIR=$HC PRIMARY_MODE=$M bash $AR/measure.sh 2>/dev/null | grep RESULT' (it locks the GPU internally), decide keep/discard by the ~1-2% noise band with selftest MUST be PASS, append exactly ONE tab-separated row (commit, primary_mhs, second_mhs, selftest, status, description) to $AR/results_${M}.tsv, and 'git -C $HC reset --hard HEAD~1' if you discard/it-was-wrong. Then STOP. One experiment only. Do NOT spawn subagents. PARALLEL RUN: the GPU is shared with other loops, so run ANY direct GPU command (ncu, ./hashcat.exe -b) as 'bash $AR/gpu <cmd>' from $HC to serialize it — never run a raw GPU command. Do NOT change the GPU clock, do NOT edit measure.sh or program.md."
 
   existing=$(( $(wc -l < "$RF" 2>/dev/null || echo 2) - 2 )); [ "$existing" -lt 0 ] && existing=0   # experiments so far (minus header + baseline)
   remaining=$(( ROUNDS - existing )); [ "$remaining" -lt 0 ] && remaining=0                          # ROUNDS is a TARGET TOTAL

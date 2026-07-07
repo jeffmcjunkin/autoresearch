@@ -27,3 +27,5 @@ __pycache__/
 # track per-mode autoresearch logs
 !results_*.tsv
 logs/
+wt_*/
+.gpu.lock/

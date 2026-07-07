@@ -14,6 +14,12 @@ fresh `claude -p` for each round, so **each invocation does EXACTLY ONE experime
   prior experiment (what was tried, keep/discard) and the current best `primary_mhs`. Do not repeat
   a tried idea.
 
+## Parallel runs (shared GPU)
+When multiple loops run at once, the GPU is shared. `measure.sh` serializes itself via a mutex, but
+any DIRECT GPU command you run (ncu, `./hashcat.exe -b`) MUST go through the wrapper: `bash <AR>/gpu <cmd>`
+— otherwise it can corrupt another loop's benchmark. Run `measure.sh` with `HASHCAT_DIR=<your worktree>`.
+Never run a raw GPU command in a parallel run.
+
 ## The metric (READ-ONLY harness — never modify `measure.sh`)
 `PRIMARY_MODE=<TARGET_MODE> bash measure.sh > run.log 2>&1` then `grep '^RESULT' run.log`. It locks
 the clock (1710 MHz), **clears the NVRTC kernel cache** (hashcat does NOT invalidate cache on

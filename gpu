@@ -1,0 +1,14 @@
+#!/bin/bash
+# Serialize a GPU command across parallel autoresearch loops. Usage: bash gpu <command...>
+# Same mutex measure.sh uses, so an agent's ad-hoc ncu / `hashcat.exe -b` can't corrupt another
+# loop's benchmark. Do NOT run raw GPU commands in a parallel run — always go through this.
+GPU_LOCK="${GPU_LOCK:-/c/Users/jeff/Documents/autoresearch/.gpu.lock}"
+w=0
+until mkdir "$GPU_LOCK" 2>/dev/null; do
+  if [ -f "$GPU_LOCK/ts" ] && [ $(( $(date +%s) - $(cat "$GPU_LOCK/ts" 2>/dev/null || echo 0) )) -gt 300 ]; then rm -rf "$GPU_LOCK"; continue; fi
+  sleep 1; w=$((w+1)); [ "$w" -gt 900 ] && { echo "gpu: lock timeout" >&2; break; }
+done
+date +%s > "$GPU_LOCK/ts" 2>/dev/null
+"$@"; rc=$?
+rm -rf "$GPU_LOCK" 2>/dev/null
+exit $rc
