@@ -1,114 +1,91 @@
-# autoresearch
+# autoresearch — hashcat RC4 kernels
 
-This is an experiment to have the LLM do its own research.
+An adaptation of karpathy/autoresearch's autonomous-experiment loop to GPU kernel optimization.
+Instead of editing `train.py` to lower `val_bpb`, you edit hashcat's RC4 OpenCL kernels to **raise
+H/s** on the RC4-based hash modes, without breaking correctness. RC4 is shared by ~18 modes
+(Kerberos etype23 13100/18200/7500, MS Office 9700/9800/..., PDF 10400/10500/25400, ...), so a win
+in the shared helper lifts all of them. (The original LLM-training program.md is preserved in git
+history; the README documents that demo.)
 
-## Setup
+## The two repos
+- **This repo (the research org):** `program.md` (these instructions), `measure.sh` (READ-ONLY eval
+  harness — the ground-truth metric), `results.tsv` (experiment log), `run.log` (last eval output).
+- **hashcat (the code under test):** `$HASHCAT_DIR` (default `/c/Users/jeff/Documents/hashcat`), on
+  branch `autoresearch/rc4-jul6`, based on the already-landed KEY8 win (PR #4712). You edit kernels
+  THERE and commit THERE; you log results HERE.
 
-To set up a new experiment, work with the user to:
+## Setup (once)
+1. Confirm hashcat is on branch `autoresearch/rc4-jul6` with a clean tree, KEY8 `|`-form present in
+   `OpenCL/inc_cipher_rc4.cl`.
+2. Run `bash measure.sh > run.log 2>&1` to establish the **baseline** metric; record it as the first
+   `results.tsv` row (status `keep`, description `baseline (KEY8)`).
 
-1. **Agree on a run tag**: propose a tag based on today's date (e.g. `mar5`). The branch `autoresearch/<tag>` must not already exist — this is a fresh run.
-2. **Create the branch**: `git checkout -b autoresearch/<tag>` from current master.
-3. **Read the in-scope files**: The repo is small. Read these files for full context:
-   - `README.md` — repository context.
-   - `prepare.py` — fixed constants, data prep, tokenizer, dataloader, evaluation. Do not modify.
-   - `train.py` — the file you modify. Model architecture, optimizer, training loop.
-4. **Verify data exists**: Check that `~/.cache/autoresearch/` contains data shards and a tokenizer. If not, tell the human to run `uv run prepare.py`.
-5. **Initialize results.tsv**: Create `results.tsv` with just the header row. The baseline will be recorded after the first run.
-6. **Confirm and go**: Confirm setup looks good.
+## What you edit
+- `OpenCL/inc_cipher_rc4.cl` — the shared RC4 helper (KSA `rc4_init_*`, PRGA `rc4_next`, `rc4_swap`,
+  the `KEY8`/`KEY32` shared-memory S-box addressing). **This is the highest-leverage file** (affects
+  all RC4 modes). Its `IS_CPU` branch is a separate simple path — keep it correct but it's not the GPU target.
+- Optionally the per-mode `OpenCL/mNNNNN_a3-{optimized,pure}.cl` if a win is mode-specific.
+- NOT `measure.sh`, NOT the hashcat test harness (`tools/test.pl`, `tools/test_modules/*.pm`) — those
+  are ground truth.
 
-Once you get confirmation, kick off the experimentation.
+## The metric (READ-ONLY harness — do not modify `measure.sh`)
+`bash measure.sh > run.log 2>&1` then `grep '^RESULT' run.log`. It:
+- locks the GPU clock to 1710 MHz (thermal drift is bigger than any real win),
+- **clears the NVRTC kernel cache per mode** — hashcat does NOT invalidate its cache when an
+  `#included` header changes, so a header edit measured without a cache clear silently shows NO change
+  (this exact trap produced a false "no win" during the KEY8 work),
+- benchmarks median-of-3 (warm-up discarded) for the primary mode (13100) and a second mode (9700,
+  a different `rc4_init` variant), and
+- runs a correctness self-test across the shared-helper blast radius (18200/7500/9800).
+Metric = `primary_mhs` (higher is better). **`selftest` MUST be `PASS`** — a faster-but-wrong kernel
+is a failure, not a win. Noise band is ~1–2%; only keep deltas beyond it.
 
-## Experimentation
+## Correctness is a HARD gate (the key difference from LLM autoresearch)
+A wrong kernel silently cracks nothing — the metric alone will not catch it. So:
+- Every experiment: `selftest=PASS` in the RESULT line is mandatory.
+- Before you `keep` (commit + advance), run the FULL functional sweep for a candidate win (independent
+  `test.pl`/`.pm` reference hashes, `-a 3`, vector widths 1/2/4/8, pure+optimized). It must be all-pass.
+  Value-identical changes (e.g. removing a provably-redundant load) are low-risk; algorithmic changes
+  need the full sweep.
 
-Each experiment runs on a single GPU. The training script runs for a **fixed time budget of 5 minutes** (wall clock training time, excluding startup/compilation). You launch it simply as: `uv run train.py`.
+## RC4 optimization levers (priors — don't rediscover these)
+The RC4 KSA/PRGA is **latency-bound** on the shared-memory S-box (ncu on 13100: ~69% compute, ALU pipe
+~49%, IPC ~1.5, ~21% occupancy, stalls split ~ execution-dependency + MIO/shared-scoreboard). Occupancy
+is capped by the 256-byte S-box/thread (8 KB/warp), so raising occupancy is NOT available. The lever is
+**cutting shared-memory ops / shortening the dependency chain**:
+- **Redundant S-box loads.** In `rc4_init_*`, `j += GET_KEY8(S,i)+d; rc4_swap(S,i,j)` — but `rc4_swap`
+  re-reads `S[i]` that was just read. Same pattern in `rc4_next` (`b += GET_KEY8(S,a); rc4_swap(S,a,b)`).
+  Passing the already-loaded value into the swap removes one `LDS` per iteration (256 in the KSA). Provably
+  value-identical (nothing writes `S[i]` between the two reads).
+- **KEY8 addressing** (already optimized — the landed win). Don't re-do it.
+- **Instruction selection / IADD3 fusion** on the `j`/`b` accumulator chain.
+- **Unroll** (`_unroll` is off by default). Historically neutral-to-negative on latency-bound kernels
+  (register/I-cache cost) — measure, don't assume.
+- **Invariant precompute**: confirm nothing constant is recomputed in the inner loop.
+Do NOT chase the 32-bit MD/SHA/NTLM family — the survey proved it's already at the roofline.
 
-**What you CAN do:**
-- Modify `train.py` — this is the only file you edit. Everything is fair game: model architecture, optimizer, hyperparameters, training loop, batch size, model size, etc.
-
-**What you CANNOT do:**
-- Modify `prepare.py`. It is read-only. It contains the fixed evaluation, data loading, tokenizer, and training constants (time budget, sequence length, etc).
-- Install new packages or add dependencies. You can only use what's already in `pyproject.toml`.
-- Modify the evaluation harness. The `evaluate_bpb` function in `prepare.py` is the ground truth metric.
-
-**The goal is simple: get the lowest val_bpb.** Since the time budget is fixed, you don't need to worry about training time — it's always 5 minutes. Everything is fair game: change the architecture, the optimizer, the hyperparameters, the batch size, the model size. The only constraint is that the code runs without crashing and finishes within the time budget.
-
-**VRAM** is a soft constraint. Some increase is acceptable for meaningful val_bpb gains, but it should not blow up dramatically.
-
-**Simplicity criterion**: All else being equal, simpler is better. A small improvement that adds ugly complexity is not worth it. Conversely, removing something and getting equal or better results is a great outcome — that's a simplification win. When evaluating whether to keep a change, weigh the complexity cost against the improvement magnitude. A 0.001 val_bpb improvement that adds 20 lines of hacky code? Probably not worth it. A 0.001 val_bpb improvement from deleting code? Definitely keep. An improvement of ~0 but much simpler code? Keep.
-
-**The first run**: Your very first run should always be to establish the baseline, so you will run the training script as is.
-
-## Output format
-
-Once the script finishes it prints a summary like this:
-
+## Output / logging
+`results.tsv` (TAB-separated), header + columns:
 ```
----
-val_bpb:          0.997900
-training_seconds: 300.1
-total_seconds:    325.9
-peak_vram_mb:     45060.2
-mfu_percent:      39.80
-total_tokens_M:   499.6
-num_steps:        953
-num_params_M:     50.3
-depth:            8
+commit	primary_mhs	second_mhs	selftest	status	description
 ```
+- `commit` = short hash of the hashcat commit for this experiment
+- `primary_mhs` / `second_mhs` from the RESULT line (0 for crash/wrong)
+- `selftest` = PASS / FAIL:<mode>
+- `status` = `keep` | `discard` | `wrong` | `crash`
+- `description` = what the experiment tried
+Do NOT commit `results.tsv` or `run.log` in the hashcat repo; log them here in the research repo.
 
-Note that the script is configured to always stop after 5 minutes, so depending on the computing platform of this computer the numbers might look different. You can extract the key metric from the log file:
-
-```
-grep "^val_bpb:" run.log
-```
-
-## Logging results
-
-When an experiment is done, log it to `results.tsv` (tab-separated, NOT comma-separated — commas break in descriptions).
-
-The TSV has a header row and 5 columns:
-
-```
-commit	val_bpb	memory_gb	status	description
-```
-
-1. git commit hash (short, 7 chars)
-2. val_bpb achieved (e.g. 1.234567) — use 0.000000 for crashes
-3. peak memory in GB, round to .1f (e.g. 12.3 — divide peak_vram_mb by 1024) — use 0.0 for crashes
-4. status: `keep`, `discard`, or `crash`
-5. short text description of what this experiment tried
-
-Example:
-
-```
-commit	val_bpb	memory_gb	status	description
-a1b2c3d	0.997900	44.0	keep	baseline
-b2c3d4e	0.993200	44.2	keep	increase LR to 0.04
-c3d4e5f	1.005000	44.0	discard	switch to GeLU activation
-d4e5f6g	0.000000	0.0	crash	double model width (OOM)
-```
-
-## The experiment loop
-
-The experiment runs on a dedicated branch (e.g. `autoresearch/mar5` or `autoresearch/mar5-gpu0`).
-
-LOOP FOREVER:
-
-1. Look at the git state: the current branch/commit we're on
-2. Tune `train.py` with an experimental idea by directly hacking the code.
-3. git commit
-4. Run the experiment: `uv run train.py > run.log 2>&1` (redirect everything — do NOT use tee or let output flood your context)
-5. Read out the results: `grep "^val_bpb:\|^peak_vram_mb:" run.log`
-6. If the grep output is empty, the run crashed. Run `tail -n 50 run.log` to read the Python stack trace and attempt a fix. If you can't get things to work after more than a few attempts, give up.
-7. Record the results in the tsv (NOTE: do not commit the results.tsv file, leave it untracked by git)
-8. If val_bpb improved (lower), you "advance" the branch, keeping the git commit
-9. If val_bpb is equal or worse, you git reset back to where you started
-
-The idea is that you are a completely autonomous researcher trying things out. If they work, keep. If they don't, discard. And you're advancing the branch so that you can iterate. If you feel like you're getting stuck in some way, you can rewind but you should probably do this very very sparingly (if ever).
-
-**Timeout**: Each experiment should take ~5 minutes total (+ a few seconds for startup and eval overhead). If a run exceeds 10 minutes, kill it and treat it as a failure (discard and revert).
-
-**Crashes**: If a run crashes (OOM, or a bug, or etc.), use your judgment: If it's something dumb and easy to fix (e.g. a typo, a missing import), fix it and re-run. If the idea itself is fundamentally broken, just skip it, log "crash" as the status in the tsv, and move on.
-
-**NEVER STOP**: Once the experiment loop has begun (after the initial setup), do NOT pause to ask the human if you should continue. Do NOT ask "should I keep going?" or "is this a good stopping point?". The human might be asleep, or gone from a computer and expects you to continue working *indefinitely* until you are manually stopped. You are autonomous. If you run out of ideas, think harder — read papers referenced in the code, re-read the in-scope files for new angles, try combining previous near-misses, try more radical architectural changes. The loop runs until the human interrupts you, period.
-
-As an example use case, a user might leave you running while they sleep. If each experiment takes you ~5 minutes then you can run approx 12/hour, for a total of about 100 over the duration of the average human sleep. The user then wakes up to experimental results, all completed by you while they slept!
+## The loop (never stop once started)
+LOOP:
+1. Note the hashcat branch/commit.
+2. Edit a kernel in `$HASHCAT_DIR` with one experimental idea.
+3. `git -C $HASHCAT_DIR commit -am "<desc>"`.
+4. `bash measure.sh > run.log 2>&1`; `grep '^RESULT' run.log`.
+5. If RESULT missing or `selftest=FAIL`: it's `wrong`/`crash` — log it, `git -C $HASHCAT_DIR reset --hard HEAD~1`.
+6. If `primary_mhs` improved beyond the ~1–2% noise band AND `selftest=PASS`: run the full sweep; if it
+   passes, `keep` (advance — leave the commit); log it.
+7. Else (equal/worse/failed-sweep): `discard` — `git -C $HASHCAT_DIR reset --hard HEAD~1`; log it.
+8. Repeat. If you run out of ideas, profile with `ncu` to re-read the bottleneck, combine near-misses,
+   or move the primary metric to another RC4 mode. **Stopping rule:** if `ncu` shows the KSA/PRGA at
+   ≥~95% of its achievable pipe with minimal instruction count, declare RC4 at roofline and report.
