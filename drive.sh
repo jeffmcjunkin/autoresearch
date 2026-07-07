@@ -49,7 +49,11 @@ for M in $MODES; do
 
   PROMPT="You are ONE round of autonomous hashcat GPU-kernel autoresearch. Read $AR/program.md and follow it EXACTLY. TARGET_MODE=$M. hashcat repo: $HC on branch $BR (already checked out, tree clean). Your experiment log: $AR/results_${M}.tsv (read it first for prior experiments and the current best primary_mhs; never repeat a tried idea). Do EXACTLY ONE experiment: pick one untried idea, edit that mode's kernel(s) in $HC (find them with grep), commit in $HC, run 'PRIMARY_MODE=$M bash $AR/measure.sh 2>/dev/null | grep RESULT', decide keep/discard by the ~1-2% noise band with selftest MUST be PASS, append exactly ONE tab-separated row (commit, primary_mhs, second_mhs, selftest, status, description) to $AR/results_${M}.tsv, and 'git -C $HC reset --hard HEAD~1' if you discard/it-was-wrong. Then STOP. One experiment only. Do NOT spawn subagents, do NOT run parallel GPU commands, do NOT change the GPU clock, do NOT edit measure.sh or program.md."
 
-  for n in $(seq 1 "$ROUNDS"); do
+  existing=$(( $(wc -l < "$RF" 2>/dev/null || echo 2) - 2 )); [ "$existing" -lt 0 ] && existing=0   # experiments so far (minus header + baseline)
+  remaining=$(( ROUNDS - existing )); [ "$remaining" -lt 0 ] && remaining=0                          # ROUNDS is a TARGET TOTAL
+  say "m$M: $existing experiments logged, doing $remaining more to reach target $ROUNDS"
+  for k in $(seq 1 "$remaining"); do
+    n=$(( existing + k ))
     git -C "$HC" reset --hard HEAD -q 2>/dev/null; git -C "$HC" clean -fdq OpenCL/ 2>/dev/null   # drop any crashed-round leftovers (HEAD = last kept)
     rlog="$AR/logs/m${M}_r${n}.log"
     say "m$M round $n/$ROUNDS -> $rlog"
