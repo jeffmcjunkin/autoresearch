@@ -23,3 +23,7 @@ dev/
 results.tsv
 run.log
 __pycache__/
+
+# track per-mode autoresearch logs
+!results_*.tsv
+logs/
