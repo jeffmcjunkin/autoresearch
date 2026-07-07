@@ -1,0 +1,33 @@
+mode	batch	category	name
+17300	1	SHA3/Keccak	SHA3-224
+17500	1	SHA3/Keccak	SHA3-384
+17700	1	SHA3/Keccak	Keccak-224
+17900	1	SHA3/Keccak	Keccak-384
+18000	1	SHA3/Keccak	Keccak-512
+3000	2	AD-auth	LM
+1000	2	AD-auth	NTLM
+5500	2	AD-auth	NetNTLMv1
+5600	2	AD-auth	NetNTLMv2
+27000	2	AD-auth	NetNTLMv1-NT (slow)
+19600	3	Kerberoasting	Kerberos etype17 TGS-REP AES128 (slow)
+19700	3	Kerberoasting	Kerberos etype18 TGS-REP AES256 (slow)
+18200	3	AS-REP-roast	Kerberos etype23 AS-REP RC4
+9700	3	Office	MS Office <=2003 MD5+RC4
+9800	3	Office	MS Office <=2003 SHA1+RC4
+9400	4	Office	MS Office 2007 (slow)
+9500	4	Office	MS Office 2010 (slow)
+9600	4	Office	MS Office 2013 (slow)
+1100	4	MSCache	DCC / MS Cache
+2100	4	MSCache	DCC2 / MS Cache 2 (slow)
+11700	C	Streebog	Streebog-256
+11800	C	Streebog	Streebog-512
+31100	C	SM3	SM3
+17400	C	SHA3/Keccak	SHA3-256
+17600	C	SHA3/Keccak	SHA3-512
+17800	C	SHA3/Keccak	Keccak-256
+6100	C	Whirlpool	Whirlpool (campaign ext.)
+6900	C	GOST	GOST R 34.11-94
+600	C	BLAKE2	BLAKE2b-512
+1700	C	SHA2	SHA2-512
+10800	C	SHA2	SHA2-384
+6000	C	RIPEMD	RIPEMD-160
