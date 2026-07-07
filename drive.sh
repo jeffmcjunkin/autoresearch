@@ -2,7 +2,8 @@
 # ==========================================================================================
 # Autoresearch driver: for each target hash mode, run ROUNDS fresh `claude -p` invocations,
 # each doing ONE experiment per program.md. Sequential (single GPU). Per-mode results_<M>.tsv.
-# Launched as a detached script; it (not the human) invokes claude -p. Bills the ANTHROPIC_API_KEY.
+# Launched as a detached script; it (not the human) invokes claude -p. Uses the claude.ai
+# subscription (ANTHROPIC_API_KEY is unset per-invocation so the claude.ai login takes over).
 # ==========================================================================================
 set -u
 AR=/c/Users/jeff/Documents/autoresearch
@@ -22,9 +23,9 @@ baseline_for () { case "$1" in 6100) echo "perf-whirlpool-single-table";; *) ech
 say () { echo "[$(date '+%F %T')] $*" | tee -a "$LOG"; }
 
 # strip Claude Code guard vars so `claude -p` runs as a fresh top-level agent
-run_claude () { env -u CLAUDECODE -u CLAUDE_CODE_ENTRYPOINT -u CLAUDE_CODE_CHILD_SESSION \
+run_claude () { env -u ANTHROPIC_API_KEY -u CLAUDECODE -u CLAUDE_CODE_ENTRYPOINT -u CLAUDE_CODE_CHILD_SESSION \
                     -u CLAUDE_CODE_SESSION_ID -u CLAUDE_CODE_EXECPATH \
-                    timeout "$RTIMEOUT" claude -p "$1" --dangerously-skip-permissions --add-dir "$HC"; }
+                    timeout "$RTIMEOUT" claude -p "$1" --dangerously-skip-permissions --add-dir "$HC" < /dev/null; }
 
 nvidia-smi -i 0 -lgc ${CLK},${CLK} >/dev/null 2>&1
 say "=== driver start: modes=[$MODES] rounds=$ROUNDS timeout=${RTIMEOUT}s clock=${CLK} ==="
