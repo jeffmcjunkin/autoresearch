@@ -32,6 +32,15 @@ def env(k, d=None): return os.environ.get(k, d)
 def HC_default():   return env("HASHCAT_DIR", "C:/Users/jeff/Documents/hashcat").replace("\\", "/")
 def LOCK_default(): return env("GPU_LOCK", AR_F + "/.gpu.lock").replace("\\", "/")
 
+def nw():
+    """Windows: launch the child with NO console window (CREATE_NO_WINDOW + SW_HIDE). Fresh
+    STARTUPINFO per call (subprocess mutates it). No-op off Windows."""
+    if os.name != "nt": return {}
+    si = subprocess.STARTUPINFO()
+    si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+    si.wShowWindow = 0                       # SW_HIDE
+    return {"creationflags": 0x08000000, "startupinfo": si}   # CREATE_NO_WINDOW
+
 # ---- tool resolution -------------------------------------------------------------------
 def which_or(name, *fallbacks):
     p = shutil.which(name)
@@ -111,7 +120,7 @@ def gpu_unlock(lock):
 def set_clock(lock_on):
     try:
         subprocess.run(["nvidia-smi", "-i", "0"] + (["-lgc", f"{CLK},{CLK}"] if lock_on else ["-rgc"]),
-                       capture_output=True)
+                       capture_output=True, **nw())
     except FileNotFoundError: pass
 
 # ---- the metric (port of measure.sh) ---------------------------------------------------
@@ -129,7 +138,7 @@ def _median3(hc, mode):
         try:
             r = subprocess.run([os.path.join(hc, "hashcat.exe"), "-b", "-m", str(mode),
                                 "-d", "1", "-D", "2", "--machine-readable", "--quiet"],
-                               cwd=hc, capture_output=True, text=True, timeout=150)
+                               cwd=hc, capture_output=True, text=True, timeout=150, **nw())
         except subprocess.TimeoutExpired:
             continue
         for ln in r.stdout.splitlines():
@@ -145,7 +154,7 @@ def _selftest_ok(hc, mode):
     _clear_cache(hc, mode)
     try:
         r = subprocess.run([os.path.join(hc, "hashcat.exe"), "-b", "-m", str(mode), "-d", "1", "-D", "2"],
-                           cwd=hc, capture_output=True, text=True, timeout=150)
+                           cwd=hc, capture_output=True, text=True, timeout=150, **nw())
     except subprocess.TimeoutExpired:
         return False
     out = (r.stdout or "") + (r.stderr or "")
@@ -179,7 +188,7 @@ def result_line(d):
 
 # ---- git / tsv helpers -----------------------------------------------------------------
 def git(hc, *args):
-    return subprocess.run([need("git"), "-C", hc, *args], capture_output=True, text=True)
+    return subprocess.run([need("git"), "-C", hc, *args], capture_output=True, text=True, **nw())
 
 def results_path(mode, tag):
     return os.path.join(AR, f"results_{mode}.tsv" if tag == "jul6" else f"results_{mode}_{tag}.tsv")
@@ -228,7 +237,7 @@ def run_agent(prompt, rlog, engine, hc, rtimeout):
     with open(rlog, "w", encoding="utf-8", errors="replace") as out:
         try:
             return subprocess.run(argv, stdin=subprocess.DEVNULL, stdout=out, stderr=subprocess.STDOUT,
-                                  timeout=rtimeout, cwd=hc, env=e).returncode
+                                  timeout=rtimeout, cwd=hc, env=e, **nw()).returncode
         except subprocess.TimeoutExpired:
             out.write(f"\n[ar.py] TIMEOUT after {rtimeout}s\n"); return 124
 
@@ -244,7 +253,7 @@ def cmd_gpu(a):
     if not a.command: sys.exit("ar.py gpu: nothing after --")
     gpu_lock(a.gpu_lock)
     try:
-        rc = subprocess.run(a.command, cwd=a.hashcat_dir).returncode
+        rc = subprocess.run(a.command, cwd=a.hashcat_dir, **nw()).returncode
     finally:
         gpu_unlock(a.gpu_lock)
     sys.exit(rc)
@@ -321,10 +330,9 @@ def cmd_parallel(a):
         argv = [resolve_uv(), "run", ARPY, "drive", "--modes", M, "--rounds", str(a.rounds),
                 "--rtimeout", str(a.rtimeout), "--engine", a.engine, "--run-tag", tag,
                 "--hashcat-dir", wt.replace("\\", "/"), "--gpu-lock", lock]
-        flags = subprocess.CREATE_NEW_PROCESS_GROUP | 0x00000008 if os.name == "nt" else 0  # DETACHED_PROCESS
         with open(loop_log, "a", encoding="utf-8") as out:
             p = subprocess.Popen(argv, stdout=out, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
-                                 cwd=AR, creationflags=flags)
+                                 cwd=AR, **nw())
         ndll = len(glob.glob(os.path.join(wt, "modules", "*.dll")))
         say(f"  m{M} loop pid {p.pid} (worktree {wt}, {ndll} module dlls)")
         time.sleep(2)
