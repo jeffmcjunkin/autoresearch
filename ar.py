@@ -342,12 +342,24 @@ def _exp_count(mode, tag):
     if not os.path.exists(f): return 0
     return max(0, sum(1 for _ in open(f, encoding="utf-8")) - 2)
 
+def _parse_batch_filter(s):
+    if not s: return None
+    out = set()
+    for part in s.replace(" ", "").split(","):
+        if "-" in part:
+            lo, hi = part.split("-"); out.update(range(int(lo), int(hi) + 1))
+        elif part:
+            out.add(int(part))
+    return out
+
 def cmd_batches(a):
     hc = a.hashcat_dir
     targets = a.targets or os.path.join(AR, "targets.tsv")
     batches = _read_targets(targets)
+    wanted = _parse_batch_filter(getattr(a, "batches", None))
     set_clock(True)
     for n in sorted(batches):
+        if wanted is not None and n not in wanted: continue
         modes = batches[n]
         if all(_exp_count(M, a.run_tag) >= a.rounds for M in modes):
             say(f"batch {n} already complete, skip"); continue
@@ -475,7 +487,9 @@ def main():
     d = sub.add_parser("drive", help="per-mode round loop"); add_loop_args(d); d.set_defaults(fn=cmd_drive)
     pa = sub.add_parser("parallel", help="one worktree+driver per mode"); add_loop_args(pa); pa.set_defaults(fn=cmd_parallel)
     b = sub.add_parser("batches", help="run all numeric batches in targets.tsv"); add_loop_args(b, with_modes=False)
-    b.add_argument("--targets", default=None); b.set_defaults(fn=cmd_batches)
+    b.add_argument("--targets", default=None)
+    b.add_argument("--batches", default=None, help="subset, e.g. 5-14 or 5,7,9 (default: all)")
+    b.set_defaults(fn=cmd_batches)
 
     r = sub.add_parser("readme", help="regenerate README.md"); r.set_defaults(fn=cmd_readme)
     v = sub.add_parser("validate", help="agent plumbing smoke test")
