@@ -20,26 +20,26 @@ Legend: ✅ = win verified on clean-GPU A/B + correctness; ❌ = win did not rep
 | C | 1700 | SHA2-512 | SHA2 | ~0% | 2.9k → 2.9k | roofline | `autoresearch/1700-jul6` |
 | C | 10800 | SHA2-384 | SHA2 | ~0% | 2.9k → 2.9k | roofline | `autoresearch/10800-jul6` |
 | C | 6000 | RIPEMD-160 | RIPEMD | ~0% | 14.2k → 14.2k | roofline | `autoresearch/6000-jul6` |
-| 1 | 18000 | Keccak-512 | SHA3/Keccak | +9.9% | 1.9k → 2.1k | WIN +9.9% | `autoresearch/18000-jul6` |
-| 1 | 17700 | Keccak-224 | SHA3/Keccak | +9.8% | 1.9k → 2.1k | WIN +9.8% | `autoresearch/17700-jul6` |
-| 1 | 17300 | SHA3-224 | SHA3/Keccak | +5.1% | 1.9k → 2.0k | WIN +5.1% | `autoresearch/17300-jul6` |
-| 1 | 17500 | SHA3-384 | SHA3/Keccak | ~0% | 1.9k → 1.9k | roofline | `autoresearch/17500-jul6` |
-| 1 | 17900 | Keccak-384 | SHA3/Keccak | ~0% | 1.9k → 1.9k | roofline | `autoresearch/17900-jul6` |
+| 1 | 18000 | Keccak-512 | SHA3/Keccak | +9.9% | 1.9k → 2.1k | WIN +9.9% (partial 1/6) | `autoresearch/18000-jul6` |
+| 1 | 17700 | Keccak-224 | SHA3/Keccak | +9.8% | 1.9k → 2.1k | WIN +9.8% (partial 1/6) | `autoresearch/17700-jul6` |
+| 1 | 17300 | SHA3-224 | SHA3/Keccak | +5.1% | 1.9k → 2.0k | WIN +5.1% (partial 1/6) | `autoresearch/17300-jul6` |
+| 1 | 17500 | SHA3-384 | SHA3/Keccak | — | 1.9k → 1.9k | NOT-RUN (spend-limit) | `autoresearch/17500-jul6` |
+| 1 | 17900 | Keccak-384 | SHA3/Keccak | — | 1.9k → 1.9k | NOT-RUN (spend-limit) | `autoresearch/17900-jul6` |
 | 2 | 27000 | NetNTLMv1-NT (slow) | AD-auth | +19.6% | 931.5 → 1.1k | WIN +19.6% | `autoresearch/27000-jul6` |
 | 2 | 1000 | NTLM | AD-auth | +3.1% | 119.2k → 122.9k | WIN +3.1% | `autoresearch/1000-jul6` |
-| 2 | 3000 | LM | AD-auth | ~0% | 60.9k → 60.9k | roofline | `autoresearch/3000-jul6` |
+| 2 | 3000 | LM | AD-auth | — | 60.9k → 60.9k | NOT-RUN (spend-limit) | `autoresearch/3000-jul6` |
 | 2 | 5500 | NetNTLMv1 | AD-auth | ~0% | 46.2k → 46.2k | roofline | `autoresearch/5500-jul6` |
 | 2 | 5600 | NetNTLMv2 | AD-auth | ~0% | 4.7k → 4.7k | roofline | `autoresearch/5600-jul6` |
-| 3 | 9700 | MS Office <=2003 MD5+RC4 | Office | +22.4% | 1.0k → 1.3k | WIN +22.4% | `autoresearch/9700-jul6` |
-| 3 | 19600 | Kerberos etype17 TGS-REP AES128 (slow) | Kerberoasting | ~0% | 2.2 → 2.2 | roofline | `autoresearch/19600-jul6` |
-| 3 | 19700 | Kerberos etype18 TGS-REP AES256 (slow) | Kerberoasting | ~0% | 1.1 → 1.1 | roofline | `autoresearch/19700-jul6` |
-| 3 | 18200 | Kerberos etype23 AS-REP RC4 | AS-REP-roast | ~0% | 1.4k → 1.4k | roofline | `autoresearch/18200-jul6` |
-| 3 | 9800 | MS Office <=2003 SHA1+RC4 | Office | ~0% | 1.2k → 1.2k | roofline | `autoresearch/9800-jul6` |
-| 4 | 9400 | MS Office 2007 (slow) | Office | ~0% | 0.4 → 0.4 | roofline | `autoresearch/9400-jul6` |
-| 4 | 9500 | MS Office 2010 (slow) | Office | ~0% | 0.2 → 0.2 | roofline | `autoresearch/9500-jul6` |
+| 3 | 9700 | MS Office <=2003 MD5+RC4 | Office | +22.4% | 1.0k → 1.3k | WIN +22.4% (partial 5/6) | `autoresearch/9700-jul6` |
+| 3 | 19600 | Kerberos etype17 TGS-REP AES128 (slow) | Kerberoasting | ~0% | 2.2 → 2.2 | in-progress 5/6 | `autoresearch/19600-jul6` |
+| 3 | 19700 | Kerberos etype18 TGS-REP AES256 (slow) | Kerberoasting | ~0% | 1.1 → 1.1 | in-progress 5/6 | `autoresearch/19700-jul6` |
+| 3 | 18200 | Kerberos etype23 AS-REP RC4 | AS-REP-roast | ~0% | 1.4k → 1.4k | in-progress 3/6 | `autoresearch/18200-jul6` |
+| 3 | 9800 | MS Office <=2003 SHA1+RC4 | Office | ~0% | 1.2k → 1.2k | in-progress 4/6 | `autoresearch/9800-jul6` |
+| 4 | 9400 | MS Office 2007 (slow) | Office | — | 0.4 → 0.4 | NOT-RUN (spend-limit) | `autoresearch/9400-jul6` |
+| 4 | 9500 | MS Office 2010 (slow) | Office | — | 0.2 → 0.2 | NOT-RUN (spend-limit) | `autoresearch/9500-jul6` |
 | 4 | 9600 | MS Office 2013 (slow) | Office |  |  | pending | `autoresearch/9600-jul6` |
-| 4 | 1100 | DCC / MS Cache | MSCache | ~0% | 32.2k → 32.2k | roofline | `autoresearch/1100-jul6` |
-| 4 | 2100 | DCC2 / MS Cache 2 (slow) | MSCache | ~0% | 0.9 → 0.9 | roofline | `autoresearch/2100-jul6` |
+| 4 | 1100 | DCC / MS Cache | MSCache | — | 32.2k → 32.2k | NOT-RUN (spend-limit) | `autoresearch/1100-jul6` |
+| 4 | 2100 | DCC2 / MS Cache 2 (slow) | MSCache | — | 0.9 → 0.9 | NOT-RUN (spend-limit) | `autoresearch/2100-jul6` |
 | 5 | 0 | MD5 | Raw |  |  | - | `-` |
 | 5 | 100 | SHA1 | Raw |  |  | - | `-` |
 | 5 | 1400 | SHA2-256 | Raw |  |  | - | `-` |

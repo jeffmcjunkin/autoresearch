@@ -36,9 +36,12 @@ for m,t in tg.items():
         status='pending' if t['batch'] in '1234' else '-'; delta='';basebest=''
     else:
         v='✅' if m in VERIFIED else ('❌ rejected' if m in REJECTED else '')
-        if s['delta']>=1.0: status=f'WIN +{s["delta"]:.1f}% {v}'.strip()
+        e=s['exps']; newb=t['batch'].isdigit()
+        if s['delta']>=1.0: status=(f'WIN +{s["delta"]:.1f}%'+(f' (partial {e}/6)' if newb and e<6 else '')+f' {v}').strip()
+        elif e==0: status='NOT-RUN (spend-limit)'
+        elif newb and e<6: status=f'in-progress {e}/6'
         else: status=f'roofline {v}'.strip()
-        delta=f'+{s["delta"]:.1f}%' if s['delta']>=1.0 else '~0%'
+        delta=f'+{s["delta"]:.1f}%' if s['delta']>=1.0 else ('—' if e==0 else '~0%')
         basebest=f'{mhs(s["base"])} → {mhs(s["best"])}'
     rows.append((t['batch'],m,t['name'],t['cat'],delta,basebest,status,br))
 order={'PR':0,'C':1,'1':2,'2':3,'3':4,'4':5}
