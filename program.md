@@ -2,8 +2,9 @@
 
 An adaptation of karpathy/autoresearch's autonomous-experiment loop to hashcat OpenCL kernel
 optimization. Instead of editing `train.py` to lower `val_bpb`, you edit a hash mode's kernels to
-**raise H/s** without breaking correctness. This file is the method; a driver (`drive.sh`) invokes a
-fresh `claude -p` for each round, so **each invocation does EXACTLY ONE experiment, then stops.**
+**raise H/s** without breaking correctness. This file is the method; a driver (`drive.py`) invokes a
+fresh headless agent (`codex exec` or `claude -p`) for each round, so **each invocation does EXACTLY
+ONE experiment, then stops.**
 (The original LLM-training program.md is in git history; the README documents that demo.)
 
 ## Per-round inputs (passed by the driver)
@@ -15,13 +16,13 @@ fresh `claude -p` for each round, so **each invocation does EXACTLY ONE experime
   a tried idea.
 
 ## Parallel runs (shared GPU)
-When multiple loops run at once, the GPU is shared. `measure.sh` serializes itself via a mutex, but
-any DIRECT GPU command you run (ncu, `./hashcat.exe -b`) MUST go through the wrapper: `bash <AR>/gpu <cmd>`
-— otherwise it can corrupt another loop's benchmark. Run `measure.sh` with `HASHCAT_DIR=<your worktree>`.
+When multiple loops run at once, the GPU is shared. The metric harness serializes itself via a mutex, but
+any DIRECT GPU command you run (ncu, `./hashcat.exe -b`) MUST go through the wrapper: `uv run <AR>/ar.py gpu -- <cmd>`
+— otherwise it can corrupt another loop's benchmark. Pass `--hashcat-dir <your worktree>` to the harness.
 Never run a raw GPU command in a parallel run.
 
-## The metric (READ-ONLY harness — never modify `measure.sh`)
-`PRIMARY_MODE=<TARGET_MODE> bash measure.sh > run.log 2>&1` then `grep '^RESULT' run.log`. It locks
+## The metric (READ-ONLY harness — never modify `ar.py` / `measure.sh`)
+`uv run <AR>/ar.py measure -m <TARGET_MODE>` prints one `RESULT` line to stdout. It locks
 the clock (1710 MHz), **clears the NVRTC kernel cache** (hashcat does NOT invalidate cache on
 `#included`-header edits — measuring a header edit without this silently shows NO change), benchmarks
 median-of-3 (warm-up discarded), and self-tests. Metric = `primary_mhs` (higher better). **`selftest`
@@ -63,7 +64,7 @@ then `ncu --launch-skip 3 --launch-count 1 --kernel-name regex:m<M>_s --section 
    `results_<TARGET_MODE>.tsv` for prior experiments + current best.
 2. Pick ONE untried idea (grep the mode's kernels; find the shared hash header via `grep -rl`).
 3. Edit the kernel(s); `git -C $HASHCAT_DIR commit -am "<desc>"`.
-4. `PRIMARY_MODE=<TARGET_MODE> bash measure.sh > run.log 2>&1`; `grep '^RESULT' run.log`.
+4. `uv run <AR>/ar.py measure -m <TARGET_MODE>` and read its `RESULT` line.
 5. Decide and log ONE row to `results_<TARGET_MODE>.tsv` (TAB-separated):
    `commit<TAB>primary_mhs<TAB>second_mhs<TAB>selftest<TAB>status<TAB>description`
    - RESULT missing or `selftest=FAIL` → `crash`/`wrong`: `git -C $HASHCAT_DIR reset --hard HEAD~1`.

@@ -1,10 +1,8 @@
 # hashcat kernel autoresearch — progress
 
-Autonomous `claude -p` optimization loops (see `program.md`, `drive.sh`, `parallel.sh`). Each win lives on branch `autoresearch/<mode>-jul6` in the hashcat repo; per-experiment logs are `results_<mode>.tsv`. Regenerate this file with `bash gen_readme.sh`.
+Autonomous agent optimization loops (`ar.py`, see `program.md`). Each win lives on branch `autoresearch/<mode>-jul6` in the hashcat repo; per-experiment logs are `results_<mode>.tsv`. Regenerate with `uv run ar.py readme`.
 
-**Landed PRs** (already submitted, verified): RC4 S-box `KEY8` — [hashcat#4712](https://github.com/hashcat/hashcat/pull/4712) (+4.6% Kerberoasting, +8% Office, all RC4 modes); Whirlpool single-table — [hashcat#4713](https://github.com/hashcat/hashcat/pull/4713) (+7%).
-
-Legend: ✅ = win verified on clean-GPU A/B + correctness; ❌ = win did not reproduce; batches C=first campaign, 1–4=current run.
+Legend: ✅ = verified on clean-GPU A/B + correctness; ❌ = did not reproduce; batches C=first campaign, 1–4=current run.
 
 | Batch | Mode | Name | Category | Δ | MH/s (base→best) | Status | Branch |
 |---|---|---|---|---|---|---|---|
@@ -91,4 +89,4 @@ Legend: ✅ = win verified on clean-GPU A/B + correctness; ❌ = win did not rep
 | 14 | 25400 | PDF 1.4-1.6 user+owner | scrypt/misc |  |  | - | `-` |
 | 14 | 21600 | Web2py pbkdf2-sha512 | scrypt/misc |  |  | - | `-` |
 
-**Totals:** 13 wins across 76 evaluated modes. Verified-real: 6. Rejected: 1.
+**Totals:** 13 wins. Verified-real: 6. Rejected: 1.
