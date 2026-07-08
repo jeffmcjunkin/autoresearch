@@ -31,3 +31,53 @@ mode	batch	category	name
 1700	C	SHA2	SHA2-512
 10800	C	SHA2	SHA2-384
 6000	C	RIPEMD	RIPEMD-160
+0	5	Raw	MD5
+100	5	Raw	SHA1
+1400	5	Raw	SHA2-256
+900	5	Raw	MD4
+1300	5	Raw	SHA2-224
+10	6	Salted	md5(pass.salt)
+110	6	Salted	sha1(pass.salt)
+1410	6	Salted	sha256(pass.salt)
+5100	6	Salted	Half-MD5
+2600	6	Salted	md5(md5(pass))
+3200	7	Unix-KDF	bcrypt
+500	7	Unix-KDF	md5crypt
+1800	7	Unix-KDF	sha512crypt
+7400	7	Unix-KDF	sha256crypt
+400	7	Unix-KDF	phpass
+12000	8	PBKDF2/WPA/DB	PBKDF2-HMAC-SHA1
+10900	8	PBKDF2/WPA/DB	PBKDF2-HMAC-SHA256
+22000	8	PBKDF2/WPA/DB	WPA-PBKDF2-PMKID+EAPOL
+300	8	PBKDF2/WPA/DB	MySQL4.1/5
+1731	8	PBKDF2/WPA/DB	MSSQL 2012/2014
+10500	9	Docs/Wallet	PDF 1.4-1.6
+11300	9	Docs/Wallet	Bitcoin/Litecoin wallet.dat
+7900	9	Docs/Wallet	Drupal7
+112	9	Docs/Wallet	Oracle 11+
+15700	9	Docs/Wallet	Ethereum Wallet SCRYPT
+14600	10	AES-container	LUKS v1
+13751	10	AES-container	VeraCrypt SHA256+AES XTS512
+6211	10	AES-container	TrueCrypt RIPEMD160+AES XTS512
+6221	10	AES-container	TrueCrypt SHA512+AES XTS512
+16700	10	AES-container	FileVault 2
+13752	11	Twofish/Serpent	VeraCrypt SHA256 XTS1024
+13753	11	Twofish/Serpent	VeraCrypt SHA256 XTS1536
+6212	11	Twofish/Serpent	TrueCrypt RIPEMD160 XTS1024
+6213	11	Twofish/Serpent	TrueCrypt RIPEMD160 XTS1536
+13763	11	Twofish/Serpent	VeraCrypt SHA256 boot
+13771	12	Kuznyechik/Streebog	VeraCrypt Streebog512 XTS512
+13772	12	Kuznyechik/Streebog	VeraCrypt Streebog512 XTS1024
+11750	12	Kuznyechik/Streebog	HMAC-Streebog-256 (key=pass)
+11760	12	Kuznyechik/Streebog	HMAC-Streebog-256 (key=salt)
+6800	12	Kuznyechik/Streebog	LastPass
+12100	13	SHA512/256-KDF	PBKDF2-HMAC-SHA512
+7100	13	SHA512/256-KDF	macOS v10.8+ PBKDF2-SHA512
+6600	13	SHA512/256-KDF	1Password agilekeychain
+9200	13	SHA512/256-KDF	Cisco-IOS $8$ PBKDF2-SHA256
+15300	13	SHA512/256-KDF	DPAPI masterkey v1
+8900	14	scrypt/misc	scrypt
+22700	14	scrypt/misc	MultiBit HD scrypt
+15900	14	scrypt/misc	DPAPI masterkey v2
+25400	14	scrypt/misc	PDF 1.4-1.6 user+owner
+21600	14	scrypt/misc	Web2py pbkdf2-sha512

@@ -19,7 +19,7 @@ GPU_LOCK="${GPU_LOCK:-/c/Users/jeff/Documents/autoresearch/.gpu.lock}"   # share
 
 gpu_lock () { local w=0
   until mkdir "$GPU_LOCK" 2>/dev/null; do
-    if [ -f "$GPU_LOCK/ts" ] && [ $(( $(date +%s) - $(cat "$GPU_LOCK/ts" 2>/dev/null || echo 0) )) -gt 300 ]; then rm -rf "$GPU_LOCK"; continue; fi
+    if [ -f "$GPU_LOCK/ts" ] && [ $(( $(date +%s) - $(cat "$GPU_LOCK/ts" 2>/dev/null || echo 0) )) -gt 1200 ]; then rm -rf "$GPU_LOCK"; continue; fi
     sleep 1; w=$((w+1)); [ "$w" -gt 900 ] && break
   done; date +%s > "$GPU_LOCK/ts" 2>/dev/null; }
 gpu_unlock () { rm -rf "$GPU_LOCK" 2>/dev/null; }
