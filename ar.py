@@ -138,7 +138,7 @@ def _median3(hc, mode):
         try:
             r = subprocess.run([os.path.join(hc, "hashcat.exe"), "-b", "-m", str(mode),
                                 "-d", "1", "-D", "2", "--machine-readable", "--quiet"],
-                               cwd=hc, capture_output=True, text=True, timeout=150, **nw())
+                               cwd=hc, capture_output=True, text=True, timeout=240, **nw())
         except subprocess.TimeoutExpired:
             continue
         for ln in r.stdout.splitlines():
@@ -154,7 +154,7 @@ def _selftest_ok(hc, mode):
     _clear_cache(hc, mode)
     try:
         r = subprocess.run([os.path.join(hc, "hashcat.exe"), "-b", "-m", str(mode), "-d", "1", "-D", "2"],
-                           cwd=hc, capture_output=True, text=True, timeout=150, **nw())
+                           cwd=hc, capture_output=True, text=True, timeout=240, **nw())
     except subprocess.TimeoutExpired:
         return False
     out = (r.stdout or "") + (r.stderr or "")
@@ -162,11 +162,20 @@ def _selftest_ok(hc, mode):
     if "self-test failed" in low or "aborting" in low: return False
     return "Speed" in out
 
+def _fmt_mhs(v):
+    """MH/s string that preserves precision for slow modes — sub-MH/s never rounds to 0.0 (which
+    made VeraCrypt/scrypt/LUKS/KDF unmeasurable). Down to ~1 H/s stays distinguishable."""
+    if not isinstance(v, int): return "FAIL"
+    m = v / 1e6
+    if m >= 100: return f"{m:.1f}"
+    if m >= 1:   return f"{m:.3f}"
+    if m > 0:    return f"{m:.6f}"
+    return "0.0"
+
 def do_measure(mode, second=None, selftest_modes=(), lock=None, hc=None):
     """Returns dict(primary, primary_mhs, second_mhs, selftest, clock). Serialized on the GPU mutex."""
     hc = hc or HC_default(); lock = lock or LOCK_default()
     set_clock(True)
-    to_mhs = lambda v: (f"{v/1e6:.1f}" if isinstance(v, int) else "FAIL")
     gpu_lock(lock)
     try:
         praw = _median3(hc, mode)
@@ -175,12 +184,12 @@ def do_measure(mode, second=None, selftest_modes=(), lock=None, hc=None):
         if second:
             sraw = _median3(hc, second)
             if sraw is None: st = f"FAIL:{second}"
-            sout = to_mhs(sraw)
+            sout = _fmt_mhs(sraw)
         for m in selftest_modes:
             if not _selftest_ok(hc, int(m)): st = f"FAIL:{m}"
     finally:
         gpu_unlock(lock)
-    return dict(primary=mode, primary_mhs=to_mhs(praw), second_mhs=sout, selftest=st, clock=CLK)
+    return dict(primary=mode, primary_mhs=_fmt_mhs(praw), second_mhs=sout, selftest=st, clock=CLK)
 
 def result_line(d):
     return (f"RESULT primary={d['primary']} primary_mhs={d['primary_mhs']} "
@@ -365,12 +374,17 @@ def cmd_batches(a):
     targets = a.targets or os.path.join(AR, "targets.tsv")
     batches = _read_targets(targets)
     wanted = _parse_batch_filter(getattr(a, "batches", None))
+    pause = getattr(a, "batch_pause", 0)
     set_clock(True)
+    ran_prev = False
     for n in sorted(batches):
         if wanted is not None and n not in wanted: continue
         modes = batches[n]
         if all(_exp_count(M, a.run_tag) >= a.rounds for M in modes):
             say(f"batch {n} already complete, skip"); continue
+        if ran_prev and pause > 0:                      # pace the 5-hour usage window
+            say(f"pausing {pause}s before batch {n} (usage-window pacing)")
+            time.sleep(pause)
         say(f"=== BATCH {n} launch: {' '.join(modes)} ===")
         for M in modes:
             open(os.path.join(AR, "logs", f"loop_{M}.out"), "w").close()
@@ -391,6 +405,7 @@ def cmd_batches(a):
         for M in modes:
             git(hc, "worktree", "remove", "--force", os.path.join(AR, f"wt_{M}"))
         git(hc, "worktree", "prune"); cmd_readme(argparse.Namespace())
+        ran_prev = True
     set_clock(False)
     say("=== ALL BATCHES COMPLETE ===")
 
@@ -497,6 +512,7 @@ def main():
     b = sub.add_parser("batches", help="run all numeric batches in targets.tsv"); add_loop_args(b, with_modes=False)
     b.add_argument("--targets", default=None)
     b.add_argument("--batches", default=None, help="subset, e.g. 5-14 or 5,7,9 (default: all)")
+    b.add_argument("--batch-pause", type=int, default=0, help="seconds to sleep between batches (usage-window pacing)")
     b.set_defaults(fn=cmd_batches)
 
     r = sub.add_parser("readme", help="regenerate README.md"); r.set_defaults(fn=cmd_readme)
