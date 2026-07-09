@@ -199,6 +199,34 @@ def result_line(d):
 def git(hc, *args):
     return subprocess.run([need("git"), "-C", hc, *args], capture_output=True, text=True, **nw())
 
+def do_measure_ab(mode, src, bench, lock=None, base_ref="HEAD~1", reps=2):
+    """Interleaved A/B: benchmark candidate (src HEAD) vs baseline (src's base_ref) BACK-TO-BACK in
+    `bench` — default the MAIN repo, which (a) avoids worktree measurement inflation and (b) removes
+    single-baseline drift since both are measured seconds apart. Returns a drift-free delta_pct."""
+    lock = lock or LOCK_default()
+    cand = git(src, "rev-parse", "HEAD").stdout.strip()
+    base = git(src, "rev-parse", base_ref).stdout.strip()
+    orig = git(bench, "rev-parse", "--abbrev-ref", "HEAD").stdout.strip()
+    if orig == "HEAD": orig = git(bench, "rev-parse", "HEAD").stdout.strip()      # bench was detached
+    set_clock(True); gpu_lock(lock)                                              # ---- exclusive GPU + bench repo ----
+    cv, bv = [], []
+    try:
+        for _ in range(reps):
+            git(bench, "checkout", "-q", "--detach", cand); cv.append(_median3(bench, mode))
+            git(bench, "checkout", "-q", "--detach", base); bv.append(_median3(bench, mode))
+    finally:
+        git(bench, "checkout", "-q", orig); gpu_unlock(lock)
+    med = lambda xs: (lambda g: g[len(g)//2] if g else None)(sorted(x for x in xs if x is not None))
+    c, b = med(cv), med(bv)
+    st = "PASS" if (c is not None and b is not None) else f"FAIL:{mode}"
+    d = ((c - b) / b * 100) if (c and b) else 0.0
+    return dict(primary=mode, primary_mhs=_fmt_mhs(c), baseline_mhs=_fmt_mhs(b),
+                delta_pct=round(d, 3), selftest=st, clock=CLK)
+
+def ab_result_line(d):
+    return (f"RESULT primary={d['primary']} primary_mhs={d['primary_mhs']} baseline_mhs={d['baseline_mhs']} "
+            f"delta_pct={d['delta_pct']:+.3f} selftest={d['selftest']} clock={d['clock']}")
+
 def results_path(mode, tag):
     return os.path.join(AR, f"results_{mode}.tsv" if tag == "jul6" else f"results_{mode}_{tag}.tsv")
 
@@ -206,9 +234,9 @@ def baseline_branch(mode):
     return "perf-whirlpool-single-table" if str(mode) == "6100" else "master"
 
 # ---- the round prompt (agent-facing; NO bash — uses `uv run ar.py`) --------------------
-def build_prompt(M, hc, br, rf_f, lock):
+def build_prompt(M, hc, br, rf_f, lock, bench):
     uv = resolve_uv()
-    measure_cmd = f"{uv} run {ARPY} measure --mode {M} --hashcat-dir {hc} --gpu-lock {lock}"
+    measure_cmd = f"{uv} run {ARPY} measure --mode {M} --ab --hashcat-dir {hc} --bench-dir {bench} --gpu-lock {lock}"
     gpu_cmd     = f"{uv} run {ARPY} gpu --gpu-lock {lock} -- <your GPU command>"
     return (
         f"You are ONE round of autonomous hashcat GPU-kernel autoresearch. Read {AR_F}/program.md and "
@@ -218,13 +246,15 @@ def build_prompt(M, hc, br, rf_f, lock):
         f"experiment: pick one untried idea, find that mode's kernel(s) with grep and edit them in {hc}, "
         f"'git -C {hc} commit -am <desc>', then BENCHMARK by running EXACTLY this command (it locks the GPU "
         f"internally and prints a RESULT line):\n    {measure_cmd}\n"
-        f"Read its RESULT line. Decide keep/discard by the ~1-2% noise band with selftest MUST be PASS. "
-        f"Append EXACTLY ONE tab-separated row (commit<TAB>primary_mhs<TAB>second_mhs<TAB>selftest<TAB>status"
-        f"<TAB>description) to {rf_f}; if you discard or it was wrong/crashed, also "
-        f"'git -C {hc} reset --hard HEAD~1'. Then STOP — one experiment only, do NOT spawn subagents. Any "
-        f"DIRECT GPU command (ncu, ./hashcat.exe -b) MUST be serialized via the mutex — run it as:\n    "
-        f"{gpu_cmd}\nnever run a raw GPU command. Do NOT change the GPU clock, do NOT edit measure.sh, "
-        f"ar.py, or program.md."
+        f"This is an INTERLEAVED A/B: it benchmarks your candidate (HEAD) vs the prior best (HEAD~1) "
+        f"back-to-back in the main repo and reports `delta_pct` = your drift-free gain. The measured noise "
+        f"floor is ~0.1%, so KEEP if delta_pct >= +0.3 AND selftest=PASS; otherwise DISCARD. Append EXACTLY "
+        f"ONE tab-separated row (commit<TAB>primary_mhs<TAB>second_mhs<TAB>selftest<TAB>status<TAB>description) "
+        f"to {rf_f} using the RESULT's primary_mhs; put the delta_pct in the description. If you discard or it "
+        f"was wrong/crashed, also 'git -C {hc} reset --hard HEAD~1'. Then STOP — one experiment only, do NOT "
+        f"spawn subagents. Any DIRECT GPU command (ncu, ./hashcat.exe -b) MUST be serialized via the mutex — "
+        f"run it as:\n    {gpu_cmd}\nnever run a raw GPU command. Do NOT change the GPU clock, do NOT edit "
+        f"measure.sh, ar.py, or program.md."
     )
 
 def run_agent(prompt, rlog, engine, hc, rtimeout, model=MODEL):
@@ -254,9 +284,13 @@ def run_agent(prompt, rlog, engine, hc, rtimeout, model=MODEL):
 # subcommands
 # ========================================================================================
 def cmd_measure(a):
-    d = do_measure(a.mode, a.second, (a.selftest.split() if a.selftest else ()),
-                   lock=a.gpu_lock, hc=a.hashcat_dir)
-    print(result_line(d))
+    if getattr(a, "ab", False):
+        d = do_measure_ab(a.mode, a.hashcat_dir, a.bench_dir or a.hashcat_dir, a.gpu_lock, a.base_ref)
+        print(ab_result_line(d))
+    else:
+        d = do_measure(a.mode, a.second, (a.selftest.split() if a.selftest else ()),
+                       lock=a.gpu_lock, hc=a.hashcat_dir)
+        print(result_line(d))
 
 def cmd_gpu(a):
     if not a.command: sys.exit("ar.py gpu: nothing after --")
@@ -295,7 +329,7 @@ def cmd_drive(a):
             existing = max(0, sum(1 for _ in f) - 2)
         remaining = getattr(a, "extra", 0) or max(0, a.rounds - existing)   # --extra N = do exactly N more
         say(f"m{M}: {existing} experiments logged, doing {remaining} more", drive_log)
-        prompt = build_prompt(M, hc, br, rf_f, lock)
+        prompt = build_prompt(M, hc, br, rf_f, lock, (a.bench_dir or HC_default()))
         for k in range(1, remaining + 1):
             n = existing + k
             git(hc, "reset", "--hard", "HEAD", "-q"); git(hc, "clean", "-fdq", "OpenCL/")
@@ -339,7 +373,8 @@ def cmd_parallel(a):
         argv = [resolve_uv(), "run", ARPY, "drive", "--modes", M, "--rounds", str(a.rounds),
                 "--rtimeout", str(a.rtimeout), "--engine", a.engine, "--run-tag", tag,
                 "--model", getattr(a, "model", MODEL), "--extra", str(getattr(a, "extra", 0)),
-                "--hashcat-dir", wt.replace("\\", "/"), "--gpu-lock", lock]
+                "--hashcat-dir", wt.replace("\\", "/"), "--bench-dir", hc.replace("\\", "/"),
+                "--gpu-lock", lock]   # edit in the worktree, but benchmark in the MAIN repo (hc)
         with open(loop_log, "a", encoding="utf-8") as out:
             p = subprocess.Popen(argv, stdout=out, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
                                  cwd=AR, **nw())
@@ -347,6 +382,18 @@ def cmd_parallel(a):
         say(f"  m{M} loop pid {p.pid} (worktree {wt}, {ndll} module dlls)")
         time.sleep(2)
     say("all loops launched. monitor: cat drive.log ; ls results_*.tsv")
+    if getattr(a, "wait", False):      # standalone parallel: wait for completion, then clean worktrees
+        waited = 0
+        while waited < 21600:
+            time.sleep(30); waited += 30
+            done = sum(1 for M in modes if os.path.exists(os.path.join(AR, "logs", f"loop_{M}.out"))
+                       and f"=== m{M} complete" in open(os.path.join(AR, "logs", f"loop_{M}.out"),
+                                                        encoding="utf-8", errors="replace").read())
+            if done >= len(modes): break
+        for M in modes:
+            git(hc, "worktree", "remove", "--force", os.path.join(AR, f"wt_{M}"))
+        git(hc, "worktree", "prune")
+        say(f"=== parallel complete; {len(modes)} worktrees cleaned ===")
 
 def _read_targets(path):
     rows = list(csv.DictReader(open(path, encoding="utf-8"), delimiter="\t"))
@@ -467,9 +514,11 @@ def cmd_readme(a):
            "Autonomous agent optimization loops (`ar.py`, see `program.md`). Each win lives on branch "
            "`autoresearch/<mode>-jul6` in the hashcat repo; per-experiment logs are `results_<mode>.tsv`. "
            "Regenerate with `uv run ar.py readme`.\n",
-           "Legend: ✅ = verified real — reproduced on interleaved clean-GPU A/B AND passed independent "
-           "Perl-reference correctness (`tools/test.pl`, 8/8 hashes cracked); shown Δ is the clean-A/B "
-           "number. ❌ = did not reproduce on clean A/B (single-baseline loop drift). Batches: C/PR = "
+           "Legend: ✅ = verified real — reproduced on **interleaved** clean-GPU A/B (drift-free; measured "
+           "2σ noise floor ≈ ±0.08% on fast modes) with hashcat self-test PASS, and correctness "
+           "cross-checked against an independent reference (Streebog 11700/11800 via gostcrypto cracked "
+           "8/8 on the **a3** win kernel; SHA3/Keccak/RC4 via tools/test.pl). Δ = clean-A/B total over "
+           "stock. ❌ = did not reproduce on clean A/B (single-baseline loop drift). Batches: C/PR = "
            "campaign & landed PRs, digits = sweep.\n",
            "| Batch | Mode | Name | Category | Δ | MH/s (base→best) | Status | Branch |",
            "|---|---|---|---|---|---|---|---|"]
@@ -504,6 +553,9 @@ def main():
     m.add_argument("--selftest", default="")
     m.add_argument("--hashcat-dir", default=HC_default())
     m.add_argument("--gpu-lock", default=LOCK_default())
+    m.add_argument("--ab", action="store_true", help="interleaved A/B: HEAD vs --base-ref, drift-free delta_pct")
+    m.add_argument("--base-ref", default="HEAD~1", help="baseline ref for --ab (default HEAD~1)")
+    m.add_argument("--bench-dir", default=None, help="repo to benchmark in for --ab (default main repo; avoids worktree inflation)")
     m.set_defaults(fn=cmd_measure)
 
     g = sub.add_parser("gpu", help="run a command under the shared GPU mutex")
@@ -521,10 +573,13 @@ def main():
         x.add_argument("--extra", type=int, default=0, help="do exactly N more rounds per mode (ignores --rounds target)")
         x.add_argument("--run-tag", default=env("RUN_TAG", "jul6"))
         x.add_argument("--hashcat-dir", default=HC_default())
+        x.add_argument("--bench-dir", default=None, help="benchmark in this repo (default main repo; parallel uses main to avoid worktree inflation)")
         x.add_argument("--gpu-lock", default=LOCK_default())
 
     d = sub.add_parser("drive", help="per-mode round loop"); add_loop_args(d); d.set_defaults(fn=cmd_drive)
-    pa = sub.add_parser("parallel", help="one worktree+driver per mode"); add_loop_args(pa); pa.set_defaults(fn=cmd_parallel)
+    pa = sub.add_parser("parallel", help="one worktree+driver per mode"); add_loop_args(pa)
+    pa.add_argument("--no-wait", dest="wait", action="store_false", default=True, help="fire-and-forget (skip wait+worktree cleanup)")
+    pa.set_defaults(fn=cmd_parallel)
     b = sub.add_parser("batches", help="run all numeric batches in targets.tsv"); add_loop_args(b, with_modes=False)
     b.add_argument("--targets", default=None)
     b.add_argument("--batches", default=None, help="subset, e.g. 5-14 or 5,7,9 (default: all)")

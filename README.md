@@ -2,7 +2,7 @@
 
 Autonomous agent optimization loops (`ar.py`, see `program.md`). Each win lives on branch `autoresearch/<mode>-jul6` in the hashcat repo; per-experiment logs are `results_<mode>.tsv`. Regenerate with `uv run ar.py readme`.
 
-Legend: ✅ = verified real — reproduced on interleaved clean-GPU A/B AND passed independent Perl-reference correctness (`tools/test.pl`, 8/8 hashes cracked); shown Δ is the clean-A/B number. ❌ = did not reproduce on clean A/B (single-baseline loop drift). Batches: C/PR = campaign & landed PRs, digits = sweep.
+Legend: ✅ = verified real — reproduced on **interleaved** clean-GPU A/B (drift-free; measured 2σ noise floor ≈ ±0.08% on fast modes) with hashcat self-test PASS, and correctness cross-checked against an independent reference (Streebog 11700/11800 via gostcrypto cracked 8/8 on the **a3** win kernel; SHA3/Keccak/RC4 via tools/test.pl). Δ = clean-A/B total over stock. ❌ = did not reproduce on clean A/B (single-baseline loop drift). Batches: C/PR = campaign & landed PRs, digits = sweep.
 
 | Batch | Mode | Name | Category | Δ | MH/s (base→best) | Status | Branch |
 |---|---|---|---|---|---|---|---|

@@ -22,12 +22,14 @@ any DIRECT GPU command you run (ncu, `./hashcat.exe -b`) MUST go through the wra
 Never run a raw GPU command in a parallel run.
 
 ## The metric (READ-ONLY harness — never modify `ar.py` / `measure.sh`)
-`uv run <AR>/ar.py measure -m <TARGET_MODE>` prints one `RESULT` line to stdout. It locks
-the clock (1710 MHz), **clears the NVRTC kernel cache** (hashcat does NOT invalidate cache on
-`#included`-header edits — measuring a header edit without this silently shows NO change), benchmarks
-median-of-3 (warm-up discarded), and self-tests. Metric = `primary_mhs` (higher better). **`selftest`
-MUST be `PASS`** — a faster-but-wrong kernel is a failure, not a win. Noise band ~1–2%; only keep
-deltas beyond it.
+`uv run <AR>/ar.py measure -m <TARGET_MODE> --ab` runs an **interleaved A/B**: it benchmarks your
+candidate (HEAD) against the prior best (HEAD~1) **back-to-back in the main repo**, and prints a
+`RESULT` line with a drift-free `delta_pct`. It locks the clock (1710 MHz) and **clears the NVRTC
+kernel cache** each measure (hashcat does NOT invalidate cache on `#included`-header edits — measuring
+a header edit without this silently shows NO change). **`selftest` MUST be `PASS`** — a faster-but-wrong
+kernel is a failure, not a win. The measured noise floor is ~0.1% (2σ), so the driver keeps at
+**delta_pct ≥ +0.3%** — do NOT use the old ~1–2% band; it discards real small wins. (Verify a claimed
+win's correctness independently with `-a 3` on the mode's a3 kernel — `-a 0` runs the unchanged a0 kernel.)
 
 ## Correctness is a HARD gate (the key difference from LLM autoresearch)
 A wrong kernel silently cracks nothing; the metric alone won't catch it. `selftest=PASS` (the mode's
@@ -64,11 +66,11 @@ then `ncu --launch-skip 3 --launch-count 1 --kernel-name regex:m<M>_s --section 
    `results_<TARGET_MODE>.tsv` for prior experiments + current best.
 2. Pick ONE untried idea (grep the mode's kernels; find the shared hash header via `grep -rl`).
 3. Edit the kernel(s); `git -C $HASHCAT_DIR commit -am "<desc>"`.
-4. `uv run <AR>/ar.py measure -m <TARGET_MODE>` and read its `RESULT` line.
+4. `uv run <AR>/ar.py measure -m <TARGET_MODE> --ab` and read its `RESULT` line (`delta_pct` = drift-free gain vs prior best).
 5. Decide and log ONE row to `results_<TARGET_MODE>.tsv` (TAB-separated):
    `commit<TAB>primary_mhs<TAB>second_mhs<TAB>selftest<TAB>status<TAB>description`
    - RESULT missing or `selftest=FAIL` → `crash`/`wrong`: `git -C $HASHCAT_DIR reset --hard HEAD~1`.
-   - `primary_mhs` up beyond the ~1–2% noise band AND `selftest=PASS` → `keep` (leave the commit).
+   - `delta_pct ≥ +0.3` AND `selftest=PASS` → `keep` (leave the commit).
    - else (equal/worse) → `discard`: `git -C $HASHCAT_DIR reset --hard HEAD~1`.
 6. **STOP.** Do not loop, do not spawn subagents, do not run parallel GPU commands (single GPU;
    the clock is held externally — do not touch it). The driver starts the next round.
