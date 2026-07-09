@@ -409,8 +409,12 @@ def cmd_batches(a):
     set_clock(False)
     say("=== ALL BATCHES COMPLETE ===")
 
-VERIFIED = {"17400", "17600", "17800", "11700", "11800", "31100"}   # clean-GPU A/B + correctness
-REJECTED = {"6100"}                                                 # win did not reproduce
+VERIFIED = {"17400", "17600", "17800", "11700", "11800", "31100",           # campaign (earlier)
+            "9700", "17700", "18000", "3000", "17500", "17300", "17900", "10500", "18200"}  # sweep: clean A/B + Perl-ref
+REJECTED = {"6100", "110", "2600", "6221", "9800", "9200"}                   # did not reproduce on clean A/B
+# clean-A/B-verified deltas (override the noisier single-baseline loop delta); all passed independent Perl-ref correctness
+AB = {"9700": 22.5, "17700": 13.1, "18000": 9.7, "3000": 9.3, "17500": 8.2,
+      "17300": 8.2, "17900": 5.4, "10500": 2.9, "18200": 1.6}
 
 def _readme_stats(mode):
     f = results_path(mode, "jul6")
@@ -437,18 +441,21 @@ def cmd_readme(a):
     rows = []
     for m, t in tg.items():
         s = _readme_stats(m); br = branch(m)
+        if s is not None and m in AB: s["delta"] = AB[m]        # show clean-A/B delta for verified wins
         if s is None:
             status = "pending" if t["batch"] in "1234" else "-"; delta = ""; bb = ""
         else:
-            v = "✅" if m in VERIFIED else ("❌ rejected" if m in REJECTED else "")
-            e = s["exps"]; newb = t["batch"].isdigit()
-            if s["delta"] >= 1.0:
-                status = (f'WIN +{s["delta"]:.1f}%' + (f" (partial {e}/6)" if newb and e < 6 else "") + f" {v}").strip()
-            elif e == 0:  status = "NOT-RUN (spend-limit)"
-            elif newb and e < 6: status = f"in-progress {e}/6"
-            else: status = f"roofline {v}".strip()
-            delta = f'+{s["delta"]:.1f}%' if s["delta"] >= 1.0 else ("—" if e == 0 else "~0%")
+            e = s["exps"]; newb = t["batch"].isdigit(); d = s["delta"]
             bb = f'{mhs(s["base"])} → {mhs(s["best"])}'
+            if m in REJECTED:
+                status = "❌ not real (A/B ~0%)"; delta = "~0%"
+            elif m in VERIFIED:
+                status = f'WIN +{d:.1f}% ✅'; delta = f'+{d:.1f}%'
+            elif d >= 1.0:
+                status = f'WIN +{d:.1f}% (unverified)' + (f' partial {e}/6' if newb and e < 6 else ''); delta = f'+{d:.1f}%'
+            elif e == 0:  status = "NOT-RUN"; delta = "—"
+            elif newb and e < 6: status = f"in-progress {e}/6"; delta = "~0%"
+            else: status = "roofline"; delta = "~0%"
         rows.append((t["batch"], m, t["name"], t["category"], delta, bb, status, br))
     order = {"PR": 0, "C": 1, "1": 2, "2": 3, "3": 4, "4": 5}
     rows.sort(key=lambda r: (order.get(r[0], 9),
@@ -457,14 +464,18 @@ def cmd_readme(a):
            "Autonomous agent optimization loops (`ar.py`, see `program.md`). Each win lives on branch "
            "`autoresearch/<mode>-jul6` in the hashcat repo; per-experiment logs are `results_<mode>.tsv`. "
            "Regenerate with `uv run ar.py readme`.\n",
-           "Legend: ✅ = verified on clean-GPU A/B + correctness; ❌ = did not reproduce; batches C=first "
-           "campaign, 1–4=current run.\n",
+           "Legend: ✅ = verified real — reproduced on interleaved clean-GPU A/B AND passed independent "
+           "Perl-reference correctness (`tools/test.pl`, 8/8 hashes cracked); shown Δ is the clean-A/B "
+           "number. ❌ = did not reproduce on clean A/B (single-baseline loop drift). Batches: C/PR = "
+           "campaign & landed PRs, digits = sweep.\n",
            "| Batch | Mode | Name | Category | Δ | MH/s (base→best) | Status | Branch |",
            "|---|---|---|---|---|---|---|---|"]
     for b, m, n, c, d, bb, st, br in rows:
         out.append(f"| {b} | {m} | {n} | {c} | {d} | {bb} | {st} | `{br}` |")
     nwin = sum(1 for r in rows if r[6].startswith("WIN"))
-    out.append(f"\n**Totals:** {nwin} wins. Verified-real: {len(VERIFIED)}. Rejected: {len(REJECTED)}.")
+    out.append(f"\n**Totals:** {len(VERIFIED)} verified-real wins (interleaved clean-A/B + independent "
+               f"Perl-reference correctness), {len(REJECTED)} rejected as single-baseline drift. "
+               f"({nwin} modes showed a loop delta ≥1%.)")
     open(os.path.join(AR, "README.md"), "w", encoding="utf-8").write("\n".join(out) + "\n")
     print(f"README.md regenerated: {len(rows)} modes, {nwin} wins")
 
