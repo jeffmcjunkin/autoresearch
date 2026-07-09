@@ -293,8 +293,8 @@ def cmd_drive(a):
             say(f"m{M}: baseline primary_mhs={d['primary_mhs']} selftest={d['selftest']} (base={base})", drive_log)
         with open(rf, encoding="utf-8") as f:
             existing = max(0, sum(1 for _ in f) - 2)
-        remaining = max(0, a.rounds - existing)
-        say(f"m{M}: {existing} experiments logged, doing {remaining} more to reach target {a.rounds}", drive_log)
+        remaining = getattr(a, "extra", 0) or max(0, a.rounds - existing)   # --extra N = do exactly N more
+        say(f"m{M}: {existing} experiments logged, doing {remaining} more", drive_log)
         prompt = build_prompt(M, hc, br, rf_f, lock)
         for k in range(1, remaining + 1):
             n = existing + k
@@ -338,6 +338,7 @@ def cmd_parallel(a):
         loop_log = os.path.join(AR, "logs", f"loop_{M}.out")
         argv = [resolve_uv(), "run", ARPY, "drive", "--modes", M, "--rounds", str(a.rounds),
                 "--rtimeout", str(a.rtimeout), "--engine", a.engine, "--run-tag", tag,
+                "--model", getattr(a, "model", MODEL), "--extra", str(getattr(a, "extra", 0)),
                 "--hashcat-dir", wt.replace("\\", "/"), "--gpu-lock", lock]
         with open(loop_log, "a", encoding="utf-8") as out:
             p = subprocess.Popen(argv, stdout=out, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
@@ -515,6 +516,7 @@ def main():
         x.add_argument("--rtimeout", type=int, default=int(env("RTIMEOUT", "1200")))
         x.add_argument("--engine", default=env("ENGINE", "codex").lower(), choices=["codex", "claude"])
         x.add_argument("--model", default=env("MODEL", MODEL))
+        x.add_argument("--extra", type=int, default=0, help="do exactly N more rounds per mode (ignores --rounds target)")
         x.add_argument("--run-tag", default=env("RUN_TAG", "jul6"))
         x.add_argument("--hashcat-dir", default=HC_default())
         x.add_argument("--gpu-lock", default=LOCK_default())
