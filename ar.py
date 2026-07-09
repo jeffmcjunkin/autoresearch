@@ -227,14 +227,14 @@ def build_prompt(M, hc, br, rf_f, lock):
         f"ar.py, or program.md."
     )
 
-def run_agent(prompt, rlog, engine, hc, rtimeout):
+def run_agent(prompt, rlog, engine, hc, rtimeout, model=MODEL):
     e = os.environ.copy()
     gb = resolve_gitbash()
     prepend = os.pathsep.join([p for p in (os.path.dirname(resolve_uv()),
                                            os.path.dirname(gb) if gb else None) if p])
     e["PATH"] = prepend + os.pathsep + e.get("PATH", "")     # agent finds uv (+ git-bash) first
     if engine == "codex":
-        argv = codex_launcher() + ["exec", prompt, "-m", MODEL, "-c", f"model_reasoning_effort={EFFORT}",
+        argv = codex_launcher() + ["exec", prompt, "-m", model, "-c", f"model_reasoning_effort={EFFORT}",
                                    "--dangerously-bypass-approvals-and-sandbox", "-C", hc]
     elif engine == "claude":
         argv = [need("claude"), "-p", prompt, "--dangerously-skip-permissions", "--add-dir", hc]
@@ -273,7 +273,7 @@ def cmd_drive(a):
     os.makedirs(os.path.join(AR, "logs"), exist_ok=True)
     drive_log = os.path.join(AR, "drive.log")
     set_clock(True)
-    say(f"=== driver start: engine={a.engine} model={MODEL}/{EFFORT} modes=[{' '.join(modes)}] "
+    say(f"=== driver start: engine={a.engine} model={a.model}/{EFFORT} modes=[{' '.join(modes)}] "
         f"rounds={a.rounds} timeout={a.rtimeout}s tag={tag} ===", drive_log)
     for M in modes:
         Mi = int(M); br = f"autoresearch/{M}-{tag}"; base = baseline_branch(M)
@@ -301,7 +301,7 @@ def cmd_drive(a):
             git(hc, "reset", "--hard", "HEAD", "-q"); git(hc, "clean", "-fdq", "OpenCL/")
             rlog = os.path.join(AR, "logs", f"m{M}_r{n}.log")
             say(f"m{M} round {n}/{a.rounds} -> {rlog}", drive_log)
-            rc = run_agent(prompt, rlog, a.engine, hc, a.rtimeout)
+            rc = run_agent(prompt, rlog, a.engine, hc, a.rtimeout, a.model)
             last = ""
             try:
                 rows = [l for l in open(rf, encoding="utf-8").read().splitlines() if l.strip()]
@@ -514,6 +514,7 @@ def main():
         x.add_argument("--rounds", type=int, default=int(env("ROUNDS", "6")))
         x.add_argument("--rtimeout", type=int, default=int(env("RTIMEOUT", "1200")))
         x.add_argument("--engine", default=env("ENGINE", "codex").lower(), choices=["codex", "claude"])
+        x.add_argument("--model", default=env("MODEL", MODEL))
         x.add_argument("--run-tag", default=env("RUN_TAG", "jul6"))
         x.add_argument("--hashcat-dir", default=HC_default())
         x.add_argument("--gpu-lock", default=LOCK_default())
