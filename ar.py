@@ -361,12 +361,12 @@ def _exp_count(mode, tag):
 
 def _parse_batch_filter(s):
     if not s: return None
-    out = set()
+    out = []                                        # ordered: batches run in the order given
     for part in s.replace(" ", "").split(","):
         if "-" in part:
-            lo, hi = part.split("-"); out.update(range(int(lo), int(hi) + 1))
+            lo, hi = part.split("-"); out += list(range(int(lo), int(hi) + 1))
         elif part:
-            out.add(int(part))
+            out.append(int(part))
     return out
 
 def cmd_batches(a):
@@ -377,8 +377,8 @@ def cmd_batches(a):
     pause = getattr(a, "batch_pause", 0)
     set_clock(True)
     ran_prev = False
-    for n in sorted(batches):
-        if wanted is not None and n not in wanted: continue
+    for n in (wanted if wanted is not None else sorted(batches)):
+        if n not in batches: continue
         modes = batches[n]
         if all(_exp_count(M, a.run_tag) >= a.rounds for M in modes):
             say(f"batch {n} already complete, skip"); continue
