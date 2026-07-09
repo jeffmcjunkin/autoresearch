@@ -6,11 +6,11 @@ Legend: ✅ = verified real — reproduced on interleaved clean-GPU A/B AND pass
 
 | Batch | Mode | Name | Category | Δ | MH/s (base→best) | Status | Branch |
 |---|---|---|---|---|---|---|---|
-| C | 17600 | SHA3-512 | SHA3/Keccak | +13.4% | 1.9k → 2.2k | WIN +13.4% ✅ | `autoresearch/17600-jul6` |
-| C | 17400 | SHA3-256 | SHA3/Keccak | +13.3% | 1.9k → 2.1k | WIN +13.3% ✅ | `autoresearch/17400-jul6` |
+| C | 17400 | SHA3-256 | SHA3/Keccak | +13.3% | 1.9k → 2.2k | WIN +13.3% ✅ | `autoresearch/17400-jul6` |
+| C | 17600 | SHA3-512 | SHA3/Keccak | +12.9% | 1.9k → 2.2k | WIN +12.9% ✅ | `autoresearch/17600-jul6` |
 | C | 17800 | Keccak-256 | SHA3/Keccak | +8.2% | 1.9k → 2.0k | WIN +8.2% ✅ | `autoresearch/17800-jul6` |
-| C | 11800 | Streebog-512 | Streebog | +6.5% | 187.2 → 199.3 | WIN +6.5% ✅ | `autoresearch/11800-jul6` |
-| C | 11700 | Streebog-256 | Streebog | +5.7% | 188.8 → 199.5 | WIN +5.7% ✅ | `autoresearch/11700-jul6` |
+| C | 11700 | Streebog-256 | Streebog | +6.7% | 188.8 → 220.5 | WIN +6.7% ✅ | `autoresearch/11700-jul6` |
+| C | 11800 | Streebog-512 | Streebog | +6.7% | 187.2 → 221.2 | WIN +6.7% ✅ | `autoresearch/11800-jul6` |
 | C | 31100 | SM3 | SM3 | +3.2% | 7.2k → 7.5k | WIN +3.2% ✅ | `autoresearch/31100-jul6` |
 | C | 6100 | Whirlpool (campaign ext.) | Whirlpool | ~0% | 1.5k → 1.6k | ❌ not real (A/B ~0%) | `autoresearch/6100-jul6` |
 | C | 6900 | GOST R 34.11-94 | GOST | ~0% | 934.8 → 934.8 | roofline | `autoresearch/6900-jul6` |
@@ -18,18 +18,18 @@ Legend: ✅ = verified real — reproduced on interleaved clean-GPU A/B AND pass
 | C | 1700 | SHA2-512 | SHA2 | ~0% | 2.9k → 2.9k | roofline | `autoresearch/1700-jul6` |
 | C | 10800 | SHA2-384 | SHA2 | ~0% | 2.9k → 2.9k | roofline | `autoresearch/10800-jul6` |
 | C | 6000 | RIPEMD-160 | RIPEMD | ~0% | 14.2k → 14.2k | roofline | `autoresearch/6000-jul6` |
+| 1 | 18000 | Keccak-512 | SHA3/Keccak | +13.3% | 1.9k → 2.2k | WIN +13.3% ✅ | `autoresearch/18000-jul6` |
 | 1 | 17700 | Keccak-224 | SHA3/Keccak | +13.1% | 1.9k → 2.2k | WIN +13.1% ✅ | `autoresearch/17700-jul6` |
-| 1 | 18000 | Keccak-512 | SHA3/Keccak | +9.7% | 1.9k → 2.1k | WIN +9.7% ✅ | `autoresearch/18000-jul6` |
+| 1 | 17500 | SHA3-384 | SHA3/Keccak | +8.3% | 1.9k → 2.1k | WIN +8.3% ✅ | `autoresearch/17500-jul6` |
 | 1 | 17300 | SHA3-224 | SHA3/Keccak | +8.2% | 1.9k → 2.1k | WIN +8.2% ✅ | `autoresearch/17300-jul6` |
-| 1 | 17500 | SHA3-384 | SHA3/Keccak | +8.2% | 1.9k → 2.1k | WIN +8.2% ✅ | `autoresearch/17500-jul6` |
-| 1 | 17900 | Keccak-384 | SHA3/Keccak | +5.4% | 1.9k → 2.1k | WIN +5.4% ✅ | `autoresearch/17900-jul6` |
+| 1 | 17900 | Keccak-384 | SHA3/Keccak | +8.1% | 1.9k → 2.1k | WIN +8.1% ✅ | `autoresearch/17900-jul6` |
 | 2 | 27000 | NetNTLMv1-NT (slow) | AD-auth | +19.6% | 931.5 → 1.1k | WIN +19.6% (unverified) | `autoresearch/27000-jul6` |
 | 2 | 3000 | LM | AD-auth | +9.3% | 60.9k → 66.5k | WIN +9.3% ✅ | `autoresearch/3000-jul6` |
 | 2 | 1000 | NTLM | AD-auth | +3.1% | 119.2k → 122.9k | WIN +3.1% (unverified) | `autoresearch/1000-jul6` |
 | 2 | 5500 | NetNTLMv1 | AD-auth | ~0% | 46.2k → 46.2k | roofline | `autoresearch/5500-jul6` |
 | 2 | 5600 | NetNTLMv2 | AD-auth | ~0% | 4.7k → 4.7k | roofline | `autoresearch/5600-jul6` |
 | 3 | 9700 | MS Office <=2003 MD5+RC4 | Office | +22.5% | 1.0k → 1.3k | WIN +22.5% ✅ | `autoresearch/9700-jul6` |
-| 3 | 18200 | Kerberos etype23 AS-REP RC4 | AS-REP-roast | +1.6% | 1.4k → 1.4k | WIN +1.6% ✅ | `autoresearch/18200-jul6` |
+| 3 | 18200 | Kerberos etype23 AS-REP RC4 | AS-REP-roast | +1.8% | 1.4k → 1.5k | WIN +1.8% ✅ | `autoresearch/18200-jul6` |
 | 3 | 19600 | Kerberos etype17 TGS-REP AES128 (slow) | Kerberoasting | ~0% | 2.2 → 2.2 | roofline | `autoresearch/19600-jul6` |
 | 3 | 19700 | Kerberos etype18 TGS-REP AES256 (slow) | Kerberoasting | ~0% | 1.1 → 1.1 | roofline | `autoresearch/19700-jul6` |
 | 3 | 9800 | MS Office <=2003 SHA1+RC4 | Office | ~0% | 1.2k → 1.3k | ❌ not real (A/B ~0%) | `autoresearch/9800-jul6` |
@@ -38,7 +38,7 @@ Legend: ✅ = verified real — reproduced on interleaved clean-GPU A/B AND pass
 | 4 | 9600 | MS Office 2013 (slow) | Office | ~0% | 0.0 → 0.0 | in-progress 1/6 | `autoresearch/9600-jul6` |
 | 4 | 1100 | DCC / MS Cache | MSCache | ~0% | 32.2k → 32.2k | in-progress 2/6 | `autoresearch/1100-jul6` |
 | 4 | 2100 | DCC2 / MS Cache 2 (slow) | MSCache | ~0% | 0.9 → 0.9 | in-progress 2/6 | `autoresearch/2100-jul6` |
-| 9 | 10500 | PDF 1.4-1.6 | Docs/Wallet | +2.9% | 75.1 → 76.6 | WIN +2.9% ✅ | `autoresearch/10500-jul6` |
+| 9 | 10500 | PDF 1.4-1.6 | Docs/Wallet | +2.9% | 75.1 → 80.7 | WIN +2.9% ✅ | `autoresearch/10500-jul6` |
 | 5 | 0 | MD5 | Raw | ~0% | 65.4k → 65.4k | roofline | `autoresearch/0-jul6` |
 | 5 | 100 | SHA1 | Raw | ~0% | 23.4k → 23.4k | roofline | `autoresearch/100-jul6` |
 | 5 | 1400 | SHA2-256 | Raw | ~0% | 8.6k → 8.6k | roofline | `autoresearch/1400-jul6` |

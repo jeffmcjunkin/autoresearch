@@ -413,9 +413,11 @@ def cmd_batches(a):
 VERIFIED = {"17400", "17600", "17800", "11700", "11800", "31100",           # campaign (earlier)
             "9700", "17700", "18000", "3000", "17500", "17300", "17900", "10500", "18200"}  # sweep: clean A/B + Perl-ref
 REJECTED = {"6100", "110", "2600", "6221", "9800", "9200"}                   # did not reproduce on clean A/B
-# clean-A/B-verified deltas (override the noisier single-baseline loop delta); all passed independent Perl-ref correctness
-AB = {"9700": 22.5, "17700": 13.1, "18000": 9.7, "3000": 9.3, "17500": 8.2,
-      "17300": 8.2, "17900": 5.4, "10500": 2.9, "18200": 1.6}
+# clean interleaved-A/B-verified deltas over stock (override the drift-prone single-baseline loop delta).
+# Perl-ref correctness 8/8 except Streebog 11700/11800 (pygost unavailable -> selftest + value-identical).
+AB = {"9700": 22.5, "17700": 13.1, "3000": 9.3, "17300": 8.2,                 # earlier verification
+      "18000": 13.3, "17900": 8.1, "17500": 8.3, "10500": 2.9, "18200": 1.8,  # re-A/B'd w/ GPT-5.6 (18000/17900 gained)
+      "17400": 13.3, "17600": 12.9, "11700": 6.7, "11800": 6.7}               # campaign wins now interleaved-A/B'd
 
 def _readme_stats(mode):
     f = results_path(mode, "jul6")
