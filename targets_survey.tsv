@@ -1,0 +1,509 @@
+mode	batch	category	name
+11	1	survey	Joomla < 2.5.18
+12	1	survey	PostgreSQL
+20	1	survey	md5($salt.$pass)
+21	1	survey	osCommerce, xt:Commerce
+22	1	survey	Juniper NetScreen/SSG (ScreenOS)
+23	2	survey	Skype
+24	2	survey	SolarWinds Serv-U
+30	2	survey	md5(utf16le($pass).$salt)
+40	2	survey	md5($salt.utf16le($pass))
+50	2	survey	HMAC-MD5 (key = $pass)
+60	3	survey	HMAC-MD5 (key = $salt)
+70	3	survey	md5(utf16le($pass))
+101	3	survey	nsldap, SHA-1(Base64), Netscape LDAP SHA
+111	3	survey	nsldaps, SSHA-1(Base64), Netscape LDAP SSHA
+120	3	survey	sha1($salt.$pass)
+121	4	survey	SMF (Simple Machines Forum) > v1.1
+122	4	survey	macOS v10.4, macOS v10.5, macOS v10.6
+124	4	survey	Django (SHA-1)
+125	4	survey	ArubaOS
+130	4	survey	sha1(utf16le($pass).$salt)
+131	5	survey	MSSQL (2000)
+132	5	survey	MSSQL (2005)
+133	5	survey	PeopleSoft
+140	5	survey	sha1($salt.utf16le($pass))
+141	5	survey	Episerver 6.x < .NET 4
+150	6	survey	HMAC-SHA1 (key = $pass)
+160	6	survey	HMAC-SHA1 (key = $salt)
+170	6	survey	sha1(utf16le($pass))
+200	6	survey	MySQL323
+501	6	survey	Juniper IVE
+610	7	survey	BLAKE2b-512($pass.$salt)
+620	7	survey	BLAKE2b-512($salt.$pass)
+1310	7	survey	sha224($pass.$salt)
+1320	7	survey	sha224($salt.$pass)
+1411	7	survey	SSHA-256(Base64), LDAP {SSHA256}
+1420	8	survey	sha256($salt.$pass)
+1421	8	survey	hMailServer
+1430	8	survey	sha256(utf16le($pass).$salt)
+1440	8	survey	sha256($salt.utf16le($pass))
+1441	8	survey	Episerver 6.x >= .NET 4
+1450	9	survey	HMAC-SHA256 (key = $pass)
+1460	9	survey	HMAC-SHA256 (key = $salt)
+1470	9	survey	sha256(utf16le($pass))
+1500	9	survey	descrypt, DES (Unix), Traditional DES
+1600	9	survey	Apache $apr1$ MD5, md5apr1, MD5 (APR)
+1710	10	survey	sha512($pass.$salt)
+1711	10	survey	SSHA-512(Base64), LDAP {SSHA512}
+1720	10	survey	sha512($salt.$pass)
+1722	10	survey	macOS v10.7
+1730	10	survey	sha512(utf16le($pass).$salt)
+1740	11	survey	sha512($salt.utf16le($pass))
+1750	11	survey	HMAC-SHA512 (key = $pass)
+1760	11	survey	HMAC-SHA512 (key = $salt)
+1770	11	survey	sha512(utf16le($pass))
+2000	11	survey	STDOUT
+2400	12	survey	Cisco-PIX MD5
+2410	12	survey	Cisco-ASA MD5
+2500	12	survey	WPA-EAPOL-PBKDF2
+2501	12	survey	WPA-EAPOL-PMK
+2611	12	survey	vBulletin < v3.8.5
+2612	13	survey	PHPS
+2630	13	survey	md5(md5($pass.$salt))
+2711	13	survey	vBulletin >= v3.8.5
+2811	13	survey	MyBB 1.2+, IPB2+ (Invision Power Board)
+3100	13	survey	Oracle H: Type (Oracle 7+)
+3500	14	survey	md5(md5(md5($pass)))
+3610	14	survey	md5(md5(md5($pass)).$salt)
+3710	14	survey	md5($salt.md5($pass))
+3711	14	survey	MediaWiki B type
+3730	14	survey	md5($salt1.strtoupper(md5($salt2.$pass)))
+3800	15	survey	md5($salt.$pass.$salt)
+3910	15	survey	md5(md5($pass).md5($salt))
+4010	15	survey	md5($salt.md5($salt.$pass))
+4110	15	survey	md5($salt.md5($pass.$salt))
+4300	15	survey	md5(strtoupper(md5($pass)))
+4400	16	survey	md5(sha1($pass))
+4410	16	survey	md5(sha1($pass).$salt)
+4420	16	survey	md5(sha1($pass.$salt))
+4430	16	survey	md5(sha1($salt.$pass))
+4500	16	survey	sha1(sha1($pass))
+4510	17	survey	sha1(sha1($pass).$salt)
+4520	17	survey	sha1($salt.sha1($pass))
+4521	17	survey	Redmine
+4522	17	survey	PunBB
+4700	17	survey	sha1(md5($pass))
+4710	18	survey	sha1(md5($pass).$salt)
+4711	18	survey	Huawei sha1(md5($pass).$salt)
+4800	18	survey	iSCSI CHAP authentication, MD5(CHAP)
+4900	18	survey	sha1($salt.$pass.$salt)
+5000	18	survey	sha1(sha1($salt.$pass.$salt))
+5200	19	survey	Password Safe v3
+5300	19	survey	IKE-PSK MD5
+5400	19	survey	IKE-PSK SHA1
+5700	19	survey	Cisco-IOS type 4 (SHA256)
+5720	19	survey	Cisco-ISE Hashed Password (SHA256)
+5800	20	survey	Samsung Android Password/PIN
+6050	20	survey	HMAC-RIPEMD160 (key = $pass)
+6060	20	survey	HMAC-RIPEMD160 (key = $salt)
+6222	20	survey	TrueCrypt SHA512 + XTS 1024 bit (legacy)
+6223	20	survey	TrueCrypt SHA512 + XTS 1536 bit (legacy)
+6231	21	survey	TrueCrypt Whirlpool + XTS 512 bit (legacy)
+6232	21	survey	TrueCrypt Whirlpool + XTS 1024 bit (legacy)
+6233	21	survey	TrueCrypt Whirlpool + XTS 1536 bit (legacy)
+6241	21	survey	TrueCrypt RIPEMD160 + XTS 512 bit + boot-mode (legacy)
+6242	21	survey	TrueCrypt RIPEMD160 + XTS 1024 bit + boot-mode (legacy)
+6243	22	survey	TrueCrypt RIPEMD160 + XTS 1536 bit + boot-mode (legacy)
+6300	22	survey	AIX {smd5}
+6400	22	survey	AIX {ssha256}
+6500	22	survey	AIX {ssha512}
+6700	22	survey	AIX {ssha1}
+7000	23	survey	FortiGate (FortiOS)
+7200	23	survey	GRUB 2
+7300	23	survey	IPMI2 RAKP HMAC-SHA1
+7350	23	survey	IPMI2 RAKP HMAC-MD5
+7401	23	survey	MySQL $A$ (sha256crypt)
+7500	24	survey	Kerberos 5, etype 23, AS-REQ Pre-Auth
+7700	24	survey	SAP CODVN B (BCODE)
+7701	24	survey	SAP CODVN B (BCODE) from RFC_READ_TABLE
+7800	24	survey	SAP CODVN F/G (PASSCODE)
+7801	24	survey	SAP CODVN F/G (PASSCODE) from RFC_READ_TABLE
+8000	25	survey	Sybase ASE
+8100	25	survey	Citrix NetScaler (SHA1)
+8200	25	survey	1Password, cloudkeychain
+8300	25	survey	DNSSEC (NSEC3)
+8400	25	survey	WBB3 (Woltlab Burning Board)
+8500	26	survey	RACF
+8501	26	survey	AS/400 DES
+8600	26	survey	Lotus Notes/Domino 5
+8700	26	survey	Lotus Notes/Domino 6
+8800	26	survey	Android FDE <= 4.3
+9000	27	survey	Password Safe v2
+9100	27	survey	Lotus Notes/Domino 8
+9300	27	survey	Cisco-IOS $9$ (scrypt)
+9710	27	survey	MS Office <= 2003 $0/$1, MD5 + RC4, collider #1
+9720	27	survey	MS Office <= 2003 $0/$1, MD5 + RC4, collider #2
+9810	28	survey	MS Office <= 2003 $3, SHA1 + RC4, collider #1
+9820	28	survey	MS Office <= 2003 $3, SHA1 + RC4, collider #2
+9900	28	survey	Radmin2
+10000	28	survey	Django (PBKDF2-SHA256)
+10100	28	survey	SipHash
+10200	29	survey	CRAM-MD5
+10300	29	survey	SAP CODVN H (PWDSALTEDHASH) iSSHA-1
+10400	29	survey	PDF 1.1 - 1.3 (Acrobat 2 - 4)
+10410	29	survey	PDF 1.1 - 1.3 (Acrobat 2 - 4), collider #1
+10420	29	survey	PDF 1.1 - 1.3 (Acrobat 2 - 4), collider #2
+10510	30	survey	PDF 1.3 - 1.6 (Acrobat 4 - 8) w/ RC4-40
+10600	30	survey	PDF 1.7 Level 3 (Acrobat 9)
+10700	30	survey	PDF 1.7 Level 8 (Acrobat 10 - 11)
+10810	30	survey	sha384($pass.$salt)
+10820	30	survey	sha384($salt.$pass)
+10830	31	survey	sha384(utf16le($pass).$salt)
+10840	31	survey	sha384($salt.utf16le($pass))
+10870	31	survey	sha384(utf16le($pass))
+10901	31	survey	RedHat 389-DS LDAP (PBKDF2-HMAC-SHA256)
+11000	31	survey	PrestaShop
+11100	32	survey	PostgreSQL CRAM (MD5)
+11200	32	survey	MySQL CRAM (SHA1)
+11400	32	survey	SIP digest authentication (MD5)
+11500	32	survey	CRC32
+11600	32	survey	7-Zip
+11850	33	survey	HMAC-Streebog-512 (key = $pass), big-endian
+11860	33	survey	HMAC-Streebog-512 (key = $salt), big-endian
+11900	33	survey	PBKDF2-HMAC-MD5
+12001	33	survey	Atlassian (PBKDF2-HMAC-SHA1)
+12150	33	survey	Apache Shiro 1 SHA-512
+12200	34	survey	eCryptfs
+12300	34	survey	Oracle T: Type (Oracle 12+)
+12400	34	survey	BSDi Crypt, Extended DES
+12500	34	survey	RAR3-hp
+12600	34	survey	ColdFusion 10+
+12700	35	survey	Blockchain, My Wallet
+12800	35	survey	MS-AzureSync PBKDF2-HMAC-SHA256
+12900	35	survey	Android FDE (Samsung DEK)
+13000	35	survey	RAR5
+13100	35	survey	Kerberos 5, etype 23, TGS-REP
+13200	36	survey	AxCrypt 1
+13300	36	survey	AxCrypt 1 in-memory SHA1
+13400	36	survey	KeePass (KDBX v2/v3)
+13500	36	survey	PeopleSoft PS_TOKEN
+13600	36	survey	WinZip
+13711	37	survey	VeraCrypt RIPEMD160 + XTS 512 bit (legacy)
+13712	37	survey	VeraCrypt RIPEMD160 + XTS 1024 bit (legacy)
+13713	37	survey	VeraCrypt RIPEMD160 + XTS 1536 bit (legacy)
+13721	37	survey	VeraCrypt SHA512 + XTS 512 bit (legacy)
+13722	37	survey	VeraCrypt SHA512 + XTS 1024 bit (legacy)
+13723	38	survey	VeraCrypt SHA512 + XTS 1536 bit (legacy)
+13731	38	survey	VeraCrypt Whirlpool + XTS 512 bit (legacy)
+13732	38	survey	VeraCrypt Whirlpool + XTS 1024 bit (legacy)
+13733	38	survey	VeraCrypt Whirlpool + XTS 1536 bit (legacy)
+13741	38	survey	VeraCrypt RIPEMD160 + XTS 512 bit + boot-mode (legacy)
+13742	39	survey	VeraCrypt RIPEMD160 + XTS 1024 bit + boot-mode (legacy)
+13743	39	survey	VeraCrypt RIPEMD160 + XTS 1536 bit + boot-mode (legacy)
+13761	39	survey	VeraCrypt SHA256 + XTS 512 bit + boot-mode (legacy)
+13762	39	survey	VeraCrypt SHA256 + XTS 1024 bit + boot-mode (legacy)
+13773	39	survey	VeraCrypt Streebog-512 + XTS 1536 bit (legacy)
+13781	40	survey	VeraCrypt Streebog-512 + XTS 512 bit + boot-mode (legacy)
+13782	40	survey	VeraCrypt Streebog-512 + XTS 1024 bit + boot-mode (legacy)
+13783	40	survey	VeraCrypt Streebog-512 + XTS 1536 bit + boot-mode (legacy)
+13800	40	survey	Windows Phone 8+ PIN/password
+13900	40	survey	OpenCart
+14000	41	survey	DES (PT = $salt, key = $pass)
+14100	41	survey	3DES (PT = $salt, key = $pass)
+14200	41	survey	RACF KDFAES
+14400	41	survey	sha1(CX)
+14500	41	survey	Linux Kernel Crypto API (2.4)
+14700	42	survey	iTunes backup < 10.0
+14800	42	survey	iTunes backup >= 10.0
+14900	42	survey	Skip32 (PT = $salt, key = $pass)
+15000	42	survey	FileZilla Server >= 0.9.55
+15100	42	survey	Juniper/NetBSD sha1crypt
+15200	43	survey	Blockchain, My Wallet, V2
+15310	43	survey	DPAPI masterkey file v1 (context 3)
+15400	43	survey	ChaCha20
+15500	43	survey	JKS Java Key Store Private Keys (SHA1)
+15600	43	survey	Ethereum Wallet, PBKDF2-HMAC-SHA256
+15910	44	survey	DPAPI masterkey file v2 (context 3)
+16000	44	survey	Tripcode
+16100	44	survey	TACACS+
+16200	44	survey	Apple Secure Notes
+16300	44	survey	Ethereum Pre-Sale Wallet, PBKDF2-HMAC-SHA256
+16400	45	survey	CRAM-MD5 Dovecot
+16500	45	survey	JWT (JSON Web Token)
+16501	45	survey	Perl Mojolicious session cookie (HMAC-SHA256, >= v9.19)
+16600	45	survey	Electrum Wallet (Salt-Type 1-3)
+16800	45	survey	WPA-PMKID-PBKDF2
+16801	46	survey	WPA-PMKID-PMK
+16900	46	survey	Ansible Vault
+17010	46	survey	GPG (AES-128/AES-256 (SHA-1($pass)))
+17020	46	survey	GPG (AES-128/AES-256 (SHA-512($pass)))
+17030	46	survey	GPG (AES-128/AES-256 (SHA-256($pass)))
+17040	47	survey	GPG (CAST5 (SHA-1($pass)))
+17050	47	survey	GPG (AES-OCB-128 (SHA-1($pass)))
+17200	47	survey	PKZIP (Compressed)
+17210	47	survey	PKZIP (Uncompressed)
+17220	47	survey	PKZIP (Compressed Multi-File)
+17225	48	survey	PKZIP (Mixed Multi-File)
+17230	48	survey	PKZIP (Mixed Multi-File Checksum-Only)
+18100	48	survey	TOTP (HMAC-SHA1)
+18300	48	survey	Apple File System (APFS)
+18400	48	survey	Open Document Format (ODF) 1.2 (SHA-256, AES)
+18500	49	survey	sha1(md5(md5($pass)))
+18600	49	survey	Open Document Format (ODF) 1.1 (SHA-1, Blowfish)
+18700	49	survey	Java Object hashCode()
+18800	49	survey	Blockchain, My Wallet, Second Password (SHA256)
+18900	49	survey	Android Backup
+19000	50	survey	QNX /etc/shadow (MD5)
+19100	50	survey	QNX /etc/shadow (SHA256)
+19200	50	survey	QNX /etc/shadow (SHA512)
+19210	50	survey	QNX 7 /etc/shadow (SHA512)
+19300	50	survey	sha1($salt1.$pass.$salt2)
+19500	51	survey	Ruby on Rails Restful-Authentication
+19800	51	survey	Kerberos 5, etype 17, Pre-Auth
+19900	51	survey	Kerberos 5, etype 18, Pre-Auth
+20011	51	survey	DiskCryptor SHA512 + XTS 512 bit
+20012	51	survey	DiskCryptor SHA512 + XTS 1024 bit
+20013	52	survey	DiskCryptor SHA512 + XTS 1536 bit
+20200	52	survey	Python passlib pbkdf2-sha512
+20300	52	survey	Python passlib pbkdf2-sha256
+20400	52	survey	Python passlib pbkdf2-sha1
+20500	52	survey	PKZIP Master Key
+20510	53	survey	PKZIP Master Key (6 byte optimization)
+20600	53	survey	Oracle Transportation Management (SHA256)
+20710	53	survey	sha256(sha256($pass).$salt)
+20711	53	survey	AuthMe sha256
+20712	53	survey	RSA Security Analytics / NetWitness (sha256)
+20720	54	survey	sha256($salt.sha256($pass))
+20730	54	survey	sha256(sha256($pass.$salt))
+20800	54	survey	sha256(md5($pass))
+20900	54	survey	md5(sha1($pass).md5($pass).sha1($pass))
+21000	54	survey	BitShares v0.x - sha512(sha512_bin(pass))
+21100	55	survey	sha1(md5($pass.$salt))
+21200	55	survey	md5(sha1($salt).md5($pass))
+21300	55	survey	md5($salt.sha1($salt.$pass))
+21310	55	survey	md5($salt1.sha1($salt2.$pass))
+21400	55	survey	sha256(sha256_bin($pass))
+21420	56	survey	sha256($salt.sha256_bin($pass))
+21500	56	survey	SolarWinds Orion
+21501	56	survey	SolarWinds Orion v2
+21700	56	survey	Electrum Wallet (Salt-Type 4)
+21800	56	survey	Electrum Wallet (Salt-Type 5)
+21900	57	survey	md5(md5(md5($pass.$salt1)).$salt2)
+22001	57	survey	WPA-PMK-PMKID+EAPOL
+22100	57	survey	BitLocker
+22200	57	survey	Citrix NetScaler (SHA512)
+22300	57	survey	sha256($salt.$pass.$salt)
+22301	58	survey	Telegram Mobile App Passcode (SHA256)
+22400	58	survey	AES Crypt (SHA256)
+22500	58	survey	MultiBit Classic .key (MD5)
+22600	58	survey	Telegram Desktop < v2.1.14 (PBKDF2-HMAC-SHA1)
+22800	58	survey	Simpla CMS - md5($salt.$pass.md5($pass))
+22911	59	survey	RSA/DSA/EC/OpenSSH Private Keys ($0$)
+22921	59	survey	RSA/DSA/EC/OpenSSH Private Keys ($6$)
+22931	59	survey	RSA/DSA/EC/OpenSSH Private Keys ($1, $3$)
+22941	59	survey	RSA/DSA/EC/OpenSSH Private Keys ($4$)
+22951	59	survey	RSA/DSA/EC/OpenSSH Private Keys ($5$)
+23001	60	survey	SecureZIP AES-128
+23002	60	survey	SecureZIP AES-192
+23003	60	survey	SecureZIP AES-256
+23100	60	survey	Apple Keychain
+23200	60	survey	XMPP SCRAM PBKDF2-SHA1
+23300	61	survey	Apple iWork
+23400	61	survey	Bitwarden
+23500	61	survey	AxCrypt 2 AES-128
+23600	61	survey	AxCrypt 2 AES-256
+23700	61	survey	RAR3-p (Uncompressed)
+23800	62	survey	RAR3-p (Compressed)
+23900	62	survey	BestCrypt v3 Volume Encryption
+24000	62	survey	BestCrypt v4 Volume Encryption
+24100	62	survey	MongoDB ServerKey SCRAM-SHA-1
+24200	62	survey	MongoDB ServerKey SCRAM-SHA-256
+24300	63	survey	sha1($salt.sha1($pass.$salt))
+24410	63	survey	PKCS#8 Private Keys (PBKDF2-HMAC-SHA1 + 3DES/AES)
+24420	63	survey	PKCS#8 Private Keys (PBKDF2-HMAC-SHA256 + 3DES/AES)
+24500	63	survey	Telegram Desktop >= v2.1.14 (PBKDF2-HMAC-SHA512)
+24600	63	survey	SQLCipher
+24700	64	survey	Stuffit5
+24800	64	survey	Umbraco HMAC-SHA1
+24900	64	survey	Dahua Authentication MD5
+24901	64	survey	Besder Authentication MD5
+25000	64	survey	SNMPv3 HMAC-MD5-96/HMAC-SHA1-96
+25100	65	survey	SNMPv3 HMAC-MD5-96
+25200	65	survey	SNMPv3 HMAC-SHA1-96
+25300	65	survey	MS Office 2016 - SheetProtection
+25500	65	survey	Stargazer Stellar Wallet XLM
+25600	65	survey	bcrypt(md5($pass))
+25700	66	survey	MurmurHash
+25800	66	survey	bcrypt(sha1($pass))
+25900	66	survey	KNX IP Secure - Device Authentication Code
+26000	66	survey	Mozilla key3.db
+26100	66	survey	Mozilla key4.db
+26200	67	survey	OpenEdge Progress Encode
+26300	67	survey	FortiGate256 (FortiOS256)
+26401	67	survey	AES-128-ECB NOKDF (PT = $salt, key = $pass)
+26402	67	survey	AES-192-ECB NOKDF (PT = $salt, key = $pass)
+26403	67	survey	AES-256-ECB NOKDF (PT = $salt, key = $pass)
+26500	68	survey	iPhone passcode (UID key + System Keybag)
+26600	68	survey	MetaMask Wallet (needs all data, checks AES-GCM tag)
+26610	68	survey	MetaMask Wallet (short hash, plaintext check)
+26700	68	survey	SNMPv3 HMAC-SHA224-128
+26800	68	survey	SNMPv3 HMAC-SHA256-192
+26900	69	survey	SNMPv3 HMAC-SHA384-256
+27100	69	survey	NetNTLMv2 (NT)
+27200	69	survey	Ruby on Rails Restful Auth (one round, no sitekey)
+27300	69	survey	SNMPv3 HMAC-SHA512-384
+27400	69	survey	VMware VMX (PBKDF2-HMAC-SHA1 + AES-256-CBC)
+27500	70	survey	VirtualBox (PBKDF2-HMAC-SHA256 & AES-128-XTS)
+27600	70	survey	VirtualBox (PBKDF2-HMAC-SHA256 & AES-256-XTS)
+27700	70	survey	MultiBit Classic .wallet (scrypt)
+27800	70	survey	MurmurHash3
+27900	70	survey	CRC32C
+28000	71	survey	CRC64Jones
+28100	71	survey	Windows Hello PIN/Password
+28200	71	survey	Exodus Desktop Wallet (scrypt)
+28300	71	survey	Teamspeak 3 (channel hash)
+28400	71	survey	bcrypt(sha512($pass))
+28501	72	survey	Bitcoin WIF private key (P2PKH), compressed
+28502	72	survey	Bitcoin WIF private key (P2PKH), uncompressed
+28503	72	survey	Bitcoin WIF private key (P2WPKH, Bech32), compressed
+28504	72	survey	Bitcoin WIF private key (P2WPKH, Bech32), uncompressed
+28505	72	survey	Bitcoin WIF private key (P2SH(P2WPKH)), compressed
+28506	73	survey	Bitcoin WIF private key (P2SH(P2WPKH)), uncompressed
+28600	73	survey	PostgreSQL SCRAM-SHA-256
+28700	73	survey	Amazon AWS Signature Version 4
+28800	73	survey	Kerberos 5, etype 17, DB
+28900	73	survey	Kerberos 5, etype 18, DB
+29000	74	survey	sha1($salt.sha1(utf16le($username).':'.utf16le($pass)))
+29100	74	survey	Flask Session Cookie ($salt.$salt.$pass)
+29200	74	survey	Radmin3
+29311	74	survey	TrueCrypt RIPEMD160 + XTS 512 bit
+29312	74	survey	TrueCrypt RIPEMD160 + XTS 1024 bit
+29313	75	survey	TrueCrypt RIPEMD160 + XTS 1536 bit
+29321	75	survey	TrueCrypt SHA512 + XTS 512 bit
+29322	75	survey	TrueCrypt SHA512 + XTS 1024 bit
+29323	75	survey	TrueCrypt SHA512 + XTS 1536 bit
+29331	75	survey	TrueCrypt Whirlpool + XTS 512 bit
+29332	76	survey	TrueCrypt Whirlpool + XTS 1024 bit
+29333	76	survey	TrueCrypt Whirlpool + XTS 1536 bit
+29341	76	survey	TrueCrypt RIPEMD160 + XTS 512 bit + boot-mode
+29342	76	survey	TrueCrypt RIPEMD160 + XTS 1024 bit + boot-mode
+29343	76	survey	TrueCrypt RIPEMD160 + XTS 1536 bit + boot-mode
+29411	77	survey	VeraCrypt RIPEMD160 + XTS 512 bit
+29412	77	survey	VeraCrypt RIPEMD160 + XTS 1024 bit
+29413	77	survey	VeraCrypt RIPEMD160 + XTS 1536 bit
+29421	77	survey	VeraCrypt SHA512 + XTS 512 bit
+29422	77	survey	VeraCrypt SHA512 + XTS 1024 bit
+29423	78	survey	VeraCrypt SHA512 + XTS 1536 bit
+29431	78	survey	VeraCrypt Whirlpool + XTS 512 bit
+29432	78	survey	VeraCrypt Whirlpool + XTS 1024 bit
+29433	78	survey	VeraCrypt Whirlpool + XTS 1536 bit
+29441	78	survey	VeraCrypt RIPEMD160 + XTS 512 bit + boot-mode
+29442	79	survey	VeraCrypt RIPEMD160 + XTS 1024 bit + boot-mode
+29443	79	survey	VeraCrypt RIPEMD160 + XTS 1536 bit + boot-mode
+29451	79	survey	VeraCrypt SHA256 + XTS 512 bit
+29452	79	survey	VeraCrypt SHA256 + XTS 1024 bit
+29453	79	survey	VeraCrypt SHA256 + XTS 1536 bit
+29461	80	survey	VeraCrypt SHA256 + XTS 512 bit + boot-mode
+29462	80	survey	VeraCrypt SHA256 + XTS 1024 bit + boot-mode
+29463	80	survey	VeraCrypt SHA256 + XTS 1536 bit + boot-mode
+29471	80	survey	VeraCrypt Streebog-512 + XTS 512 bit
+29472	80	survey	VeraCrypt Streebog-512 + XTS 1024 bit
+29473	81	survey	VeraCrypt Streebog-512 + XTS 1536 bit
+29481	81	survey	VeraCrypt Streebog-512 + XTS 512 bit + boot-mode
+29482	81	survey	VeraCrypt Streebog-512 + XTS 1024 bit + boot-mode
+29483	81	survey	VeraCrypt Streebog-512 + XTS 1536 bit + boot-mode
+29511	81	survey	LUKS v1 SHA-1 + AES
+29512	82	survey	LUKS v1 SHA-1 + Serpent
+29513	82	survey	LUKS v1 SHA-1 + Twofish
+29521	82	survey	LUKS v1 SHA-256 + AES
+29522	82	survey	LUKS v1 SHA-256 + Serpent
+29523	82	survey	LUKS v1 SHA-256 + Twofish
+29531	83	survey	LUKS v1 SHA-512 + AES
+29532	83	survey	LUKS v1 SHA-512 + Serpent
+29533	83	survey	LUKS v1 SHA-512 + Twofish
+29541	83	survey	LUKS v1 RIPEMD-160 + AES
+29542	83	survey	LUKS v1 RIPEMD-160 + Serpent
+29543	84	survey	LUKS v1 RIPEMD-160 + Twofish
+29600	84	survey	Terra Station Wallet (AES256-CBC(PBKDF2($pass)))
+29700	84	survey	KeePass (KDBX v2/v3) - keyfile only
+29800	84	survey	Bisq .wallet (scrypt)
+29910	84	survey	ENCsecurity Datavault (PBKDF2/no keychain)
+29920	85	survey	ENCsecurity Datavault (PBKDF2/keychain)
+29930	85	survey	ENCsecurity Datavault (MD5/no keychain)
+29940	85	survey	ENCsecurity Datavault (MD5/keychain)
+30000	85	survey	Python Werkzeug MD5 (HMAC-MD5 (key = $salt))
+30120	85	survey	Python Werkzeug SHA256 (HMAC-SHA256 (key = $salt))
+30420	86	survey	DANE RFC7929/RFC8162 SHA2-256
+30500	86	survey	md5(md5($salt).md5(md5($pass)))
+30600	86	survey	bcrypt(sha256($pass))
+30601	86	survey	bcrypt(HMAC-SHA256($pass))
+30700	86	survey	Anope IRC Services (enc_sha256)
+30901	87	survey	Bitcoin raw private key (P2PKH), compressed
+30902	87	survey	Bitcoin raw private key (P2PKH), uncompressed
+30903	87	survey	Bitcoin raw private key (P2WPKH, Bech32), compressed
+30904	87	survey	Bitcoin raw private key (P2WPKH, Bech32), uncompressed
+30905	87	survey	Bitcoin raw private key (P2SH(P2WPKH)), compressed
+30906	88	survey	Bitcoin raw private key (P2SH(P2WPKH)), uncompressed
+31000	88	survey	BLAKE2s-256
+31200	88	survey	Veeam VBK
+31300	88	survey	MS SNTP
+31400	88	survey	SecureCRT MasterPassphrase v2
+31500	89	survey	Domain Cached Credentials (DCC), MS Cache (NT)
+31600	89	survey	Domain Cached Credentials 2 (DCC2), MS Cache 2, (NT)
+31700	89	survey	md5(md5(md5($pass).$salt1).$salt2)
+31800	89	survey	1Password, mobilekeychain (1Password 8)
+31900	89	survey	MetaMask Mobile Wallet
+32000	90	survey	NetIQ SSPR (MD5)
+32010	90	survey	NetIQ SSPR (SHA1)
+32020	90	survey	NetIQ SSPR (SHA-1 with Salt)
+32030	90	survey	NetIQ SSPR (SHA-256 with Salt)
+32031	90	survey	Adobe AEM (SSPR, SHA-256 with Salt)
+32040	91	survey	NetIQ SSPR (SHA-512 with Salt)
+32041	91	survey	Adobe AEM (SSPR, SHA-512 with Salt)
+32050	91	survey	NetIQ SSPR (PBKDF2WithHmacSHA1)
+32060	91	survey	NetIQ SSPR (PBKDF2WithHmacSHA256)
+32070	91	survey	NetIQ SSPR (PBKDF2WithHmacSHA512)
+32100	92	survey	Kerberos 5, etype 17, AS-REP
+32200	92	survey	Kerberos 5, etype 18, AS-REP
+32300	92	survey	Empire CMS (Admin password)
+32410	92	survey	sha512(sha512($pass).$salt)
+32420	92	survey	sha512(sha512_bin($pass).$salt)
+32500	93	survey	Dogechain.info Wallet
+32600	93	survey	CubeCart (whirlpool($salt.$pass.$salt))
+32700	93	survey	Kremlin Encrypt 3.0 w/NewDES
+32800	93	survey	md5(sha1(md5($pass)))
+32900	93	survey	PBKDF1-SHA1
+33000	94	survey	md5($salt1.$pass.$salt2)
+33100	94	survey	md5($salt.md5($pass).$salt)
+33300	94	survey	HMAC-BLAKE2S (key = $pass)
+33400	94	survey	mega.nz password-protected link (PBKDF2-HMAC-SHA512)
+33500	94	survey	RC4 40-bit DropN
+33501	95	survey	RC4 72-bit DropN
+33502	95	survey	RC4 104-bit DropN
+33600	95	survey	RIPEMD-320
+33650	95	survey	HMAC-RIPEMD320 (key = $pass)
+33660	95	survey	HMAC-RIPEMD320 (key = $salt)
+33700	96	survey	Microsoft Online Account (PBKDF2-HMAC-SHA256 + AES256)
+33800	96	survey	WBB4 (Woltlab Burning Board) [bcrypt(bcrypt($pass))]
+33900	96	survey	Citrix NetScaler (PBKDF2-HMAC-SHA256)
+34000	96	survey	Argon2
+34100	96	survey	LUKS v2 argon2 + SHA-256 + AES
+34200	97	survey	MurmurHash64A
+34201	97	survey	MurmurHash64A (zero seed)
+34211	97	survey	MurmurHash64A truncated (zero seed)
+34300	97	survey	KeePass Argon2 (KDBX v4)
+34301	97	survey	KeePass AESKDF (KDBX v4)
+34400	98	survey	sha224(sha224($pass))
+34500	98	survey	sha224(sha1($pass))
+34600	98	survey	MD6 (256)
+34700	98	survey	Blockchain, My Wallet, Legacy Wallets
+34800	98	survey	BLAKE2b-256
+34810	99	survey	BLAKE2b-256($pass.$salt)
+34820	99	survey	BLAKE2b-256($salt.$pass)
+35000	99	survey	SAP CODVN H (PWDSALTEDHASH) isSHA512
+35100	99	survey	sm3crypt $sm3$, SM3 (Unix)
+35200	99	survey	AS/400 SSHA1
+35300	100	survey	Kerberos 5, etype 23, TGS-REP (NT)
+35400	100	survey	Kerberos 5, etype 23, AS-REP (NT)
+35500	100	survey	Wordpress bcrypt(hmac-sha384($pass))
+35600	100	survey	gost12512crypt [$gost12512hash$] (Unix)
+35700	100	survey	phpass(md5($pass))
+35800	101	survey	Symfony Legacy SHA256
+70000	101	survey	Argon2id [Bridged: reference implementation + tunings]
+70100	101	survey	scrypt [Bridged: Scrypt-Jane SMix]
+70200	101	survey	scrypt [Bridged: Scrypt-Yescrypt]
+72000	101	survey	Generic Hash [Bridged: Python Interpreter free-threading]
+73000	102	survey	Generic Hash [Bridged: Python Interpreter with GIL]
+74000	102	survey	Generic Hash [Bridged: Rust]
+99999	102	survey	Plaintext

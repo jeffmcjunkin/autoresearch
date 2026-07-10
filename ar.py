@@ -417,6 +417,24 @@ def _parse_batch_filter(s):
             out.append(int(part))
     return out
 
+def _codex_available(engine, model):
+    """Cheap probe: run a trivial agent call; False if it returns usage/rate-limited. Lets a long sweep
+    PAUSE instead of fail-fasting its whole queue when the (weekly or rolling) usage cap is hit."""
+    if engine != "codex": return True
+    e = os.environ.copy()
+    gb = resolve_gitbash()
+    pre = os.pathsep.join(p for p in (os.path.dirname(resolve_uv()), os.path.dirname(gb) if gb else None) if p)
+    e["PATH"] = pre + os.pathsep + e.get("PATH", "")
+    argv = codex_launcher() + ["exec", "reply OK", "-m", model, "-c", "model_reasoning_effort=low",
+                               "--dangerously-bypass-approvals-and-sandbox", "--skip-git-repo-check", "-C", AR]
+    try:
+        r = subprocess.run(argv, capture_output=True, text=True, timeout=120,
+                           stdin=subprocess.DEVNULL, env=e, **nw())
+        low = ((r.stdout or "") + (r.stderr or "")).lower()
+        return not ("usage limit" in low or "rate limit" in low or "too many requests" in low)
+    except Exception:
+        return True   # probe error -> assume available; don't block the sweep
+
 def cmd_batches(a):
     hc = a.hashcat_dir
     targets = a.targets or os.path.join(AR, "targets.tsv")
@@ -433,6 +451,9 @@ def cmd_batches(a):
         if ran_prev and pause > 0:                      # pace the 5-hour usage window
             say(f"pausing {pause}s before batch {n} (usage-window pacing)")
             time.sleep(pause)
+        while not _codex_available(a.engine, getattr(a, "model", MODEL)):   # survive weekly/rolling cap
+            say(f"usage-capped — sleeping 1800s before re-checking (batch {n})")
+            time.sleep(1800)
         say(f"=== BATCH {n} launch: {' '.join(modes)} ===")
         for M in modes:
             open(os.path.join(AR, "logs", f"loop_{M}.out"), "w").close()
