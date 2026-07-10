@@ -199,7 +199,7 @@ def result_line(d):
 def git(hc, *args):
     return subprocess.run([need("git"), "-C", hc, *args], capture_output=True, text=True, **nw())
 
-def do_measure_ab(mode, src, bench, lock=None, base_ref="HEAD~1", reps=2):
+def do_measure_ab(mode, src, bench, lock=None, base_ref="HEAD~1", reps=3):
     """Interleaved A/B: benchmark candidate (src HEAD) vs baseline (src's base_ref) BACK-TO-BACK in
     `bench` — default the MAIN repo, which (a) avoids worktree measurement inflation and (b) removes
     single-baseline drift since both are measured seconds apart. Returns a drift-free delta_pct."""
