@@ -1,0 +1,4 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	32207.3	NA	PASS	keep	baseline (master)
+a7a72450d	31736.2	NA	PASS	discard	drop unused m01100 a3 pw_len plumbing
+f81e7971e	31740.5	NA	PASS	discard	use MD4_STEP0 for m01100 a3 salt block

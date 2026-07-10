@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.4	NA	PASS	keep	baseline (master)
+4213d4165	0.4	NA	PASS	discard	m01800 optimized carry loop residues instead of per-round modulo
+41cae8b34	0.4	NA	PASS	discard	shift-pack odd digest insert in optimized loop
+c250a2452	0.4	NA	PASS	discard	direct u64 sha512 transport in optimized kernel
+90c8f8c2c	0.4	NA	PASS	discard	skip even-round template prefix copy in optimized loop
+383275d49	0.4	NA	PASS	discard	compute odd digest offset directly
+02a077f49	0.4	NA	PASS	discard	use local alt byte for s_bytes rounds

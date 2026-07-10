@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.002915	NA	PASS	keep	baseline (master)
+644475095	0.002913	NA	PASS	discard	skip no-pim bookkeeping in m13753 loop
+3e79b3ab5	0.002914	NA	PASS	discard	trim m13753 checks to 1536-bit
+037fec9c3	0.002914	NA	PASS	discard	specialize m13753 hmac helper args
+af5a45b86	0.002914	NA	PASS	discard	compute m13753 pim boundary directly
+944ccd516	0.002913	NA	PASS	discard	write m13753 init out from digest
+c9423276a	0.002914	NA	PASS	discard	const m13753 hmac pad inputs

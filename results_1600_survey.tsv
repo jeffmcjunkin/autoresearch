@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	28.666	NA	PASS	keep	baseline (master)
+212157428	28.698	28.679	PASS	discard	carry loop modulo counters; delta_pct=+0.066

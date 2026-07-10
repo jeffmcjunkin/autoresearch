@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	7790.1	NA	PASS	keep	baseline (master)
+886ad26a3	FAIL	NA	FAIL:1421	crash	Specialized m01420 a3 six-byte salt shift; delta_pct=+0.000

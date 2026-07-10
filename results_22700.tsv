@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.003603	NA	PASS	keep	baseline (master)
+59b3f03ad	0.003637	NA	PASS	discard	r8 scrypt shuffle block cycles reduced scratch but improvement below noise band
+6526cec81	0.003575	NA	PASS	discard	direct pbkdf2 output to AES key setup was below baseline
+f7245afab	0.003606	NA	PASS	discard	cbc xor inside bitcoinj validation was within noise band
+2847da4bb	0.003608	NA	PASS	discard	removed unused AES te4 staging was within noise band
+2316622b1	0.003619	NA	PASS	discard	combined bitcoinj first-word mask checks was within noise band
+6ce275156	0.003596	NA	PASS	discard	branchless bitcoinj byte validator was within noise band

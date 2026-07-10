@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	5169.7	NA	PASS	keep	baseline (master)
+89772662f	5079.6	NA	PASS	discard	delta_pct=-0.024; specialized a3 blake2b digest pair

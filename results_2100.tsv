@@ -1,0 +1,4 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.9	NA	PASS	keep	baseline (master)
+84dcd81b8	0.872495	NA	PASS	discard	hoist m02100 loop block constants
+a84dd7437	0.871831	NA	PASS	discard	specialize m02100 hmac loop helper

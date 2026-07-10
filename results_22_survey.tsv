@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	33520.4	NA	PASS	keep	baseline (master)
+fd7954a55	33931.7	NA	PASS	discard	salt30 s-kernel precompute first 7 MD5 steps; delta_pct=+0.058

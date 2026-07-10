@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	70.474	NA	PASS	keep	baseline (master)
+1682fe728	70.690	NA	PASS	discard	remove m25400 owner-key copy; within noise vs 70.474 baseline
+8d4827c12	70.123	NA	PASS	discard	rc4 key address plus-to-or; within noise/worse vs 70.474 best
+26dcaddf9	70.625	NA	PASS	discard	direct decrement owner rc4 xor mask; +0.2% within noise vs 70.474 best
+39ac60946	70.715	NA	PASS	discard	stop md5 loop at round limit; +0.3% within noise vs 70.474 best
+bf9d22585	70.009	NA	PASS	discard	scalar rc4 init key inputs; worse than 70.474 best
+d6bfa34a3	70.139	NA	PASS	discard	m25400 in-place rc4 next16; worse than 70.474 best

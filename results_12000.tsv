@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	8.7	NA	PASS	keep	baseline (master)
+98b923fb7	8.7	NA	PASS	discard	specialized m12000 fixed 20-byte HMAC feedback block; no gain vs 8.7 baseline
+655c3043c	8.7	NA	PASS	discard	shrank m12000 PBKDF2 tmp dgst/out storage to one SHA1 block; no gain vs 8.7 baseline
+343fecc9f	8.6	NA	PASS	discard	flattened m12000 single PBKDF2 block loop; no gain vs 8.7 baseline
+bfb9ab057	8.7	NA	PASS	discard	skipped unused fifth PBKDF2 out word; no gain vs 8.7 baseline
+cd3589365	8.6	NA	PASS	discard	const-qualified m12000 HMAC pad pointers; no gain vs 8.7 baseline
+c6d7ff8fb	8.7	NA	PASS	discard	removed unused m12000 comp local id; no gain vs 8.7 baseline

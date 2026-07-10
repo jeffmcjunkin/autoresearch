@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.003499	NA	PASS	keep	baseline (master)
+9451ba70c	0.003425	NA	PASS	discard	replace m13751 PIM scan loop with direct window arithmetic
+754e3e3f4	0.003499	NA	PASS	discard	mark hmac_sha256_run_V ipad/opad pads const
+a0a6970aa	0.003498	NA	PASS	discard	guard PIM snapshot on nonzero pim
+f2e53df05	0.003496	NA	PASS	discard	hoist m13751 hmac padding words
+0111402e0	0.003494	NA	PASS	discard	split m13751 non-PIM loop to remove snapshot branch
+5cd4381bd	0.003495	NA	PASS	discard	unroll m13751 PBKDF2 block loops

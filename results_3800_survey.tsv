@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	33905.1	NA	PASS	keep	baseline (master)
+70e44eda0	34066.5	33930.1	PASS	keep	specialize m03800 a3 one-byte salt shift; delta_pct=+0.402

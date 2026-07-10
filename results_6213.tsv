@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.289536	NA	PASS	keep	baseline (master)
+28c12009c	0.289458	NA	PASS	discard	specialize HMAC block setup in m06213 loop
+9294fa583	0.290019	NA	PASS	discard	shrink m06213 temp buffers to 48 words
+65d0f3f2d	0.289900	NA	PASS	discard	shrink m06213 HMAC pad temp buffers to 8 words
+d8344e58b	0.287034	NA	PASS	discard	trim final PBKDF output words
+9fa85aa7c	0.289534	NA	PASS	discard	hoist invariant HMAC padding constants in m06213 loop
+f971a0d9c	0.288743	NA	PASS	discard	enable funnelshift rotates in m06213

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	8845.5	NA	PASS	keep	baseline (master)
+45d5b0d8a	8700.8	NA	PASS	discard	a3 hoist pw_len_bits delta_pct=+0.098

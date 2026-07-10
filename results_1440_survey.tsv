@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	7397.4	NA	PASS	keep	baseline (master)
+0a318bf08	7792.4	NA	PASS	discard	delta_pct=-0.847; direct salted message words in a3

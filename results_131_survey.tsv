@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	23485.6	NA	PASS	keep	baseline (master)
+d08e27d9e	23146.8	23294.9	PASS	discard	shorten late a3 rotation live ranges; delta_pct=-0.636

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	28.686	NA	PASS	keep	baseline (master)
+d0da0155a	28.405	28.496	PASS	discard	rolling md5crypt loop divisibility counters; delta_pct=-0.317

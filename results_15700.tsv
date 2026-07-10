@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.0	NA	PASS	keep	baseline (master)
+15f0a8339	0.0	NA	PASS	discard	mask scrypt TMTO remainder in smix loop
+aa539ea6f	0.0	NA	PASS	discard	unroll scrypt TMTO2 replay loop
+e0c5f800e	0.0	NA	PASS	discard	specialize scrypt r8 shuffle cycles
+c32795057	0.0	NA	PASS	discard	fuse scrypt salsa copy loops
+553bac2ef	0.0	NA	PASS	discard	inline scrypt uint4 xor components
+a0e0d8d2f	0.0	NA	PASS	discard	fold 15700 keccak setup constants

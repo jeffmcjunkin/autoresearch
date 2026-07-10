@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	2930.2	NA	PASS	keep	baseline (master)
+a2e67dbd6	2928.1	NA	PASS	discard	store only compared digest words in m01730 optimized transforms
+6a0510976	2926.2	NA	PASS	discard	specialize m01730 a3 four-byte salt append
+eb55b4917	2925.2	NA	PASS	discard	pass m01730 a3 words directly to sha512 transform
+aee793d40	2927.6	NA	PASS	discard	return compared digest words from m01730 a3 transform
+5bd1bbd90	2931.2	NA	PASS	discard	drop dead pws i15 load in m01730 a3 m kernels
+cc72257ed	2928.4	NA	PASS	discard	drop unused m01730 a3 s-kernel pw_len

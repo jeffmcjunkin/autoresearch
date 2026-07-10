@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	23297.3	NA	PASS	keep	baseline (master)
+4ea6dda51	23065.6	NA	PASS	discard	precompute w0s12 xor w0s16 in m00110 a3 schedule
+324708917	23137.3	NA	PASS	discard	sink late w0s17-22 rotates in m00110 a3 schedule
+99d2164aa	23124.0	NA	PASS	discard	preadd c77 sha1 constant in m00110 a3
+b965d1d2b	23458.4	NA	PASS	discard	drop unused pw_len from m00110 s path
+03ee6965b	23310.7	NA	PASS	discard	sink search load behind reverse check in m00110 a3 s path
+0573936c7	22933.1	NA	PASS	discard	pass zero for unused a3 lid lsz args

@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	3.5	NA	PASS	keep	baseline (master)
+a9fad185e	3.5	NA	PASS	discard	remove duplicate m10900 HMAC padding stores
+6b8740450	3.5	NA	PASS	discard	skip unused m10900 output words
+debd41863	3.5	NA	PASS	discard	inline single m10900 PBKDF2 block
+fa6249f80	3.5	NA	PASS	discard	hoist m10900 PBKDF2 padding words
+941160955	3.5	NA	PASS	discard	specialize m10900 hmac sha256 block
+de9fb3177	3.5	NA	PASS	discard	mark m10900 hmac pads const

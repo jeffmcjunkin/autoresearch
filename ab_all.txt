@@ -1,0 +1,14 @@
+=== SUMMARY (avg of 2 interleaved A/B) ===
+m10500  base=75.1770 win=77.3300  delta=+2.86%  ** CONFIRMED
+m6221   base=1.1590 win=1.1590  delta=+0.00%  within-noise
+m9700   base=1048.9000 win=1284.7500  delta=+22.49%  ** CONFIRMED
+m9800   base=1176.4000 win=1175.9500  delta=-0.04%  within-noise
+m9200   base=0.1790 win=0.1790  delta=+0.00%  within-noise
+m3000   base=60879.8000 win=66533.5000  delta=+9.29%  ** CONFIRMED
+m18200  base=1381.1000 win=1403.5000  delta=+1.62%  ** CONFIRMED
+m17300  base=1913.2000 win=2069.1000  delta=+8.15%  ** CONFIRMED
+m17500  base=1912.1500 win=2069.5000  delta=+8.23%  ** CONFIRMED
+m17700  base=1913.4000 win=2164.9000  delta=+13.14%  ** CONFIRMED
+m17900  base=1911.8000 win=2014.0000  delta=+5.35%  ** CONFIRMED
+m18000  base=1912.0000 win=2096.9000  delta=+9.67%  ** CONFIRMED
+AB-ALL-DONE 10:25:02

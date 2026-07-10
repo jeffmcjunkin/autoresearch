@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	2959.9	NA	PASS	keep	baseline (master)
+9781d3fec	2909.3	2907.8	PASS	discard	trim RAKP local salt copy delta_pct=+0.052

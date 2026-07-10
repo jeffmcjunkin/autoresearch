@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	8380.2	NA	PASS	keep	baseline (master)
+76932343e	8375.5	8384.3	PASS	discard	remove dead m01400 a3 pw_len argument; delta_pct=-0.104

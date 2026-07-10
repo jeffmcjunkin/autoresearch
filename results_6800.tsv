@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.036083	NA	PASS	keep	baseline (master)
+5d56773c3	0.036019	NA	PASS	discard	flatten single-iteration PBKDF2 block loops
+8e2cbb45a	0.009739	NA	PASS	discard	specialize fixed 32-byte SHA256 HMAC loop body
+16f5d2759	0.009661	NA	PASS	discard	const hmac sha256 pad pointers
+452273014	0.011217	NA	PASS	discard	hoist hmac padding words out of PBKDF2 loop
+c80e461ca	0.009652	NA	PASS	discard	skip empty m06800 comp workgroups
+7e59234c2	0.009673	NA	PASS	discard	force inline m06800 hmac helper

@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	8602.2	NA	PASS	keep	baseline (master)
+28f94a17e	8611.8	NA	PASS	discard	drop unused a3 pw_len arg (within noise)
+15221111e	8605.1	NA	PASS	discard	drop unused a3 helper lid/lsz args (within noise)
+46601baf0	8616.6	NA	PASS	discard	direct sha256 reverse reject target (within noise)
+f0192c663	8621.9	NA	PASS	discard	hoist a3 SHA256 message word loads (within noise)
+1969a53dc	8613.8	NA	PASS	discard	route sha256 expand through add3 (within noise)
+bc9b418da	8636.8	NA	PASS	discard	pre-broadcast a3 base word (within noise)

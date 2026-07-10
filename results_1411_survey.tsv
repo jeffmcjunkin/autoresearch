@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	8618.2	NA	PASS	keep	baseline (master)
+8ec5507ba	8620.9	NA	PASS	discard	delta_pct=-0.051; m01410 a3 scalar wf_len instead of w15 reload

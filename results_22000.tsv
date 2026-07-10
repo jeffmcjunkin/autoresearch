@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1.1	NA	PASS	keep	baseline (master)
+50b61d394	1.1	NA	PASS	discard	Specialized SHA1-HMAC loop block setup in m22000_loop; equal to baseline/noise
+7d2e0b96b	1.1	NA	PASS	discard	Consolidated duplicated m22000_loop PBKDF2 block bodies with constant-stride loop; equal to baseline/noise
+0d936f551	1.1	NA	PASS	discard	Direct PMKID aux4 sha1_hmac_init_64 setup; equal to baseline/noise
+d05d2a596	1.1	NA	PASS	discard	Tightened EAPOL aux keyver guards; equal to baseline/noise
+9d5f1d4d	1.1	NA	PASS	discard	Counted down m22000_loop PBKDF2 counters; equal to baseline/noise
+5aaea2a4f	1.1	NA	PASS	discard	Skipped unused second PBKDF2 block output words 8-9; equal to baseline/noise

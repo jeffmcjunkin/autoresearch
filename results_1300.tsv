@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	8405.3	NA	PASS	keep	baseline (master)
+f43c173e5	8449.8	NA	PASS	discard	remove unused a3 optimized pw_len helper argument
+f0cd64730	8469.1	NA	PASS	discard	inline a3 w0 candidate composition
+a5cec43f5	8462.1	NA	PASS	discard	use hc_add3 in sha224 expand
+3dd85882c	8468.2	NA	PASS	discard	pre-splat a3 left word
+72aaa2f30	8472.4	NA	PASS	discard	qualify a3 sha224 message input const
+5b84eec21	8467.4	NA	PASS	discard	index a3 words buffer directly

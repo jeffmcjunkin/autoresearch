@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	23047.5	NA	PASS	keep	baseline (master)
+534fc4562	23091.9	NA	PASS	discard	preadd SHA1C03 into c_77s and use SHA1_STEPX in m00110 a3 optimized
+6c557188a	23579.5	NA	PASS	keep	delay m00110s search loads until after reverse gate
+8d5a273df	23110.5	NA	PASS	discard	reuse DGST_R1 for m00110s final compare
+ab3eabb49	23131.4	NA	PASS	discard	factor w0s12 xor w0s16 in m00110 a3 optimized
+d0fac79df	23099.6	NA	PASS	discard	recompute m00110s post-gate w0 rotations
+3ec6856f	23306.5	NA	PASS	discard	gate m00110s before b rotate

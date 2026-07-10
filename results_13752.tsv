@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.001749	NA	PASS	keep	baseline (master)
+891b1cca0	0.001748	NA	PASS	discard	m13752 skip absent pim snapshots
+cb0de1cba	0.001752	NA	PASS	discard	m13752 closed form pim scan
+6efeebfc8	0.001749	NA	PASS	discard	m13752 specialize hmac digest block
+a02eb88fb	0.001749	NA	PASS	discard	m13752 drop 512-bit header probes for XTS1024
+cf257f101	0.001749	NA	PASS	discard	m13752 reuse hmac padding words
+160b37652	0.001627	NA	PASS	discard	m13752 pair pbkdf2 block loops

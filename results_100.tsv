@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	23438.0	NA	PASS	keep	baseline (master)
+821cd2e06	23254.5	NA	PASS	discard	drop unused pw_len arg in m00100_a3-optimized
+cae60cbdd	23275.5	NA	PASS	discard	hoist final a3 schedule constants and c77 K preadd
+7b2e21a58	23239.2	NA	PASS	discard	preadd SHA1C00 to invariant a3 base words
+db72490dc	23095.2	NA	PASS	discard	mark a3 schedule input pointer const
+a8d780f98	22746.0	NA	PASS	discard	defer late w0 rotations in m00100 a3
+a514c39cd	22560.6	NA	PASS	discard	reuse late w0s08 w0s16 xor in m00100 a3

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.046431	NA	PASS	keep	baseline (master)
+8061bed42	0.071262	0.075206	PASS	discard	MT0-only Whirlpool table rotation delta_pct=-5.244

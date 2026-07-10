@@ -1,0 +1,11 @@
+=== GPT-5.6 A/B (avg of 2 interleaved master/win = TOTAL gain over stock) ===
+m11800  base=188.700 win=201.250  total-delta=+6.65%  ** CONFIRMED
+m11700  base=188.650 win=201.250  total-delta=+6.68%  ** CONFIRMED
+m10500  base=74.862 win=77.049  total-delta=+2.92%  ** CONFIRMED
+m18200  base=1380.850 win=1405.200  total-delta=+1.76%  ** CONFIRMED
+m18000  base=1913.750 win=2168.000  total-delta=+13.29%  ** CONFIRMED
+m17400  base=1911.900 win=2166.950  total-delta=+13.34%  ** CONFIRMED
+m17900  base=1913.600 win=2068.000  total-delta=+8.07%  ** CONFIRMED
+m17600  base=1912.450 win=2159.950  total-delta=+12.94%  ** CONFIRMED
+m17500  base=1910.650 win=2069.250  total-delta=+8.30%  ** CONFIRMED
+AB-SOL-DONE 15:57:55

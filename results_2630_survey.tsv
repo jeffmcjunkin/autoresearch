@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	19434.0	NA	PASS	keep	baseline (master)
+69b9d68e7	15270.3	NA	PASS	discard	a3 arithmetic hex conversion replacing local bin2asc table; delta_pct=-19.990

@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	65432.6	NA	PASS	keep	baseline (master)
+1232c1cd0	65365.5	NA	PASS	discard	Remove unused MD5 a3 pw_len plumbing
+4211b389f	64849.7	NA	PASS	discard	Use scalar pre_d with MATCHES_NONE_VS in MD5 a3 reverse filter
+c8162ed8c	FAIL	NA	FAIL:0	crash	Remove unused MD5 a3 search array
+84356315d	65276.5	NA	PASS	discard	Preadd MD5 a3 w0 constants
+2fb1a3b7d	65405.9	NA	PASS	discard	Reuse MD5 a3 search digest for reverse
+1ded47624	64900.9	NA	PASS	discard	Preadd MD5 a3 reverse constants

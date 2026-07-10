@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	9538.4	NA	PASS	keep	baseline (master)
+b1b22ceb0	9602.9	NA	PASS	discard	drop unused a3 pw_len arg/load (+0.7%, within noise)
+d0f40652c	9526.8	NA	PASS	discard	fold fixed second sha1 constants (-0.1%, within noise)
+73bc1c871	9558.0	NA	PASS	discard	shorten a3 rotate live ranges (+0.2%, within noise)
+060ca1f78	9538.4	NA	PASS	discard	hoist a3 tail schedule constants (no change, within noise)
+ee3be775c	FAIL	NA	FAIL:300	crash	direct load a3 reverse digest word (benchmark failed)
+cfcc5afde	9692.3	NA	PASS	discard	drop unused a3 local id reads (+1.6%, within noise)

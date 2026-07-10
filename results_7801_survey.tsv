@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	3535.5	NA	PASS	keep	baseline (master)
+894d176a4	3512.2	3492.2	PASS	keep	sum offset low3 byte lanes; delta_pct=+0.573

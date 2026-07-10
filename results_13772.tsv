@@ -1,0 +1,7 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+b9862c4d9	0.0	NA	PASS	keep	baseline (master)
+c1ff2e969	FAIL	NA	FAIL:13772	wrong	enable shared Streebog tables for m13772
+5531da656	FAIL	NA	FAIL:13772	wrong	compute m13772 PIM match directly
+ee875127a	0.0	NA	PASS	discard	skip absent PIM checkpoint stores
+0abc63502	0.0	NA	PASS	discard	feed Streebog HMAC digest words directly
+e54b19206	0.0	NA	PASS	discard	specialize zero-n Streebog vector

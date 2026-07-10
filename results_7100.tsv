@@ -1,0 +1,7 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1.314	NA	PASS	keep	baseline (master)
+d245e6a8f	1.290	NA	PASS	discard	specialize HMAC helper input setup
+c9f882575	1.286	NA	PASS	discard	shrink 7100 PBKDF2 tmp dgst/out arrays
+e88e60fe5	1.289	NA	PASS	discard	flatten 7100 single-block PBKDF2 loops
+aaefa9cfd	1.290	NA	PASS	discard	drop redundant 7100 HMAC tail reset
+f0e3762a3	1.306	NA	PASS	discard	direct u64 fixed SHA512 transform for 7100 HMAC loop

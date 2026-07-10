@@ -1,0 +1,7 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	67.516	NA	PASS	keep	baseline (master)
+439b5c169	67.612	NA	PASS	discard	enable _unroll for m11750 Streebog loops
+7c42a2f3c	0.177765	NA	PASS	discard	specialize Streebog256 counter adds
+11b9cf8b8	23.064	NA	PASS	discard	enable shared Streebog table for m11750
+d428cac40	0.527538	NA	PASS	discard	specialize Streebog256 HMAC final block
+ea64563b3	0.589204	NA	PASS	discard	vector global salt update for m11750 a3

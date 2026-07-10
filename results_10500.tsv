@@ -1,0 +1,10 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	75.1	NA	PASS	keep	baseline (master)
+cf8a571e6	76.6	NA	PASS	keep	decrypt only compared RC4 words in m10500
+205ca554e	76.8	NA	PASS	discard	bitwise RC4 local address composition
+682538b80	77.4	NA	PASS	discard	fused RC4 swap loads in m10500 (within noise)
+559309cb7	77.3	NA	PASS	discard	m10500 hoist RC4 key bytes
+5dc45ed33	77.6	NA	PASS	discard	m10500 split MD5 and RC4 loop phases
+e30176595	77.8	NA	PASS	discard	m10500 specialized 16-byte MD5 loop (within noise)
+970fb385e	76.828	NA	PASS	discard	m10500 four-way RC4 S-box initialization (within noise)
+20c1e41b1	80.697	NA	PASS	keep	m10500 compact temporary output state

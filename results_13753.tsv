@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.001168	NA	PASS	keep	baseline (master)
+8dcdb317b	0.001167	NA	PASS	discard	hoist constant SHA256 HMAC padding outside PBKDF2 inner loop
+634911561	0.001168	NA	PASS	discard	compute PIM hit directly instead of scanning LOOP_CNT iterations
+48ef2c372	0.001167	NA	PASS	discard	initialize PIM markers and use sentinel to skip empty PIM snapshots
+b9dab4e1e	0.001167	NA	PASS	discard	seed PBKDF2 output buffer from digest registers
+30b47120a	0.001099	NA	PASS	discard	interleave PBKDF2 blocks in pairs
+e6c630e44	0.001167	NA	PASS	discard	shrink m13753 tmp key buffers to 48 words

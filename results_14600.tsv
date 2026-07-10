@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.027321	NA	PASS	keep	baseline (master)
+cfccf97df	0.024292	NA	PASS	discard	Skip unused LUKS SHA1 PBKDF2 output words
+a38d46a57	0.024277	NA	PASS	discard	Use mask for LUKS XTS reduction
+f5fcca312	0.024282	NA	PASS	discard	Use in-place LUKS AES XTS tweak update
+d62ba6b7b	0.024281	NA	PASS	discard	Carry LUKS SHA1 HMAC loop state
+bd44a9e97	0.024279	NA	PASS	discard	Mark LUKS SHA1 HMAC pads const
+284029c26	0.027303	NA	PASS	discard	Add LUKS SHA1 AES XTS-256 fast path

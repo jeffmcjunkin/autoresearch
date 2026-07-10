@@ -1,0 +1,5 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.2	NA	PASS	keep	baseline (master)
+196da7589	0.177015	NA	PASS	discard	use scalar hc_swap32_S for loop counter
+dedd99ec4	0.176910	NA	PASS	discard	roll swapped loop counter in m09500
+2b87dd056	0.176955	NA	PASS	discard	inline fixed SHA1 blocks in m09500 comp

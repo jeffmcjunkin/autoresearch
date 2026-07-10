@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.0	NA	PASS	keep	baseline (master)
+8b5c47ef9	0.0	NA	PASS	discard	Specialized m11300 digest SHA512 loop to skip u32 packing; no gain
+2fdfc8b62	0.0	NA	PASS	discard	Hoisted constant SHA512 tail words out of m11300 loop; no clear gain
+fef1e004e	0.0	NA	PASS	discard	Removed dead m11300 loop induction variable; no gain
+46f98ec15	0.0	NA	PASS	discard	Removed unused m11300 AES te4 shared staging; no gain
+4bffea3a8	0.0	NA	PASS	discard	Trimmed m11300 compare digest loads; no gain
+b2f4896c4	0.0	NA	PASS	discard	Removed unused m11300 HMAC SHA512 helper; no gain

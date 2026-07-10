@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.000098	NA	PASS	keep	baseline (master)
+e730c1bb4	0.000098	NA	PASS	discard	compute PIM checkpoint directly
+eedfcd153	0.000098	NA	PASS	discard	shrink 13771 streebog tmp arrays
+d402803f3	0.000001	NA	PASS	discard	pass digest directly to hmac loop
+ccaa92ece	0.000098	NA	PASS	discard	preadd HMAC pad sums
+ee95d4357	0.0	NA	PASS	discard	skip inactive PIM key stores
+f72cdcb2f	FAIL	NA	FAIL:13771	wrong	use constant streebog table in loop

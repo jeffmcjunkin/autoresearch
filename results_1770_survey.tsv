@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	2937.9	NA	PASS	keep	baseline (master)
+de2307025	2937.7	2937.6	PASS	discard	hoist invariant a3 message setup; delta_pct=+0.004

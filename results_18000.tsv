@@ -1,0 +1,10 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1908.3	NA	PASS	keep	baseline (master)
+1427125de	2096.5	NA	PASS	keep	Theta D-apply as explicit 3-input XOR (a=a^bc^rotl); ptxas emits 1 XOR3/lane, drops separate t op; value-identical (XOR assoc); +9.86pct over baseline 1908.3, both m/s loop bodies
+3382a7682	2100.8	NA	PASS	discard	Final partial-round terminal a02 Rho/Pi cleanup and dead a02 theta update removal; +0.21pct vs best 2096.5 within noise
+4dbcbc28b	2097.7	NA	PASS	discard	Chi boolean as bitselect(a^c,a,b) in a3 Keccak m/s loop bodies; +0.06pct vs best 2096.5 within noise
+635b6b395	2099.3	NA	PASS	discard	Direct final Rho/Pi output lanes from post-theta a22/a33/a44 in a3 Keccak m/s loop bodies; +0.13pct vs best 2096.5 within noise
+4de6a85f7	2012.8	NA	PASS	discard	Final partial-round Theta D-apply as explicit 3-input XOR in a3 m/s loop bodies; -3.99pct vs best 2096.5
+dcd4bc778	2099.1	NA	PASS	discard	Full-round Rho/Pi as direct independent rotated lane assignments in a3 Keccak m/s loop bodies; +0.12pct vs best 2096.5 within noise
+9f3efe7f3	2097.9	NA	PASS	discard	Partial 2x unroll of 23-round a3 Keccak m/s hot loops; +0.07pct vs best 2096.5 within noise
+6f4d25908	2168.5	NA	PASS	keep	Peel sparse initial Keccak round from a3 m/s loops so compiler folds zero lanes; +3.43pct vs best 2096.5

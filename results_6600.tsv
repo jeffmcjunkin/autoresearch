@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	8.735	NA	PASS	keep	baseline (master)
+1a03fcbad	8.721	NA	PASS	discard	hoist m06600 SHA1 padding setup
+656644d2b	8.764	NA	PASS	discard	skip unused m06600 pbkdf2 out word
+86a236a26	8.719	NA	PASS	discard	remove unused m06600 aes te4 table
+4a9135e28	8.707	NA	PASS	discard	mark m06600 hmac pads const
+6fbf257aa	8.719	NA	PASS	discard	localize m06600 hmac message block
+7ebb38224	8.613	NA	PASS	discard	flatten m06600 single pbkdf2 block

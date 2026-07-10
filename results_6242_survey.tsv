@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.725437	NA	PASS	keep	baseline (master)
+47ab5edc3	0.726908	0.728154	PASS	discard	shrink m06212 tmp state; delta_pct=-0.171

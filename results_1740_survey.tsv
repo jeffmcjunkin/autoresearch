@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	2802.4	NA	PASS	keep	baseline (master)
+dc2a99314	2803.4	NA	PASS	discard	emit only needed sha512 state; delta_pct=-0.027

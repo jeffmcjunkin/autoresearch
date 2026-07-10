@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	21986.6	NA	PASS	keep	baseline (master)
+105c2b3de	21817.1	21758.5	PASS	discard	shift-or MD5 bit count in optimized kernels; delta_pct=+0.269

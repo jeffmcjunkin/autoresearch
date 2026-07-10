@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1158.9	NA	PASS	keep	baseline (master)
+931f7555a	1129.3	1126.7	PASS	discard	single-lane salt schedule init; delta_pct=+0.230

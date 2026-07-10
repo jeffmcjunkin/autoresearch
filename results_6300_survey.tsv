@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	6.816	NA	PASS	keep	baseline (master)
+27d56026d	FAIL	FAIL	FAIL:6300	crash	rolled loop modulus predicates; delta_pct=+0.000 benchmark failed

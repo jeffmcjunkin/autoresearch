@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1.319	NA	PASS	keep	baseline (master)
+0446700d3	1.319	NA	PASS	discard	shrink m21600 dgst/out temp arrays to 8 words
+c559492c0	1.324	NA	PASS	discard	carry only compared m21600 out words
+99b47218f	1.320	NA	PASS	discard	reuse m21600 hmac padding words
+2fce6e000	1.335	NA	PASS	discard	specialize m21600 sha512 digest block
+0d555e950	1.321	NA	PASS	discard	flatten m21600 one block loops
+3f358e30b	1.320	NA	PASS	discard	single digest compare fast path

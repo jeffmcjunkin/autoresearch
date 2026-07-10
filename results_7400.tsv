@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.8	NA	PASS	keep	baseline (master)
+b7c6be84f	0.8	NA	PASS	discard	rolling LOOP_POS mod counters in m07400 loop
+04cdc618d	0.8	NA	PASS	discard	drop redundant block14 high length clear in m07400 loop
+56af1a03f	0.8	NA	PASS	discard	shrink m07400 loop carry block
+5e133d1ec	0.8	NA	PASS	discard	use raw loop predicates instead of ternary normalization in m07400 loop
+b39950076	0.8	NA	PASS	discard	reuse loop digest buffer in m07400
+a71e67ebd	0.8	NA	PASS	discard	defer m07400 loop digest init

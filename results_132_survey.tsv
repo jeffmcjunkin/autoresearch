@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	23356.4	NA	PASS	keep	baseline (master)
+03256e7b9	23130.8	23140.0	PASS	discard	scalarize m00130 a3 s-kernel late schedule constants; delta_pct=-0.040

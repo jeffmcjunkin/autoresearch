@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	11167.6	NA	PASS	keep	baseline (master)
+607f87b6c	10837.4	10829.4	PASS	discard	delta_pct=+0.073 fixed 8-byte salt fast path in a3 optimized

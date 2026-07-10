@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.158980	NA	PASS	keep	baseline (master)
+324e49079	0.179179	NA	PASS	keep	shrink m10900 PBKDF2 temp arrays to one SHA256 block
+d1dacc950	0.179178	NA	PASS	discard	hoist invariant PBKDF2 SHA256 padding words in m10900 loop
+e6b9f4390	0.179172	NA	PASS	discard	flatten single-block PBKDF2 loops in m10900
+75b2027bc	0.179243	NA	PASS	discard	drop duplicate PBKDF2 outer padding stores in m10900
+4ae20e657	0.179135	NA	PASS	discard	keep only compared PBKDF2 output words in m10900
+8dc626330	0.179209	NA	PASS	discard	skip final PBKDF2 dgst writeback in m10900

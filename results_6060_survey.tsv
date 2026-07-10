@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	3895.7	NA	PASS	keep	baseline (master)
+f29a5bd06	5827.2	NA	PASS	keep	direct short vector update in a3; delta_pct=+51.537

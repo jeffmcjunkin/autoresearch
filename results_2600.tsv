@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	19152.8	NA	PASS	keep	baseline (master)
+4dc76a63a	19393.7	NA	PASS	discard	a3 arithmetic hex conversion; +1.3% within noise band
+be4b793fc	19155.6	NA	PASS	discard	a3 specialize empty outer salt; +0.0% within noise band
+6f4514553	19644.7	NA	PASS	keep	m02610 a3 drop unused pw_len; +2.6% vs best baseline
+d79d64e28	19337.8	NA	PASS	discard	a3 drop dead salt buffer stores; -1.6% vs best
+398b8c8e3	19341.4	NA	PASS	discard	a3 use MD5_STEP0 for outer zero word; -1.5% vs best
+60d88905f	19366.0	NA	PASS	discard	a3 const input word pointers; -1.4% vs best

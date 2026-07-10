@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	28.8	NA	PASS	keep	baseline (master)
+980c4ff05	28.6	NA	PASS	discard	rolled md5crypt loop parity/mod3/mod7 counters in optimized kernel
+37f265697	29.3	NA	PASS	discard	specialized salt_len==8 even-round direct block writes in optimized kernel
+f8f7142fb	28.8	NA	PASS	discard	specialized md5crypt transform with zero final message word
+c765e6430	28.7	NA	PASS	discard	narrow odd-branch memcat helpers for bounded md5crypt offsets
+cd250d18c	28.7	NA	PASS	discard	guarded high block3 clears by optimized password length thresholds
+05d06cdce	28.8	NA	PASS	discard	narrow even-round final memcat helper for bounded md5crypt offsets

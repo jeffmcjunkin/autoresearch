@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	7389.4	NA	PASS	keep	baseline (master)
+373fa3143	7793.2	NA	PASS	discard	delta_pct=-0.790; a3 precompute bit length and drop unused tail stores

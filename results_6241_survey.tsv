@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1.405	NA	PASS	keep	baseline (master)
+0c2bfc925	FAIL	1.427	FAIL:6241	wrong	delta_pct=+0.000; skipped unused out[16..19] in final PBKDF2 block

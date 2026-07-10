@@ -1,0 +1,4 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.4	NA	PASS	keep	baseline (master)
+761ee4d51	0.354113	NA	PASS	discard	skip AES-256 verifier path for 128-bit Office 2007
+7058ce6f3	0.354015	NA	PASS	discard	use scalar swap for Office 2007 loop counter

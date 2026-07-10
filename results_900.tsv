@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	119122.8	NA	PASS	keep	baseline (master)
+04b8a5daf	116817.5	NA	PASS	discard	remove unused a3 pw_len load/argument
+909206671	119231.8	NA	PASS	discard	precompute a3 w0 round constants
+460fdca46	117813.1	NA	PASS	discard	use MD4_Go in a3 reverse skip
+56471b683	118490.9	NA	PASS	discard	extend a3 reverse d filter
+aa5866206	117717.7	NA	PASS	discard	reuse a3 search digest loads for reverse state
+ded3a8d22	116787.8	NA	PASS	discard	const a3 reverse prefilter temps

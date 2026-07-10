@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	16297.6	NA	PASS	keep	baseline (master)
+c04cbf008	16139.2	16151.9	PASS	discard	trim unused a3 tail words; delta_pct=-0.079

@@ -1,0 +1,10 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1912.5	NA	PASS	keep	baseline (master)
+615f404fb	2013.5	NA	PASS	keep	final theta explicit XOR3 form in a3 optimized kernel
+08ad54e09	2012.3	NA	PASS	discard	skip final dead a02 theta update in a3 optimized kernel
+7c07a3dc0	2012.4	NA	PASS	discard	remove unused a3 pw_len load
+97ca96e2a	2013.1	NA	PASS	discard	direct final rho pi for a3 digest lanes
+e7b74b160	2013.7	NA	PASS	discard	bitselect chi in a3 kernel
+49621bfa9	2058.2	NA	PASS	keep	inline final a3 chi temps
+758b65f57	2048.9	NA	PASS	discard	reduce loop chi row temporaries from five to two
+05a24fda2	2105.2	NA	PASS	keep	peel sparse first Keccak round from permutation loop

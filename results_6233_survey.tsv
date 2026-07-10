@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.049875	NA	PASS	keep	baseline (master)
+1c3358095	0.015090	FAIL	FAIL:6233	wrong	derive Whirlpool MT1-7 from MT0 delta_pct=+0.000

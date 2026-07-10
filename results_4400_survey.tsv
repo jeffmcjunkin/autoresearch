@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	11035.5	NA	PASS	keep	baseline (master)
+ed1c00800	9203.6	NA	PASS	discard	arithmetic lower-hex conversion delta_pct=-15.213

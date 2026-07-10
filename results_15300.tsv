@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.184100	NA	PASS	keep	baseline (master)
+3c2f84b6c	0.184086	NA	PASS	discard	const hmac pad pointers in m15300 helper
+d296b8af5	0.184371	NA	PASS	discard	drop unused m15300 dgst tmp traffic
+073958ffa	0.184364	NA	PASS	discard	scalarize m15300 hmac message words
+bd5999aa4	0.185287	NA	PASS	discard	force unroll m15300 pbkdf2 blocks
+ef5c441b2	0.184404	NA	PASS	discard	hoist m15300 hmac padding setup
+c2483385b	0.186846	NA	PASS	discard	unroll m15300 last_key cbc loop

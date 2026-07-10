@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.180584	NA	PASS	keep	baseline (master)
+e699e075b	0.180614	NA	PASS	discard	hoist m16200 SHA256 padding words
+960dffe9b	0.180627	NA	PASS	discard	remove unused m16200 AES te4 staging
+dcb0bf5fe	0.180482	NA	PASS	discard	mark m16200 hmac pad pointers const
+1c3e3633f	0.180550	NA	PASS	discard	drop unused pbkdf2 out high words
+2a72d786c	0.180526	NA	PASS	discard	specialize single m16200 pbkdf2 block
+e856c549f	0.181450	NA	PASS	discard	move m16200 hmac setup into helper

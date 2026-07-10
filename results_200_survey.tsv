@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	205409.3	NA	PASS	keep	baseline (master)
+79b7aba1b	FAIL	NA	FAIL:200	crash	mad24 round substitution; delta_pct=+0.000

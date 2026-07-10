@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	16052.1	NA	PASS	keep	baseline (master)
+47c41985e	16059.4	16056.0	PASS	discard	5-byte ArubaOS a3 optimized salt fast path; delta_pct=+0.022

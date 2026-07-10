@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	33516.5	NA	PASS	keep	baseline (master)
+71817339e	33537.4	33530.9	PASS	discard	delta_pct=+0.020; skip unused salt block merges for short m00020_a3 salts

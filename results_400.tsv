@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	20.0	NA	PASS	keep	baseline (master)
+25b63b404	20.0	NA	PASS	discard	m00400 optimized loop pragma unroll 1
+3d8d1a3f4	20.0	NA	PASS	discard	m00400 disabled NEW_SIMD_CODE in optimized kernel
+ae064af6e	20.1	NA	PASS	discard	m00400 specialized optimized MD5 loop IV
+8e71f0f38	20.2	NA	PASS	discard	m00400 optimized loop pragma unroll 2
+7befefdcf	20.0	NA	PASS	discard	m00400 trim unused optimized w2 tail
+1686110b7	20.0	NA	PASS	discard	m00400 specialize optimized loop tail padding

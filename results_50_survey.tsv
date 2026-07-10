@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	10751.1	NA	PASS	keep	baseline (master)
+27fe073f8	10574.1	NA	PASS	discard	delta_pct=+0.038 hoist salt_len_bits in optimized mode 50 kernels

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	53.591	NA	PASS	keep	baseline (master)
+fd68b4f36	53.612	NA	PASS	discard	hoist fixed SHA256 padding words out of m05720 rehash loop delta_pct=-0.056 baseline_mhs=53.641

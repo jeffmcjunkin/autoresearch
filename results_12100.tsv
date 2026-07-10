@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1.320	NA	PASS	keep	baseline (master)
+bab6a25e8	1.320	NA	PASS	discard	specialize m07100 HMAC loop padding setup
+147041a72	1.320	NA	PASS	discard	shrink m07100 PBKDF2 tmp dgst/out arrays to 8 words
+7a68cbb85	1.320	NA	PASS	discard	flatten m07100 single-iteration PBKDF2 block loops
+909e66667	1.320	NA	PASS	discard	accumulate only compared pbkdf2 output words
+d59d37df5	1.320	NA	PASS	discard	hoist PBKDF2-SHA512 loop padding words
+2f7fb2938	1.320	NA	PASS	discard	force inline PBKDF2-SHA512 HMAC helper

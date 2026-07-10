@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	7922.9	NA	PASS	keep	baseline (master)
+ab9ffb1e4	7852.7	7851.3	PASS	discard	Hoist optimized a0/a1 salt byte-swaps; delta_pct=+0.018

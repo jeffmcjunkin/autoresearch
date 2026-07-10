@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.1	NA	PASS	keep	baseline (master)
+e221cfbce	0.1	NA	PASS	discard	inline 32-bit Blowfish local index helpers
+1837ff041	0.1	NA	PASS	discard	compact bcrypt salt xor loop
+791399658	0.1	NA	PASS	discard	manual unroll bcrypt E xor loop
+f6b946004	0.1	NA	PASS	discard	direct Blowfish final swap xor
+befab4c9c	0.1	NA	PASS	discard	explicit Blowfish round byte extraction
+74bfd8cc4	0.1	NA	PASS	discard	defer bcrypt loop E/P loads

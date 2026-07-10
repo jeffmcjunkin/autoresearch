@@ -1,0 +1,10 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1911.9	NA	PASS	keep	baseline (master)
+94fe43039	2013.8	NA	PASS	keep	final-round Rho/Pi digest-lane direct tail
+c0fa4217e	2012.1	NA	PASS	discard	a3 Chi bitselect form
+d0e165b00	2013.3	NA	PASS	discard	final Theta folded into digest rotations
+19cdfdd3a	2067.3	NA	PASS	keep	BF first Keccak round zero-lane specialization
+3c22039f6	2052.8	NA	PASS	discard	a3 m04 first Keccak round zero-lane specialization
+0cbc972bd	2066.2	NA	PASS	discard	a3 final digest Chi tail fusion
+6934687d5	2069.7	NA	PASS	discard	BF direct round-0 post-Rho/Pi lane construction
+5551739fc	2105.4	NA	PASS	keep	a3 four-way Rho/Pi dependency-chain split

@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.2	NA	PASS	keep	baseline (master)
+e7e0202e7	0.2	NA	PASS	discard	localize short-loop sha512 message words
+6af97d5fc	0.2	NA	PASS	discard	direct u64 short transform for m07900 short loop
+3f1b6c8c1	0.2	NA	PASS	discard	hoist u32 loop count for m07900 loop comparisons
+ad1230cb6	0.2	NA	PASS	discard	reuse sha512 ctx digest in m07900 short loop
+a129f8312	0.2	NA	PASS	discard	remove unused local id in m07900 compare
+d3f2b851f	0.2	NA	PASS	discard	simplify m07900 long-branch threshold

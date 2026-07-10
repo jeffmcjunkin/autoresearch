@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.784450	NA	PASS	keep	baseline (master)
+3d88fa830	0.774299	NA	PASS	discard	Skip unused 6211 PBKDF2 tail output
+a19c75ad4	0.783282	NA	PASS	discard	Reuse fixed RIPEMD160 padding in 6211 loop
+e796c4f63	0.783791	NA	PASS	discard	Mark HMAC pad pointers const in 6211 loop
+082ec985f	0.763966	NA	PASS	discard	Enable funnelshift rotates in 6211 kernel
+76a0ab55e	0.781974	NA	PASS	discard	Shrink 6211 kernel tmp footprint
+a720d6cfb	0.787245	NA	PASS	discard	Specialize 6211 HMAC message setup

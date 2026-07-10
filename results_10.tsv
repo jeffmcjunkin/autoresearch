@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	65180.2	NA	PASS	keep	baseline (master)
+cc9c1d118	63770.7	NA	PASS	discard	scalar d_rev reverse filter in a3 optimized
+e5ae32387	63690.5	NA	PASS	discard	delay a3 search loads until compare
+59ade42d2	65188.0	NA	PASS	discard	late a-word skip after reverse filters in a3 single
+9488b2957	65455.9	NA	PASS	discard	sink a3 reverse prefilter temps to first use
+3c8f826e9	65346.4	NA	PASS	discard	remove unused pw_len load in a3 single
+d90ad2dc8	65416.4	NA	PASS	discard	preadd a3 w0 md5 constants

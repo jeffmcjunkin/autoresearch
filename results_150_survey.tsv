@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	4700.0	NA	PASS	keep	baseline (master)
+a71427451	4702.6	4702.3	PASS	discard	remove unused m00150 a3 pw_len; delta_pct=+0.006

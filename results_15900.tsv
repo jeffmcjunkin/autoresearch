@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.103508	NA	PASS	keep	baseline (master)
+345f656ab	0.103514	NA	PASS	discard	Specialized m15900 SHA512 HMAC message setup; flat vs 0.103508 baseline
+245d5780b	0.103529	NA	PASS	discard	Direct u64 SHA512 transform for fixed 64-byte HMAC blocks; flat vs 0.103508 baseline
+a26d33a51	0.103541	NA	PASS	discard	Remove unused m15900 AES te4 table; flat vs 0.103508 baseline
+2b7afc085	0.103481	NA	PASS	discard	Avoid dead m15900 dgst64 temp traffic; flat/slightly down vs 0.103508 baseline
+d08bb20a0	0.103547	NA	PASS	discard	Hoist m15900 SHA512 padding words outside PBKDF2 loop; flat vs 0.103508 baseline
+ba1a1663d	0.103522	NA	PASS	discard	Shrink m15900 PBKDF2 temp arrays; flat vs 0.103508 baseline

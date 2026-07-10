@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.420828	NA	PASS	keep	baseline (master)
+b13565df2	0.422439	NA	PASS	discard	hoist invariant RIPEMD padding words in m06212 loop
+6d5c9cdc4	0.423441	NA	PASS	discard	narrow m06212 temporary buffers to used RIPEMD160 ranges
+976b5ef64	0.422691	NA	PASS	discard	specialize m06212 HMAC loop helper
+4108e476f	0.418331	NA	PASS	discard	skip unused final m06212 out words
+52726627d	0.424935	NA	PASS	discard	unroll m06212 PBKDF2 block loop
+1209ee8da	0.421160	NA	PASS	discard	enable CUDA funnelshift rotates in m06212

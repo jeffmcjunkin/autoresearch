@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1.159	NA	PASS	keep	baseline (master)
+b057deb94	1.158	NA	PASS	discard	hoist invariant SHA512 HMAC padding words
+78c40c019	1.158	NA	PASS	discard	specialize HMAC loop helper to build digest block internally
+da8a3ecab	1.158	NA	PASS	discard	compact 6221 temp state to 8 digest/out words
+df036e20e	1.188	NA	PASS	keep	force inline 6221 HMAC helper
+65029a3c0	1.159	NA	PASS	discard	specialize 6221 single-block loop
+b065f88a8	1.159	NA	PASS	discard	scalarize 6221 HMAC pad args

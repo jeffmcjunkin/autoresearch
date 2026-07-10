@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.003610	NA	PASS	keep	baseline (master)
+d060069bc	0.003637	NA	PASS	discard	r8 in-place scrypt_shuffle
+7437397b6	0.003595	NA	PASS	discard	mask km with SCRYPT_TMTO low-bit mask
+5505ca735	0.003592	NA	PASS	discard	fixed local size for scrypt stride
+cfc5de9df	0.003585	NA	PASS	discard	specialize SCRYPT_TMTO replay branches
+a105d6d9d	0.003649	NA	PASS	discard	inline scrypt uint4 xor lanes
+4f8046e73	0.003633	NA	PASS	discard	vectorize scrypt P state copies

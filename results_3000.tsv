@@ -1,0 +1,11 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	60902.2	NA	PASS	keep	baseline (master)
+4d9c0d203	60770.0	NA	PASS	discard	m03000_sxx 8-bit early reject checks
+64c220464	60345.6	NA	PASS	discard	m03000 a3 negated bit masks
+405456ffa	66501.2	NA	PASS	keep	m03000 a3 force DES loop unroll
+ff6010313	66400.0	NA	PASS	discard	m03000 a3 shorten digest mask live range
+abd060c21	66492.7	NA	PASS	discard	m03000 a3 inline DES helper
+68a6ba760	66335.1	NA	PASS	discard	m03000 a3 unroll tm transpose
+91619e42b	61453.1	NA	PASS	discard	m03000 a3 target seven CUDA blocks per SM
+86d9d30cf	66594.6	NA	PASS	discard	m03000 a3 interleave digest mismatch reduction
+30f35eeee	66533.3	NA	PASS	discard	m03000 a3 fuse base and modifier key masks

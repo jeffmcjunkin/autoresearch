@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.490546	NA	PASS	keep	baseline (master)
+fb0e03d4b	0.490267	0.490482	PASS	discard	hoist RIPEMD160 HMAC loop padding; delta_pct=-0.044

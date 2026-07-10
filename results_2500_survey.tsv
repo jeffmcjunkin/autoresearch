@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1.081	NA	PASS	keep	baseline (master)
+1af2cb7ab	0.976116	NA	PASS	discard	trim unused second PBKDF2 output words; delta_pct=-8.645

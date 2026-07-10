@@ -1,0 +1,10 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1914.6	NA	PASS	keep	baseline (master)
+b0eb26ec3	2012.1	NA	PASS	keep	Theta D-apply as explicit per-lane 3-input XOR (a=a^bc_prev^rotl) forces ptxas to emit 1 XOR3/lane, drops separate t-op; +5.1% vs 1914.6 baseline; value-identical (XOR assoc), applied to main loop + peeled final round in both m/s fns
+5764a8c3a	2013.1	NA	PASS	discard	Peeled final round computes only SHA3-224 compare lanes with theta for a00/a22/a33/a44 and direct Rho/Pi for a02/a03/a04; +0.05% vs 2012.1 within noise
+e4b0d3d2d	2013.4	NA	PASS	discard	Keccak Chi as bitselect(x^z,x,y) in a3 m/s hot loops; +0.06% vs 2012.1 best, within 1-2% noise
+77375aeb6	2014.3	NA	PASS	discard	Force unconditional pragma unroll on a3 Keccak 23-round loops; +0.1% vs 2012.1 best, within 1-2% noise
+766a2b941	2066.9	NA	PASS	keep	Peel first Keccak round in a3 m/s with initial zero-lane theta simplification before rounds 1-22; +2.7% vs 2012.1 best
+64e7bfd6a	2069.5	NA	PASS	discard	Regroup a3 Theta column parity reductions as two explicit 3-input XOR stages; +0.13% vs 2066.9 best, within noise
+d55b81e68	2066.1	NA	PASS	discard	Partially unroll the remaining a3 Keccak rounds by factor 2 in m/s paths; -0.04% vs 2066.9 best, within noise
+2634a4231	2069.9	NA	PASS	discard	Peeled first-round Theta updates nonzero lanes as direct 3-input XOR while retaining shared d for zero lanes to shorten dependencies; +0.15% vs 2066.9 best, within noise

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	14.831	NA	PASS	keep	baseline (master)
+aa8f2735a	14.677	NA	PASS	discard	delta_pct=-0.171; derive PIN length from loop index instead of shared length table

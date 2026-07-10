@@ -1,0 +1,8 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	93.484	NA	PASS	keep	baseline (master)
+13e210e1b	1.618	NA	PASS	discard	half shared Streebog table rows 0-3 local rows 4-7 constant
+835a26755	29.314	NA	PASS	discard	specialize Streebog bit count add
+b9bb1a432	29.555	NA	PASS	discard	enable existing Streebog unroll pragmas for mode 11760
+b6cd9cbb2	35.917	NA	PASS	discard	specialize Streebog256 HMAC outer final
+71fce8bb1	93.774	NA	PASS	discard	specialize 4-byte Streebog HMAC salt init
+f5259551b	93.580	NA	PASS	discard	specialize m11760 a3 short vector update
