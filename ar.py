@@ -25,7 +25,15 @@ AR   = os.path.dirname(os.path.abspath(__file__))
 AR_F = AR.replace("\\", "/")
 ARPY = os.path.abspath(__file__).replace("\\", "/")
 CLK  = 1710
-MODEL, EFFORT = "gpt-5.5", "xhigh"          # hard-coded per request
+MODEL, EFFORT = "gpt-5.6-sol", "xhigh"       # codex default model + reasoning effort
+CLAUDE_MODEL  = "claude-opus-4-8"            # claude default model
+def resolve_model(engine, model):
+    """Explicit --model wins; else the engine's default (codex=gpt-5.6-sol, claude=Opus 4.8)."""
+    return model or (CLAUDE_MODEL if engine == "claude" else MODEL)
+def resolve_effort(engine, effort):
+    """Reasoning level. codex: model_reasoning_effort (default xhigh). claude: mapped to a thinking
+    hint appended to the prompt (no CLI flag). Empty = engine default."""
+    return effort or (EFFORT if engine == "codex" else "")
 DEFAULT_MODES = "11700 11800 6900 6100 31100 17400 17800 600 1700 10800 6000 17600"
 
 def env(k, d=None): return os.environ.get(k, d)
@@ -257,17 +265,20 @@ def build_prompt(M, hc, br, rf_f, lock, bench):
         f"measure.sh, ar.py, or program.md."
     )
 
-def run_agent(prompt, rlog, engine, hc, rtimeout, model=MODEL):
+def run_agent(prompt, rlog, engine, hc, rtimeout, model="", effort=""):
+    model = resolve_model(engine, model); effort = resolve_effort(engine, effort)
     e = os.environ.copy()
     gb = resolve_gitbash()
     prepend = os.pathsep.join([p for p in (os.path.dirname(resolve_uv()),
                                            os.path.dirname(gb) if gb else None) if p])
     e["PATH"] = prepend + os.pathsep + e.get("PATH", "")     # agent finds uv (+ git-bash) first
     if engine == "codex":
-        argv = codex_launcher() + ["exec", prompt, "-m", model, "-c", f"model_reasoning_effort={EFFORT}",
+        argv = codex_launcher() + ["exec", prompt, "-m", model, "-c", f"model_reasoning_effort={effort}",
                                    "--dangerously-bypass-approvals-and-sandbox", "-C", hc]
     elif engine == "claude":
-        argv = [need("claude"), "-p", prompt, "--dangerously-skip-permissions", "--add-dir", hc]
+        think = {"medium": "think", "high": "think hard", "xhigh": "think harder", "max": "ultrathink"}.get(effort, "")
+        if think: prompt = prompt + f"\n\nTake your time and reason carefully — {think}."
+        argv = [need("claude"), "-p", prompt, "--model", model, "--dangerously-skip-permissions", "--add-dir", hc]
         for k in ("ANTHROPIC_API_KEY", "CLAUDECODE", "CLAUDE_CODE_ENTRYPOINT", "CLAUDE_CODE_CHILD_SESSION",
                   "CLAUDE_CODE_SESSION_ID", "CLAUDE_CODE_EXECPATH"):
             e.pop(k, None)
@@ -307,7 +318,8 @@ def cmd_drive(a):
     os.makedirs(os.path.join(AR, "logs"), exist_ok=True)
     drive_log = os.path.join(AR, "drive.log")
     set_clock(True)
-    say(f"=== driver start: engine={a.engine} model={a.model}/{EFFORT} modes=[{' '.join(modes)}] "
+    say(f"=== driver start: engine={a.engine} model={resolve_model(a.engine, a.model)} "
+        f"effort={resolve_effort(a.engine, getattr(a,'effort','')) or 'default'} modes=[{' '.join(modes)}] "
         f"rounds={a.rounds} timeout={a.rtimeout}s tag={tag} ===", drive_log)
     for M in modes:
         Mi = int(M); br = f"autoresearch/{M}-{tag}"; base = baseline_branch(M)
@@ -335,7 +347,7 @@ def cmd_drive(a):
             git(hc, "reset", "--hard", "HEAD", "-q"); git(hc, "clean", "-fdq", "OpenCL/")
             rlog = os.path.join(AR, "logs", f"m{M}_r{n}.log")
             say(f"m{M} round {n}/{a.rounds} -> {rlog}", drive_log)
-            rc = run_agent(prompt, rlog, a.engine, hc, a.rtimeout, a.model)
+            rc = run_agent(prompt, rlog, a.engine, hc, a.rtimeout, a.model, getattr(a, "effort", ""))
             last = ""
             try:
                 rows = [l for l in open(rf, encoding="utf-8").read().splitlines() if l.strip()]
@@ -372,7 +384,8 @@ def cmd_parallel(a):
         loop_log = os.path.join(AR, "logs", f"loop_{M}.out")
         argv = [resolve_uv(), "run", ARPY, "drive", "--modes", M, "--rounds", str(a.rounds),
                 "--rtimeout", str(a.rtimeout), "--engine", a.engine, "--run-tag", tag,
-                "--model", getattr(a, "model", MODEL), "--extra", str(getattr(a, "extra", 0)),
+                "--model", getattr(a, "model", "") or "", "--effort", getattr(a, "effort", "") or "",
+                "--extra", str(getattr(a, "extra", 0)),
                 "--hashcat-dir", wt.replace("\\", "/"), "--bench-dir", hc.replace("\\", "/"),
                 "--gpu-lock", lock]   # edit in the worktree, but benchmark in the MAIN repo (hc)
         with open(loop_log, "a", encoding="utf-8") as out:
@@ -425,7 +438,7 @@ def _codex_available(engine, model):
     gb = resolve_gitbash()
     pre = os.pathsep.join(p for p in (os.path.dirname(resolve_uv()), os.path.dirname(gb) if gb else None) if p)
     e["PATH"] = pre + os.pathsep + e.get("PATH", "")
-    argv = codex_launcher() + ["exec", "reply OK", "-m", model, "-c", "model_reasoning_effort=low",
+    argv = codex_launcher() + ["exec", "reply OK", "-m", (model or MODEL), "-c", "model_reasoning_effort=low",
                                "--dangerously-bypass-approvals-and-sandbox", "--skip-git-repo-check", "-C", AR]
     try:
         r = subprocess.run(argv, capture_output=True, text=True, timeout=120,
@@ -451,7 +464,7 @@ def cmd_batches(a):
         if ran_prev and pause > 0:                      # pace the 5-hour usage window
             say(f"pausing {pause}s before batch {n} (usage-window pacing)")
             time.sleep(pause)
-        while not _codex_available(a.engine, getattr(a, "model", MODEL)):   # survive weekly/rolling cap
+        while not _codex_available(a.engine, getattr(a, "model", "")):   # survive weekly/rolling cap
             say(f"usage-capped — sleeping 1800s before re-checking (batch {n})")
             time.sleep(1800)
         say(f"=== BATCH {n} launch: {' '.join(modes)} ===")
@@ -557,10 +570,10 @@ def cmd_validate(a):
     prompt = f"Reply with exactly this token and nothing else: {tok}"
     rlog = os.path.join(AR, "logs", "validate.log")
     os.makedirs(os.path.dirname(rlog), exist_ok=True)
-    rc = run_agent(prompt, rlog, a.engine, HC_default(), 120)
+    rc = run_agent(prompt, rlog, a.engine, HC_default(), 120, getattr(a, "model", ""), getattr(a, "effort", ""))
     out = open(rlog, encoding="utf-8", errors="replace").read()
     ok = tok in out
-    print(f"[validate engine={a.engine}] {'OK' if ok else 'FAIL'} (rc={rc}) - see {rlog}")
+    print(f"[validate engine={a.engine} model={resolve_model(a.engine, getattr(a,'model',''))}] {'OK' if ok else 'FAIL'} (rc={rc}) - see {rlog}")
     sys.exit(0 if ok else 1)
 
 # ---- CLI -------------------------------------------------------------------------------
@@ -590,7 +603,8 @@ def main():
         x.add_argument("--rounds", type=int, default=int(env("ROUNDS", "6")))
         x.add_argument("--rtimeout", type=int, default=int(env("RTIMEOUT", "1200")))
         x.add_argument("--engine", default=env("ENGINE", "codex").lower(), choices=["codex", "claude"])
-        x.add_argument("--model", default=env("MODEL", MODEL))
+        x.add_argument("--model", default=env("MODEL", ""), help="explicit model; else engine default (codex=gpt-5.6-sol, claude=Opus 4.8)")
+        x.add_argument("--effort", default=env("EFFORT", ""), help="reasoning level low/medium/high/xhigh/max (codex default xhigh; claude maps to think keywords)")
         x.add_argument("--extra", type=int, default=0, help="do exactly N more rounds per mode (ignores --rounds target)")
         x.add_argument("--run-tag", default=env("RUN_TAG", "jul6"))
         x.add_argument("--hashcat-dir", default=HC_default())
@@ -610,6 +624,8 @@ def main():
     r = sub.add_parser("readme", help="regenerate README.md"); r.set_defaults(fn=cmd_readme)
     v = sub.add_parser("validate", help="agent plumbing smoke test")
     v.add_argument("--engine", default=env("ENGINE", "codex").lower(), choices=["codex", "claude"])
+    v.add_argument("--model", default="")
+    v.add_argument("--effort", default="")
     v.set_defaults(fn=cmd_validate)
 
     a = p.parse_args()
