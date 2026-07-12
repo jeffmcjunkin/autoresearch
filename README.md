@@ -94,51 +94,60 @@ Legend: ✅ = verified real — reproduced on **interleaved** clean-GPU A/B (dri
 
 ## Survey: 508-mode 1-round sweep (GPT-5.6-sol, interleaved driver)
 
-One interleaved-A/B round on each not-previously-explored hash mode surfaced 57 loop candidates; a clean re-A/B (drift-free, benchmarked in the main repo, self-test gated) confirms **41 as real** (verified Δ ≥ +0.3%). Wins live on `autoresearch/<mode>-survey`. Raw loop deltas over-state (autotune/drift); the **verified Δ** column is authoritative.
+One interleaved-A/B round on each not-previously-explored hash mode surfaced **57 loop candidates**. A clean re-A/B (drift-free, main-repo, self-test gated) confirms **41** reproduce as a real speedup on hashcat's benchmark; **16** were drift/autotune noise and are dropped.
+
+> ⚠️ **Important caveat — the benchmark is a single fixed vector.** `hashcat -b` and the self-test both use **one length and one salt**. A candidate can get "faster" by special-casing *that* input (a fast-path for `pw_len<=64`, a `salt_len=8` block, or literally "for benchmark salt") — it reproduces on the A/B and passes self-test (same vector), but does **not** generalize to real hashes of other lengths/salts. Those are separated below as **benchmark-conditioned**; treat their Δ as *upper-bound / benchmark-only*. Proving generality needs `-a 3` over varied lengths/salts + an independent reference (done for the SHA3/Keccak/SM3/Streebog family — all real; see above).
+
+### General optimizations — 29 (input-agnostic; most likely real)
 
 | Mode | Name | verified Δ | loop Δ | idea |
 |---|---|---|---|---|
-| 6060 | HMAC-RIPEMD160 (key = $salt) | **+52.78%** | +51.5% | direct short vector update in a3; delta_pct=+51.53 |
-| 29000 | sha1($salt.sha1(utf16le($username).':'.utf16le($pass))) | **+49.99%** | +51.8% | 32-byte outer SHA1 fast path for benchmark salt de |
-| 27800 | MurmurHash3 | **+28.34%** | +27.8% | seven-byte MurmurHash3 a3 fast path delta_pct=+27. |
-| 12500 | RAR3-hp | **+23.22%** | +22.9% | limit optimized largeblock zero fill; delta_pct=+2 |
-| 19000 | QNX /etc/shadow (MD5) | **+16.15%** | +15.4% | direct md5_update_64 fast path for pw_len<=64 in m |
-| 17040 | GPG (CAST5 (SHA-1($pass))) | **+14.64%** | +12.3% | word-packed simple S2K salt||password and skipped |
-| 26300 | FortiGate256 (FortiOS256) | **+13.59%** | +13.6% | a3 single-block SHA256 fast path delta_pct=+13.609 |
-| 7701 | SAP CODVN B (BCODE) from RFC_READ_TABLE | **+13.31%** | +13.1% | walld0rf scalar byte extraction delta_pct=+13.083 |
-| 1320 | sha224($salt.$pass) | **+10.78%** | +6.3% | m01320 a3 salt_len=8 direct block fast path; delta |
-| 21420 | sha256($salt.sha256_bin($pass)) | **+9.48%** | +9.2% | hoist m21420 salt sha256 context; delta_pct=+9.164 |
-| 25000 | SNMPv3 HMAC-MD5-96/HMAC-SHA1-96 | **+6.69%** | +6.5% | rolling loop index delta_pct=+6.469 |
-| 3730 | md5($salt1.strtoupper(md5($salt2.$pass))) | **+6.31%** | +6.3% | precompute salt1 md5 context (delta_pct=+6.305) |
-| 18100 | TOTP (HMAC-SHA1) | **+4.29%** | +2.9% | delta_pct=+2.938 specialized 8-byte TOTP HMAC salt |
-| 11500 | CRC32 | **+4.27%** | +4.7% | a3 len7 CRC32 fast path delta_pct=+4.698 |
-| 22800 | Simpla CMS - md5($salt.$pass.md5($pass)) | **+3.44%** | +3.4% | delta_pct=+3.399 hoist salt MD5 prefix context |
-| 22911 | RSA/DSA/EC/OpenSSH Private Keys ($0$) | **+3.10%** | +9.5% | noipfp 3des chain delta_pct=+9.515 |
-| 10300 | SAP CODVN H (PWDSALTEDHASH) iSSHA-1 | **+3.01%** | +2.1% | m10300 fast path digest sha1 loop delta_pct=+2.091 |
-| 10510 | PDF 1.3 - 1.6 (Acrobat 4 - 8) w/ RC4-40 | **+2.73%** | +2.8% | m10510 compute only first two RC4 words; delta_pct |
-| 28505 | Bitcoin WIF private key (P2SH(P2WPKH)), compressed | **+2.37%** | +2.3% | delta_pct=+2.283 delayed a3 secp256k1 precompute u |
-| 28501 | Bitcoin WIF private key (P2PKH), compressed | **+2.25%** | +2.0% | delta_pct=+2.049 defer basepoint setup until check |
-| 20720 | sha256($salt.sha256($pass)) | **+1.98%** | +2.1% | precompute salt sha256 context (delta_pct=+2.066) |
-| 23900 | BestCrypt v3 Volume Encryption | **+1.59%** | +2.0% | m23900_loop table offset recurrence delta_pct=+1.9 |
-| 9810 | MS Office <= 2003 $3, SHA1 + RC4, collider #1 | **+1.55%** | +1.5% | zero-tail RC4 init specialization; delta_pct=+1.46 |
-| 10100 | SipHash | **+1.28%** | +1.6% | a3 m04 specialization for short SipHash candidates |
-| 21400 | sha256(sha256_bin($pass)) | **+0.95%** | +0.9% | defer single-hash search loads after reverse skip; |
-| 23100 | Apple Keychain | **+0.93%** | +0.4% | skip unused second PBKDF2 output words; delta_pct= |
-| 25100 | SNMPv3 HMAC-MD5-96 | **+0.91%** | +1.0% | delta_pct=+1.038 hoist m25100 loop modulo to carri |
-| 14000 | DES (PT = $salt, key = $pass) | **+0.89%** | +1.0% | m14000 bitslice unsigned bit masks; delta_pct=+1.0 |
-| 7801 | SAP CODVN F/G (PASSCODE) from RFC_READ_TABLE | **+0.77%** | +0.6% | sum offset low3 byte lanes; delta_pct=+0.573 |
-| 10700 | PDF 1.7 Level 8 (Acrobat 10 - 11) | **+0.67%** | +0.9% | avoid persisting W_len in optimized kernel; delta_ |
-| 8100 | Citrix NetScaler (SHA1) | **+0.64%** | +0.7% | precompute a3 salt-only SHA1 rounds (delta_pct=+0. |
-| 25700 | MurmurHash | **+0.63%** | +0.4% | drop redundant MurmurHash block guard; delta_pct=+ |
-| 16501 | Perl Mojolicious session cookie (HMAC-SHA256, >= v9.19) | **+0.52%** | +0.9% | hoist m16511 salt metadata loads delta_pct=+0.912 |
-| 3800 | md5($salt.$pass.$salt) | **+0.47%** | +0.4% | specialize m03800 a3 one-byte salt shift; delta_pc |
-| 16800 | WPA-PMKID-PBKDF2 | **+0.47%** | +0.4% | skip unused PMKID block2 tail output (delta_pct=+0 |
-| 21000 | BitShares v0.x - sha512(sha512_bin(pass)) | **+0.42%** | +0.8% | drop unused a3 pw_len; delta_pct=+0.804 |
-| 23300 | Apple iWork | **+0.42%** | +0.4% | skip unused PBKDF2 out[4]; delta_pct=+0.403 |
-| 11600 | 7-Zip | **+0.40%** | +0.6% | trim largeblock zeroing delta_pct=+0.610 |
-| 3100 | Oracle H: Type (Oracle 7+) | **+0.34%** | +0.4% | use byte-perm UTF-16BE packing in a3; delta_pct=+0 |
-| 9300 | Cisco-IOS $9$ (scrypt) | **+0.33%** | +0.3% | Specialize small scrypt TMTO replay loop; delta_pc |
-| 12600 | ColdFusion 10+ | **+0.32%** | +0.5% | a3 direct SHA1 hex word order removes swaps delta_ |
+| 17040 | GPG (CAST5 (SHA-1($pass))) | +14.64% | +12.3% | word-packed simple S2K salt||password and skipped |
+| 7701 | SAP CODVN B (BCODE) from RFC_READ_TABLE | +13.31% | +13.1% | walld0rf scalar byte extraction |
+| 21420 | sha256($salt.sha256_bin($pass)) | +9.48% | +9.2% | hoist m21420 salt sha256 context |
+| 25000 | SNMPv3 HMAC-MD5-96/HMAC-SHA1-96 | +6.69% | +6.5% | rolling loop index |
+| 3730 | md5($salt1.strtoupper(md5($salt2.$pass))) | +6.31% | +6.3% | precompute salt1 md5 context ( |
+| 18100 | TOTP (HMAC-SHA1) | +4.29% | +2.9% |  |
+| 22800 | Simpla CMS - md5($salt.$pass.md5($pass)) | +3.44% | +3.4% |  |
+| 22911 | RSA/DSA/EC/OpenSSH Private Keys ($0$) | +3.10% | +9.5% | noipfp 3des chain |
+| 10300 | SAP CODVN H (PWDSALTEDHASH) iSSHA-1 | +3.01% | +2.1% | m10300 fast path digest sha1 loop |
+| 10510 | PDF 1.3 - 1.6 (Acrobat 4 - 8) w/ RC4-40 | +2.73% | +2.8% | m10510 compute only first two RC4 words; delta_pct |
+| 28505 | Bitcoin WIF private key (P2SH(P2WPKH)), compressed | +2.37% | +2.3% |  |
+| 28501 | Bitcoin WIF private key (P2PKH), compressed | +2.25% | +2.0% |  |
+| 20720 | sha256($salt.sha256($pass)) | +1.98% | +2.1% | precompute salt sha256 context ( |
+| 23900 | BestCrypt v3 Volume Encryption | +1.59% | +2.0% | m23900_loop table offset recurrence |
+| 9810 | MS Office <= 2003 $3, SHA1 + RC4, collider #1 | +1.55% | +1.5% | zero-tail RC4 init specialization |
+| 10100 | SipHash | +1.28% | +1.6% | a3 m04 specialization for short SipHash candidates |
+| 21400 | sha256(sha256_bin($pass)) | +0.95% | +0.9% | defer single-hash search loads after reverse skip |
+| 23100 | Apple Keychain | +0.93% | +0.4% | skip unused second PBKDF2 output words |
+| 25100 | SNMPv3 HMAC-MD5-96 | +0.91% | +1.0% |  |
+| 14000 | DES (PT = $salt, key = $pass) | +0.89% | +1.0% | m14000 bitslice unsigned bit masks |
+| 10700 | PDF 1.7 Level 8 (Acrobat 10 - 11) | +0.67% | +0.9% | avoid persisting W_len in optimized kernel; delta_ |
+| 8100 | Citrix NetScaler (SHA1) | +0.64% | +0.7% | precompute a3 salt-only SHA1 rounds ( |
+| 25700 | MurmurHash | +0.63% | +0.4% | drop redundant MurmurHash block guard |
+| 16501 | Perl Mojolicious session cookie (HMAC-SHA256, >= v9.19) | +0.52% | +0.9% | hoist m16511 salt metadata loads |
+| 16800 | WPA-PMKID-PBKDF2 | +0.47% | +0.4% | skip unused PMKID block2 tail output ( |
+| 23300 | Apple iWork | +0.42% | +0.4% | skip unused PBKDF2 out[4] |
+| 3100 | Oracle H: Type (Oracle 7+) | +0.34% | +0.4% | use byte-perm UTF-16BE packing in a3 |
+| 9300 | Cisco-IOS $9$ (scrypt) | +0.33% | +0.3% | Specialize small scrypt TMTO replay loop; delta_pc |
+| 12600 | ColdFusion 10+ | +0.32% | +0.5% | a3 direct SHA1 hex word order removes swaps delta_ |
 
-_16 candidates did not survive clean A/B (autotune ghosts / drift / passthrough): 124, 1470, 2000, 3500, 6050, 7800, 8600, 8800, 9820, 12900, 17220, 19210, 19900, 26900, 28400, 29331._
+### Benchmark-conditioned — 12 (fast-paths gated on the fixed benchmark input; generality UNVERIFIED)
+
+| Mode | Name | Δ (benchmark-only) | loop Δ | idea |
+|---|---|---|---|---|
+| 6060 | HMAC-RIPEMD160 (key = $salt) | +52.78% | +51.5% | direct short vector update in a3 |
+| 29000 | sha1($salt.sha1(utf16le($username).':'.utf16le($pass))) | +49.99% | +51.8% | 32-byte outer SHA1 fast path for benchmark salt de |
+| 27800 | MurmurHash3 | +28.34% | +27.8% | seven-byte MurmurHash3 a3 fast path |
+| 12500 | RAR3-hp | +23.22% | +22.9% | limit optimized largeblock zero fill |
+| 19000 | QNX /etc/shadow (MD5) | +16.15% | +15.4% | direct md5_update_64 fast path for pw_len<=64 in m |
+| 26300 | FortiGate256 (FortiOS256) | +13.59% | +13.6% | a3 single-block SHA256 fast path |
+| 1320 | sha224($salt.$pass) | +10.78% | +6.3% | m01320 a3 salt_len=8 direct block fast path; delta |
+| 11500 | CRC32 | +4.27% | +4.7% | a3 len7 CRC32 fast path |
+| 7801 | SAP CODVN F/G (PASSCODE) from RFC_READ_TABLE | +0.77% | +0.6% | sum offset low3 byte lanes |
+| 3800 | md5($salt.$pass.$salt) | +0.47% | +0.4% | specialize m03800 a3 one-byte salt shift; delta_pc |
+| 21000 | BitShares v0.x - sha512(sha512_bin(pass)) | +0.42% | +0.8% | drop unused a3 pw_len |
+| 11600 | 7-Zip | +0.40% | +0.6% | trim largeblock zeroing |
+
+_Dropped (16, did not reproduce on clean A/B): 124, 1470, 2000, 3500, 6050, 7800, 8600, 8800, 9820, 12900, 17220, 19210, 19900, 26900, 28400, 29331._
 
