@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	59.353	NA	PASS	keep	baseline (master)
+e786981a4	0.434838	59.368	PASS	discard	constant Streebog table path; delta_pct=-99.268

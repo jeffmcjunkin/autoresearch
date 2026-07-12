@@ -1,2 +1,3 @@
 commit	primary_mhs	second_mhs	selftest	status	description
 2d71af371	2.199	NA	PASS	keep	baseline (master)
+b1cc0ffc2	2.182	2.173	PASS	keep	Specialize fixed 20-byte HMAC loop block (delta_pct=+0.427)

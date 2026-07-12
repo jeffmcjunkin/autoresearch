@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.151716	NA	PASS	keep	baseline (master)
+7d1180f1d	0.161054	0.159592	PASS	keep	derive Whirlpool tables from MT0 in shared memory (delta_pct=+0.916)

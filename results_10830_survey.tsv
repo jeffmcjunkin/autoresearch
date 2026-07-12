@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	2839.0	NA	PASS	keep	baseline (master)
+c9edb98cd	2838.8	2837.9	PASS	discard	specialize optimized SHA384 transform IV and two-word output; delta_pct=+0.034 baseline_mhs=2837.9

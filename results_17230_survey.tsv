@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	24687.4	NA	PASS	keep	baseline (master)
+cf384d8c1	FAIL	NA	FAIL:17230	crash	shrink staged l_data to 4 words; delta_pct=+0.000

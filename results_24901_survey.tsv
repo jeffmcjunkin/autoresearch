@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	32460.3	NA	PASS	keep	baseline (master)
+72a8e9aea	32000.7	NA	PASS	discard	byte-pair sum extraction delta_pct=-1.431

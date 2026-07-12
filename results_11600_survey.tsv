@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1.057	NA	PASS	keep	baseline (master)
+722e65de1	1.039	1.033	PASS	keep	trim largeblock zeroing delta_pct=+0.610

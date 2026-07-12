@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	53.476	NA	PASS	keep	baseline (master)
+a5e873e0b	59.858	53.285	PASS	keep	word-packed simple S2K salt||password and skipped unused tmp setup (delta_pct=+12.336)

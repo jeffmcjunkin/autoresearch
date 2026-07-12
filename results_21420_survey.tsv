@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1796.5	NA	PASS	keep	baseline (master)
+bfd7294ed	1904.1	1744.3	PASS	keep	hoist m21420 salt sha256 context; delta_pct=+9.164 baseline_mhs=1744.3

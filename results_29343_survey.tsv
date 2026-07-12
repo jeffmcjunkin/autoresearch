@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.105952	NA	PASS	keep	baseline (master)
+2e1723065	0.497109	0.497159	PASS	discard	Specialize RIPEMD160 HMAC loop setup for 29343; delta_pct=-0.010

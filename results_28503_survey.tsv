@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	134169.1	NA	PASS	keep	baseline (master)
+8cd9dcea5	143919.8	144946.3	PASS	discard	defer secp256k1 precompute until after Base58Check; delta_pct=-0.708

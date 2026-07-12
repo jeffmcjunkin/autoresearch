@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	212.7	NA	PASS	keep	baseline (master)
+e57369732	209.9	209.5	PASS	discard	Hoisted invariant SHA1 padding words in m12700_loop; delta_pct=+0.182

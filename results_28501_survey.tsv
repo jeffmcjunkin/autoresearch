@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	134374.2	NA	PASS	keep	baseline (master)
+ce236b8ea	162202.6	NA	PASS	keep	delta_pct=+2.049 defer basepoint setup until checksum pass

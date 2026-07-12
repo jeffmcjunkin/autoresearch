@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1034.4	NA	PASS	keep	baseline (master)
+d753bd25e	3936.7	3824.4	PASS	keep	delta_pct=+2.938 specialized 8-byte TOTP HMAC salt update

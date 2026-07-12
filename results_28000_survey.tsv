@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	98117.2	NA	PASS	keep	baseline (master)
+1723434dd	98100.0	98073.9	PASS	discard	a3 direct w0 buffer reuse removed temp copy; delta_pct=+0.027

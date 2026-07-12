@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.001137	NA	PASS	keep	baseline (master)
+d5dc09380	FAIL	FAIL	FAIL:13762	wrong	Reduce VeraCrypt SHA256 PIM loop bookkeeping; delta_pct=+0.000

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.067457	NA	PASS	keep	baseline (master)
+999677af0	0.068380	0.068761	PASS	discard	keep PBKDF state vectorized delta_pct=-0.554

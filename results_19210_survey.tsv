@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.325710	NA	PASS	keep	baseline (master)
+3ae44912e	0.327349	0.324262	PASS	keep	shrink pbkdf2 temp dgst/out arrays to 8 words; delta_pct=+0.952

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.357892	NA	PASS	keep	baseline (master)
+ee155ffef	FAIL	FAIL	FAIL:29323	wrong	delta_pct=+0.000 localized m06223 HMAC message setup

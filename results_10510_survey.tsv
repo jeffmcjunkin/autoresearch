@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	70.535	NA	PASS	keep	baseline (master)
+768888316	72.491	70.526	PASS	keep	m10510 compute only first two RC4 words; delta_pct=+2.787 baseline_mhs=70.526

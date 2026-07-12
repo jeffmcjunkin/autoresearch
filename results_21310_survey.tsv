@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	8645.1	NA	PASS	keep	baseline (master)
+710ac1b12	8521.1	8506.9	PASS	discard	Limit a3 password buffer zeroing; delta_pct=+0.167

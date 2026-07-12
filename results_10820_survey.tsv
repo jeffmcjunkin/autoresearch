@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	2755.9	NA	PASS	keep	baseline (master)
+d3cd03310	2270.8	NA	PASS	discard	remove unused salt_buf3 tail words; delta_pct=+0.120

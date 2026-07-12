@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	2289.1	NA	PASS	keep	baseline (master)
+a6600076c	FAIL	NA	FAIL:13800	crash	specialize m13800 a3 14-byte salt append (delta_pct=+0.000)

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	16798.4	NA	PASS	keep	baseline (master)
+2ab349676	FAIL	FAIL	FAIL:27900	crash	delta_pct=+0.000; specialized a3 m04 CRC32C 4-word path; RESULT primary and baseline failed

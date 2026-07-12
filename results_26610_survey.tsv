@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.357773	NA	PASS	keep	baseline (master)
+0fc74bc70	0.315075	0.314817	PASS	discard	hoist HMAC padding blocks delta_pct=+0.082

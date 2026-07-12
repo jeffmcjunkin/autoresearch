@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.000895	NA	PASS	keep	baseline (master)
+92c84442d	FAIL	FAIL	FAIL	wrong	reuse fixed RIPEMD160 HMAC padding words; delta_pct=+0.000; selftest=FAIL:29413

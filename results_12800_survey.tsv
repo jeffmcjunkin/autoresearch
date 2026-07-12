@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	32.464	NA	PASS	keep	baseline (master)
+c6825ce07	32.552	32.525	PASS	discard	flatten m12800 PBKDF2 block loop; delta_pct=+0.085

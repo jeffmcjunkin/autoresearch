@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	69906.9	NA	PASS	keep	baseline (master)
+9903f078d	71039.1	NA	PASS	keep	a3 m04 specialization for short SipHash candidates; delta_pct=+1.628

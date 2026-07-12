@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.077949	NA	PASS	keep	baseline (master)
+74879e37f	0.077542	0.077339	PASS	discard	delta_pct=+0.262; forced no-unroll pragmas on m15910 PBKDF2 loops

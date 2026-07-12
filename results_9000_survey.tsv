@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	2.023	NA	PASS	keep	baseline (master)
+c8d71d8b7	2.023	2.023	PASS	discard	delta_pct=-0.014; m09000 saved local id for Blowfish loop S-box indexing

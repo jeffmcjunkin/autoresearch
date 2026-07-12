@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.360515	NA	PASS	keep	baseline (master)
+295348cd0	0.360574	0.360452	PASS	discard	shrink tmp dgst/out arrays to 8 words; delta_pct=+0.034

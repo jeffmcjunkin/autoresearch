@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.154040	NA	PASS	keep	baseline (master)
+9a0ca71bb	0.731863	0.731796	PASS	discard	skip unused truecrypt tail output words; delta_pct=+0.009

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.002594	NA	PASS	keep	baseline (master)
+5cad84d96	0.002488	NA	PASS	discard	delta_pct=-4.012 baseline_mhs=0.002592 skip inactive PIM scan

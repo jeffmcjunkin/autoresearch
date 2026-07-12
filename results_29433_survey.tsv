@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.0	NA	PASS	keep	baseline (master)
+6b769ef2d	FAIL	FAIL	FAIL:29433	wrong	derive Whirlpool MT1..MT7 by rotating MT0 in vector loop; delta_pct=+0.000

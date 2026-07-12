@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	135361.0	NA	PASS	keep	baseline (master)
+96a8fd178	178757.7	NA	PASS	discard	fixed a3 first-word base58 check with is_valid_base58_32; delta_pct=+0.215

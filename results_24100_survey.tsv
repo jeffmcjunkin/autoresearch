@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.886720	NA	PASS	keep	baseline (master)
+08f0ab03d	0.873947	NA	PASS	discard	single-block m24100_loop specialization delta_pct=-0.336

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.053409	NA	PASS	keep	baseline (master)
+e76a9a672	0.053535	0.053569	PASS	discard	remove redundant sha512 hmac padding reset; delta_pct=-0.063

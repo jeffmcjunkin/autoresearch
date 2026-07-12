@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	367232.3	NA	PASS	keep	baseline (master)
+450faebc6	362175.0	360580.2	PASS	keep	drop redundant MurmurHash block guard; delta_pct=+0.442

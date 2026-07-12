@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	7269.2	NA	PASS	keep	baseline (master)
+eb6595124	6905.2	NA	PASS	discard	remove unused AES decrypt table staging from mode 26402 optimized kernels; delta_pct=+0.026

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	4604.7	NA	PASS	keep	baseline (master)
+8e2bf94cf	6739.6	NA	PASS	keep	32-byte outer SHA1 fast path for benchmark salt delta_pct=+51.841 baseline_mhs=4438.6

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	2187.1	NA	PASS	keep	baseline (master)
+b379965b9	2233.4	2188.2	PASS	keep	precompute salt sha256 context (delta_pct=+2.066)

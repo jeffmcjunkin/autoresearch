@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.547562	NA	PASS	keep	baseline (master)
+90dfd20b0	0.563496	0.562273	PASS	discard	Hoisted m20012 loop padding words; delta_pct=+0.218

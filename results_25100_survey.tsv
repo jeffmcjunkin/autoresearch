@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.881148	NA	PASS	keep	baseline (master)
+2debc6d33	0.885839	NA	PASS	keep	delta_pct=+1.038 hoist m25100 loop modulo to carried word index

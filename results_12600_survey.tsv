@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	4986.6	NA	PASS	keep	baseline (master)
+fdc97fb8d	4970.7	NA	PASS	keep	a3 direct SHA1 hex word order removes swaps delta_pct=+0.536

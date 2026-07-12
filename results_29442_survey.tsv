@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.002836	NA	PASS	keep	baseline (master)
+af0bc12d9	0.002839	0.002839	PASS	discard	Skip no-PIM bookkeeping in m13712 loop; delta_pct=+0.000

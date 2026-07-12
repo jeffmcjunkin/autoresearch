@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.003930	NA	PASS	keep	baseline (master)
+70bb4db76	0.003957	0.003947	PASS	discard	FIXED_ITER_INCR 16 vs 8 delta_pct=+0.253

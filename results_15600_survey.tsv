@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	3.478	NA	PASS	keep	baseline (master)
+b497b8415	3.478	3.475	PASS	discard	reuse hmac padding words delta_pct=+0.075

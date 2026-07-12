@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	135383.9	NA	PASS	keep	baseline (master)
+92137c7aa	164237.1	164279.7	PASS	discard	sink secp256k1 basepoint setup after Base58Check delta_pct=-0.026

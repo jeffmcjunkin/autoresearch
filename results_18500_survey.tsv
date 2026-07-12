@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	7809.5	NA	PASS	keep	baseline (master)
+19c1b4b5a	7755.4	7735.1	PASS	discard	fixed 32-byte md5/sha1 transform padding; delta_pct=+0.262

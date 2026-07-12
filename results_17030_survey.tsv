@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	5.604	NA	PASS	keep	baseline (master)
+08d359841	6.022	NA	PASS	discard	shrink S2K repeat block to 320 bytes; delta_pct=+0.121

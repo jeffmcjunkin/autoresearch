@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	6144.9	NA	PASS	keep	baseline (master)
+b3c775293	7094.1	NA	PASS	keep	a3 single-block SHA256 fast path delta_pct=+13.609

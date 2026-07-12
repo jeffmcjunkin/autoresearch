@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1539.0	NA	PASS	keep	baseline (master)
+a7de60b8a	1542.2	NA	PASS	discard	RC4 local address fields use bitwise OR; delta_pct=-1.395

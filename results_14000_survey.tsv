@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	58805.3	NA	PASS	keep	baseline (master)
+80151b1fd	59358.8	58762.7	PASS	keep	m14000 bitslice unsigned bit masks; delta_pct=+1.014 baseline_mhs=58762.7

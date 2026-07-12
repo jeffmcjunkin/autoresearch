@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	96.168	NA	PASS	keep	baseline (master)
+4f852ec8a	95.915	NA	PASS	discard	shrink a3 candidate buffer to 4 words; delta_pct=-0.294

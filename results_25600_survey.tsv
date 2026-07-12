@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.095100	NA	PASS	keep	baseline (master)
+ac01e3f40	0.095154	NA	PASS	discard	32-bit bcrypt S-box index arithmetic; delta_pct=+0.047

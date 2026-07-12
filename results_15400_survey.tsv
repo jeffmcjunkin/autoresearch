@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	11583.1	NA	PASS	keep	baseline (master)
+dbddad4d2	11464.6	11443.1	PASS	discard	a3 two-output digest plumbing; delta_pct=+0.188

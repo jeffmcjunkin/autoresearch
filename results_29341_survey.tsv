@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1.406	NA	PASS	keep	baseline (master)
+11bfbffa6	FAIL	FAIL	FAIL:29341	wrong	delta_pct=+0.000 skip unused RIPEMD160 block4 output accumulators (selftest failed)

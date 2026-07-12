@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1.082	NA	PASS	keep	baseline (master)
+da09fb8e4	0.965549	NA	PASS	keep	skip unused PMKID block2 tail output (delta_pct=+0.415)

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	13931.5	NA	PASS	keep	baseline (master)
+ce803376b	13698.0	NA	PASS	discard	Fold S-kernel MD5 search offset; delta_pct=-0.890

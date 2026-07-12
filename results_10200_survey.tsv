@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	10837.7	NA	PASS	keep	baseline (master)
+a6f3cd30b	10567.3	NA	PASS	discard	hoist m00050 salt bit length delta_pct=+0.050

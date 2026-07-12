@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.003611	NA	PASS	keep	baseline (master)
+209082db5	0.003846	0.003843	PASS	discard	removed unused AES decrypt table setup in m28200_comp; delta_pct=+0.078

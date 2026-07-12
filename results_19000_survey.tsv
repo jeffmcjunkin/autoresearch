@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	74.038	NA	PASS	keep	baseline (master)
+1eb59913c	85.025	73.697	PASS	keep	direct md5_update_64 fast path for pw_len<=64 in m19000_loop; delta_pct=+15.370

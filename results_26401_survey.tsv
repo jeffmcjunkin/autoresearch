@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	7863.9	NA	PASS	keep	baseline (master)
+e8345e7ab	7866.5	7864.5	PASS	discard	remove unused AES decrypt tables from m26401; delta_pct=+0.025

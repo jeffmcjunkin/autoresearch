@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.871036	NA	PASS	keep	baseline (master)
+4a06d1c34	0.762973	NA	PASS	keep	m12900 hoist PBKDF2 padding words delta_pct=+0.487

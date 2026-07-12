@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.009985	NA	PASS	keep	baseline (master)
+bca5a2679	0.010061	0.010054	PASS	discard	delta_pct=+0.070; const qualify m27600 hmac pad pointers

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	13407.6	NA	PASS	keep	baseline (master)
+9c33e2d17	14904.1	14891.2	PASS	discard	scalarize g return/state; delta_pct=+0.087

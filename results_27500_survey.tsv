@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.012880	NA	PASS	keep	baseline (master)
+4b7abda8f	0.012881	0.012882	PASS	discard	direct AES decrypt output into PBKDF2 input; delta_pct=-0.008

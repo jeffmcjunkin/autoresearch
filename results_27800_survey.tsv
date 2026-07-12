@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	286108.5	NA	PASS	keep	baseline (master)
+f4f149ae9	391676.1	306418.0	PASS	keep	seven-byte MurmurHash3 a3 fast path delta_pct=+27.824

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.088230	NA	PASS	keep	baseline (master)
+674e5be22	0.088150	0.088222	PASS	discard	encrypt iv in place; delta_pct=-0.082

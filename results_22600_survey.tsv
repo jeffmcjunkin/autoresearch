@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.315085	NA	PASS	keep	baseline (master)
+2392d1452	0.311481	0.311065	PASS	discard	hoist m22600 PBKDF2 padding setup; delta_pct=+0.134

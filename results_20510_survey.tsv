@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	49777.1	NA	PASS	keep	baseline (master)
+07f916bcc	48595.6	48774.3	PASS	discard	hoist count range bounds delta_pct=-0.366

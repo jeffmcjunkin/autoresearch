@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.000679	NA	PASS	keep	baseline (master)
+41b4182df	FAIL	FAIL	FAIL:29463	wrong	Skip inactive VeraCrypt PIM scan; delta_pct=+0.000

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	525.7	NA	PASS	keep	baseline (master)
+d40934906	606.9	605.7	PASS	discard	shrink local data cache delta_pct=+0.192

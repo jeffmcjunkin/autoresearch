@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1396.3	NA	PASS	keep	baseline (master)
+83cc3fa15	1384.4	NA	PASS	keep	drop unused a3 pw_len; delta_pct=+0.804

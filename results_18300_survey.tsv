@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.179106	NA	PASS	keep	baseline (master)
+c27acae8a	FAIL	FAIL	FAIL:18300	wrong	delta_pct=+0.000 removed duplicate hmac padding stores; selftest failed

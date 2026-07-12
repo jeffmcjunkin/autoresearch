@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.018686	NA	PASS	keep	baseline (master)
+9c69d23a9	FAIL	FAIL	FAIL:18400	wrong	hoist invariant HMAC padding words; delta_pct=+0.000

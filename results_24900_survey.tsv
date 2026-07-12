@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	33896.0	NA	PASS	keep	baseline (master)
+f84e0d22b	33905.5	33964.8	PASS	discard	MD5_STEP0 for zero w3[3]/t3[3] words; delta_pct=-0.175

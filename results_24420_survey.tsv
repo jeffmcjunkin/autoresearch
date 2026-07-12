@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1.749	NA	PASS	keep	baseline (master)
+22dec91cf	1.748	1.748	PASS	discard	delta_pct=-0.017; hoist fixed HMAC padding setup into helper

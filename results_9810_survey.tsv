@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1516.7	NA	PASS	keep	baseline (master)
+c3aa24efa	1537.5	NA	PASS	keep	zero-tail RC4 init specialization; delta_pct=+1.467

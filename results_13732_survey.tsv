@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.000125	NA	PASS	keep	baseline (master)
+a29f7747d	FAIL	FAIL	FAIL:13732	wrong	single Whirlpool table for m13732; delta_pct=+0.000

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	2493.6	NA	PASS	keep	baseline (master)
+8bd1d1207	2323.1	2491.1	PASS	discard	compute hex without local bin2asc table; delta_pct=-6.742

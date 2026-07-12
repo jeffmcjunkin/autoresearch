@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	8.543	NA	PASS	keep	baseline (master)
+49efa2dcc	8.385	NA	PASS	discard	delta_pct=-0.837; mode1 verifier-only out3 early reject

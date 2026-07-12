@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	2405.0	NA	PASS	keep	baseline (master)
+a700f781f	2401.4	2402.1	PASS	discard	remove unused AES te4 table setup; delta_pct=-0.028

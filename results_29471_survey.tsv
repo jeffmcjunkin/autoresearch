@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.0	NA	PASS	keep	baseline (master)
+5a311b09d	FAIL	FAIL	FAIL:29471	wrong	Skip PIM scan when disabled; delta_pct=+0.000

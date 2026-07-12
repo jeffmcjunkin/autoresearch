@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	158884.6	NA	PASS	keep	baseline (master)
+1adff1821	155862.2	NA	PASS	discard	early 0x35 WIF prefix guard before swapped range check; delta_pct=-1.846

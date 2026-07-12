@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	1522.3	NA	PASS	keep	baseline (master)
+2bca98f38	1452.6	NA	PASS	keep	hoist m16511 salt metadata loads delta_pct=+0.912

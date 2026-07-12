@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	5.662	NA	PASS	keep	baseline (master)
+ee1780f94	5.670	5.561	PASS	keep	m23900_loop table offset recurrence delta_pct=+1.955

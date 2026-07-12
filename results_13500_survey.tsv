@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	15260.0	NA	PASS	keep	baseline (master)
+ec8fb5d20	15136.6	15139.8	PASS	discard	Hoist a3 loop invariants; delta_pct=-0.021

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.001177	NA	PASS	keep	baseline (master)
+2b744e2ae	FAIL	FAIL	FAIL:13741	wrong	delta_pct=+0.000 skip idle PIM checkpoint scan; RESULT primary and baseline failed

@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.026994	NA	PASS	keep	baseline (master)
+fc62bd938	0.026955	0.026972	PASS	discard	specialize SHA512 loop transform; delta_pct=-0.063

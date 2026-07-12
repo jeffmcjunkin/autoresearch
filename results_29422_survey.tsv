@@ -1,0 +1,3 @@
+commit	primary_mhs	second_mhs	selftest	status	description
+2d71af371	0.001301	NA	PASS	keep	baseline (master)
+8075a7746	FAIL	FAIL	FAIL:29422	wrong	delta_pct=+0.000; hoist SHA512 padding words
